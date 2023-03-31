@@ -4,7 +4,10 @@ namespace App\Http\Controllers\MasterTable;
 
 use App\Models\DataBarang;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreDataBarangRequest;
+use App\Http\Requests\UpdateDataBarangRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DataBarangController extends Controller
 {
@@ -22,10 +25,21 @@ class DataBarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        return view('master-table.data-barang.index');
+        $dataBarangs = DB::table('databarang')
+        ->when($request->input('nama_barang'), function ($query, $nama_barang) {
+            return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
+        })
+        ->when($request->input('harga_barang'), function ($query, $harga_barang) {
+            return $query->where('harga_barang', 'like', '%' . $harga_barang . '%');
+        })
+        ->when($request->input('jenis_barang'), function ($query, $jenis_barang) {
+            return $query->where('jenis_barang', 'like', '%' . $jenis_barang . '%');
+        })
+
+        ->paginate(5);
+        return view('master-table.data-barang.index',compact('dataBarangs'));;
     }
 
     /**
@@ -36,6 +50,7 @@ class DataBarangController extends Controller
     public function create()
     {
         //
+        return view('master-table.data-barang.create');
     }
 
     /**
@@ -44,9 +59,18 @@ class DataBarangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDataBarangRequest $request)
     {
-        //
+
+        DataBarang::create([
+            'admin_id' => $request->admin_id,
+            'nama_barang' => $request->nama_barang,
+            'jenis_barang' => $request->jenis_barang,
+            'harga_barang' => $request->harga_barang,
+            'quantity' => $request->quantity,
+            'tersedia' => $request->tersedia,
+        ]);
+        return redirect()->route('data-barang.index')->with('success', 'Tambah Data Barang Sukses');
     }
 
     /**
@@ -68,7 +92,9 @@ class DataBarangController extends Controller
      */
     public function edit(DataBarang $dataBarang)
     {
-        //
+        return view('master-table.data-barang.edit')->with([
+            'dataBarang' => $dataBarang
+        ]);
     }
 
     /**
@@ -78,9 +104,11 @@ class DataBarangController extends Controller
      * @param  \App\Models\DataBarang  $dataBarang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataBarang $dataBarang)
+    public function update(UpdateDataBarangRequest $request, DataBarang $dataBarang)
     {
-        //
+        $validate = $request->validated();
+        $dataBarang->update($validate);
+        return redirect()->route('data-barang.index')->with('success', 'Edit Data Barang Sukses');
     }
 
     /**
@@ -91,6 +119,19 @@ class DataBarangController extends Controller
      */
     public function destroy(DataBarang $dataBarang)
     {
-        //
+        try {
+            $dataBarang->delete();
+            return redirect()->route('data-barang.index')
+                ->with('success', 'Hapus Data barang Sukses');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $error_code = $e->errorInfo[1];
+            if ($error_code == 1451) {
+                return redirect()->route('data-barang.index')
+                    ->with('error', 'Tidak Dapat Menghapus barang Yang Masih Digunakan Oleh Kolom Lain');
+            } else {
+                return redirect()->route('data-barang.index')
+                    ->with('success', 'Hapus Data barang Sukses');
+            }
+        }
     }
 }
