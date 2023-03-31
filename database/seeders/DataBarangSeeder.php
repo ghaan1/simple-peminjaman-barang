@@ -20,7 +20,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'Televison',
-                'jenis_barang' => 'ElekTronik',
+                'jenis_barang_id' => '1',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',
@@ -28,7 +28,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'Anime',
-                'jenis_barang' => 'Figure',
+                'jenis_barang_id' => '2',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',
@@ -36,7 +36,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'Laptop',
-                'jenis_barang' => 'ElekTronik',
+                'jenis_barang_id' => '3',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',
@@ -44,7 +44,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'HandPhone',
-                'jenis_barang' => 'ElekTronik',
+                'jenis_barang_id' => '4',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',
@@ -52,7 +52,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'Buku Pedoman',
-                'jenis_barang' => 'Buku',
+                'jenis_barang_id' => '5',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',
@@ -60,7 +60,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'Game Tekken 8',
-                'jenis_barang' => 'Elektronik',
+                'jenis_barang_id' => '6',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',
@@ -68,7 +68,7 @@ class DataBarangSeeder extends Seeder
             [
                 'admin_id' => 'SuperAdmin',
                 'nama_barang' => 'Lotong Sayur',
-                'jenis_barang' => 'Makanan Frozen',
+                'jenis_barang_id' => '7',
                 'harga_barang' => '1000000000',
                 'quantity' => '50',
                 'tersedia' => '100',

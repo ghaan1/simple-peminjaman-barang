@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MenuGroupSeeder::class,
             MenuItemSeeder::class,
             CategorySeeder::class,
+            JenisBarangSeeder::class,
             DataBarangSeeder::class,
             DataPeminjamanSeeder::class
         ]);

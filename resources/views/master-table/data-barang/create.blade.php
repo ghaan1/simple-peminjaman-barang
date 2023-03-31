@@ -38,9 +38,15 @@
                         </div>
                         <div class="form-group">
                             <label>Jenis Barang</label>
-                            <input type="text" id="jenis_barang" name="jenis_barang" class="form-control @error('jenis_barang') is-invalid @enderror"
-                            placeholder="Masukan Jenis Barang">
-                            @error('jenis_barang')
+                            <select class="form-control select2 @error('jenis_barang_id') is-invalid @enderror" name="jenis_barang_id"
+                            data-id="select-jenis-barang" id="jenis_barang_id">
+                            <option value="">Piih Jenis Barang</option>
+                            @foreach ($jenisBarangs as $jenisBarang)
+                                <option value="{{ $jenisBarang->id }}">
+                                    {{ $jenisBarang->jenis_barang }} </option>
+                            @endforeach
+                        </select>
+                            @error('jenis_barang_id')
                                 {{ $message }}
                             @enderror
                         </div>

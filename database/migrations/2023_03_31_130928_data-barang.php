@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('admin_id');
             $table->string('nama_barang');
-            $table->string('jenis_barang');
+            $table->unsignedBigInteger('jenis_barang_id')->nullable();
             $table->string('harga_barang');
             $table->string('quantity');
             $table->string('tersedia');
+            $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();
             $table->timestamps();
         });
     }
