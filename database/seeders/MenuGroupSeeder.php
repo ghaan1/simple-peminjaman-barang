@@ -41,7 +41,7 @@ class MenuGroupSeeder extends Seeder
                 [
                     'name' => 'Table Management',
                     'icon' => 'fas fa-bars',
-                    'permisison_name' => 'master-table.management',
+                    'permisison_name' => 'master.table.management',
 
                 ],
             ]

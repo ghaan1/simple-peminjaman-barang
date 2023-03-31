@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MasterTable;
 
 use App\Models\DataBarang;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-
 
 class DataBarangController extends Controller
 {
@@ -26,7 +25,7 @@ class DataBarangController extends Controller
     public function index()
     {
         //
-    return view('master-table.data-barang.index');
+        return view('master-table.data-barang.index');
     }
 
     /**

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MasterTable;
 
 use App\Models\DataPeminjaman;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DataPeminjamanController extends Controller

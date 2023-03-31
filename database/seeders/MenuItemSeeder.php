@@ -68,17 +68,17 @@ class MenuItemSeeder extends Seeder
                 ],
                 [
                     'name' => 'Data barang',
-                    'route' => 'master-table/data-barang',
+                    'route' => 'master-table-management/data-barang',
                     'permission_name' => 'data-barang.index',
                     'menu_group_id' => 5,
                 ],
                 [
                     'name' => 'Data Peminjaman',
-                    'route' => 'master-table/data-peminjaman',
+                    'route' => 'master-table-management/data-peminjaman',
                     'permission_name' => 'data-peminjaman.index',
                     'menu_group_id' => 5,
                 ],
-               
+
             ]
         );
     }

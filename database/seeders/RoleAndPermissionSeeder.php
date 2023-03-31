@@ -25,7 +25,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'user.management']);
         Permission::create(['name' => 'role.permission.management']);
         Permission::create(['name' => 'menu.management']);
-        Permission::create(['name' => 'master-table.management']);
+        Permission::create(['name' => 'master.table.management']);
         //user
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
@@ -73,11 +73,11 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'menu-item.edit']);
         Permission::create(['name' => 'menu-item.destroy']);
 
-         //data-barang
-         Permission::create(['name' => 'data-barang.index']);
-         Permission::create(['name' => 'data-barang.create']);
-         Permission::create(['name' => 'data-barang.edit']);
-         Permission::create(['name' => 'data-barang.destroy']);
+        //data-barang
+        Permission::create(['name' => 'data-barang.index']);
+        Permission::create(['name' => 'data-barang.create']);
+        Permission::create(['name' => 'data-barang.edit']);
+        Permission::create(['name' => 'data-barang.destroy']);
 
         //data-pinjaman
         Permission::create(['name' => 'data-peminjaman.index']);
@@ -85,11 +85,11 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'data-peminjaman.edit']);
         Permission::create(['name' => 'data-peminjaman.destroy']);
 
-         //data-admin
-         Permission::create(['name' => 'data-admin.index']);
-         Permission::create(['name' => 'data-admin.create']);
-         Permission::create(['name' => 'data-admin.edit']);
-         Permission::create(['name' => 'data-admin.destroy']);
+        //data-admin
+        Permission::create(['name' => 'data-admin.index']);
+        Permission::create(['name' => 'data-admin.create']);
+        Permission::create(['name' => 'data-admin.edit']);
+        Permission::create(['name' => 'data-admin.destroy']);
 
         // create roles
         $roleUser = Role::create(['name' => 'user']);
