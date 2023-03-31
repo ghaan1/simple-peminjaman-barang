@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Tambah Data Peminjaman</h2>
+            <h2 class="section-title">Update Data Barang</h2>
 
             <div class="card">
                 <div class="card-header">
@@ -39,9 +39,16 @@
                         </div>
                         <div class="form-group">
                             <label>Jenis Barang</label>
-                            <input type="text" id="jenis_barang" name="jenis_barang" class="form-control @error('jenis_barang') is-invalid @enderror"
-                            placeholder="Masukan Jenis Barang"  value="{{ old('jenis_barang', $dataBarang->jenis_barang) }}" data-id="input_jenis_barang">
-                            @error('jenis_barang')
+                            <select class="form-control select2 @error('jenis_barang_id') is-invalid @enderror"
+                                    id="jenis_barang_id" name="jenis_barang_id" data-id="select-jenis_barang_id">
+                                    <option value="">Pilih Jenis Barang</option>
+                                    @foreach ($jenisBarangs as $jenisBarang)
+                                        <option @selected($jenisBarang->id == $dataBarang->jenis_barang_id) value="{{ $jenisBarang->id }}">
+                                            {{ $jenisBarang->jenis_barang }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @error('jenis_barang_id')
                                 {{ $message }}
                             @enderror
                         </div>

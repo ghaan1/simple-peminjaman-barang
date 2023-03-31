@@ -69,6 +69,12 @@ class MenuItemSeeder extends Seeder
                 [
                     'name' => 'Data barang',
                     'route' => 'master-table-management/data-barang',
+                    'permission_name' => 'jenis-barang.index',
+                    'menu_group_id' => 5,
+                ],
+                [
+                    'name' => 'Jenis barang',
+                    'route' => 'master-table-management/jenis-barang',
                     'permission_name' => 'data-barang.index',
                     'menu_group_id' => 5,
                 ],

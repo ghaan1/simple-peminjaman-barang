@@ -86,10 +86,10 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'data-peminjaman.destroy']);
 
         //data-admin
-        Permission::create(['name' => 'data-admin.index']);
-        Permission::create(['name' => 'data-admin.create']);
-        Permission::create(['name' => 'data-admin.edit']);
-        Permission::create(['name' => 'data-admin.destroy']);
+        Permission::create(['name' => 'jenis-barang.index']);
+        Permission::create(['name' => 'jenis-barang.create']);
+        Permission::create(['name' => 'jenis-barang.edit']);
+        Permission::create(['name' => 'jenis-barang.destroy']);
 
         // create roles
         $roleUser = Role::create(['name' => 'user']);
