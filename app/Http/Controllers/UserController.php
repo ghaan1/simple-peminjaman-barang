@@ -44,8 +44,16 @@ class UserController extends Controller
             ->when($request->input('name'), function ($query, $name) {
                 return $query->where('name', 'like', '%' . $name . '%');
             })
-            ->select('id', 'name', 'email', DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"))
+            ->select(
+                'id',
+                'name',
+                'email',
+                DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"),
+                DB::raw("DATE_FORMAT(email_verified_at, '%d %M %Y') as email_verified_at")
+            )
             ->paginate(10);
+
+        // dd($users);
         return view('users.index', compact('users'));
     }
 
@@ -147,5 +155,26 @@ class UserController extends Controller
             ]);
         }
         return redirect()->route('user.index');
+    }
+
+    public function verifyEmail($id, $hash)
+    {
+        $user = User::findOrFail($id);
+
+        if (sha1($user->email) !== $hash) {
+            abort(404);
+        }
+
+        if (is_null($user->email_verified_at)) {
+            $user->email_verified_at = now();
+            $user->save();
+
+            return redirect()->route('user.index')->with('success', 'Email verified successfully');
+        } else {
+            $user->email_verified_at = null;
+            $user->save();
+
+            return redirect()->route('user.index')->with('success', 'Email verification deleted successfully');
+        }
     }
 }
