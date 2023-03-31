@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DataBarangController;
+use App\Http\Controllers\DataPeminjamanController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
@@ -76,15 +78,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
     Route::prefix('master-table-management')->group(function () {
-        Route::get('/data-barang', function () {
-            return view('master-table.data-barang.index');
-        });
-        Route::get('/data-peminjaman', function () {
-            return view('master-table.data-peminjaman.index');
-        });
-        Route::get('/data-admin', function () {
-            return view('master-table.data-admin.index');
-        });
+        Route::resource('data-barang', DataBarangController::class);
+        Route::resource('data-peminjaman', DataPeminjamanController::class);
+        // Route::resource('geo-admin', ::class);
 
     });
 });
