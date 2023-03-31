@@ -74,14 +74,23 @@
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Verified At</th>
                                             <th>Created At</th>
                                             <th class="text-right">Action</th>
+                                            <th class="text-right">Verified User</th>
                                         </tr>
                                         @foreach ($users as $key => $user)
                                             <tr>
                                                 <td>{{ ($users->currentPage() - 1) * $users->perPage() + $key + 1 }}</td>
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
+                                                <td>
+                                                    @if ($user->email_verified_at)
+                                                        {{ $user->email_verified_at }}
+                                                    @else
+                                                        Access Denied
+                                                    @endif
+                                                </td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
@@ -90,15 +99,50 @@
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
                                                         <form action="{{ route('user.destroy', $user->id) }}"
-                                                            method="POST" class="ml-2">
+                                                            method="POST" class="ml-2" id="del-<?= $user->id ?>">
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}">
-                                                            <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete </button>
+                                                            <button type="submit" id="#submit"
+                                                                class="btn btn-sm btn-danger btn-icon "
+                                                                data-confirm="Hapus User List?|Apakah Kamu Yakin?"
+                                                                data-confirm-yes="submitDel(<?= $user->id ?>)"
+                                                                data-id="del-{{ $user->id }}">
+                                                                <i class="fas fa-times"> </i> Delete </button>
                                                         </form>
+
                                                     </div>
                                                 </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-end">
+                                                        @if (is_null($user->email_verified_at))
+                                                            <form
+                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
+                                                                method="POST" class="d-inline-block"
+                                                                id="vel-<?= $user->id ?>">
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-sm btn-primary ml-2"
+                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Verifikasi ?"
+                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
+                                                                    data-id="vel-{{ $user->id }}">Verify Email</button>
+                                                            </form>
+                                                        @else
+                                                            <form
+                                                                action="{{ route('user.verify-email', ['id' => $user->id, 'hash' => sha1($user->email)]) }}"
+                                                                method="POST" class="d-inline-block"
+                                                                id="vel-<?= $user->id ?>">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-sm btn-danger ml-2"
+                                                                    data-confirm="Verifikasi Data User |Apakah Kamu Yakin Batalkan Verifikasi ?"
+                                                                    data-confirm-yes="submitVeri(<?= $user->id ?>)"
+                                                                    data-id="vel-{{ $user->id }}">Hapus Verify
+                                                                    Email</button>
+                                                            </form>
+                                                        @endif
+                                                    </div>
+                                                </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -108,10 +152,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -137,7 +177,16 @@
                 var file = $('#file-upload')[0].files[0].name;
                 $(this).prev('label').text(file);
             });
+
         });
+
+        function submitDel(id) {
+            $('#del-' + id).submit()
+        }
+
+        function submitVeri(id) {
+            $('#vel-' + id).submit()
+        }
     </script>
 @endpush
 
