@@ -94,9 +94,11 @@ class RoleAndPermissionSeeder extends Seeder
         // create roles
         $roleUser = Role::create(['name' => 'user']);
         $roleUser->givePermissionTo([
-            'dashboard',
-            'user.management',
-            'user.index',
+            'master.table.management',
+            'data-peminjaman.index',
+            'data-peminjaman.create',
+            'data-peminjaman.edit',
+            'data-peminjaman.destroy',
         ]);
 
         // create Super Admin

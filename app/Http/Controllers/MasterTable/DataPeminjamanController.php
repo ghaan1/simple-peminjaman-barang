@@ -34,7 +34,7 @@ class DataPeminjamanController extends Controller
      */
     public function create()
     {
-        //
+        return view('master-table.data-peminjaman.create');
     }
 
     /**
