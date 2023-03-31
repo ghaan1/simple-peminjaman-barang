@@ -66,6 +66,19 @@ class MenuItemSeeder extends Seeder
                     'permission_name' => 'menu-item.index',
                     'menu_group_id' => 4,
                 ],
+                [
+                    'name' => 'Data barang',
+                    'route' => 'master-table/data-barang',
+                    'permission_name' => 'data-barang.index',
+                    'menu_group_id' => 5,
+                ],
+                [
+                    'name' => 'Data Peminjaman',
+                    'route' => 'master-table/data-peminjaman',
+                    'permission_name' => 'data-peminjaman.index',
+                    'menu_group_id' => 5,
+                ],
+               
             ]
         );
     }

@@ -37,7 +37,13 @@ class MenuGroupSeeder extends Seeder
                     'name' => 'Menu Management',
                     'icon' => 'fas fa-bars',
                     'permisison_name' => 'menu.management',
-                ]
+                ],
+                [
+                    'name' => 'Table Management',
+                    'icon' => 'fas fa-bars',
+                    'permisison_name' => 'master-table.management',
+
+                ],
             ]
         );
     }
