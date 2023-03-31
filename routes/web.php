@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('menu-group', MenuGroupController::class);
         Route::resource('menu-item', MenuItemController::class);
     });
-    
+
     Route::group(['prefix' => 'role-and-permission'], function () {
         //role
         Route::resource('role', RoleController::class);
@@ -77,13 +77,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::prefix('master-table-management')->group(function () {
         Route::get('/data-barang', function () {
-            return view('master-table/data-barang/index');
+            return view('master-table.data-barang.index');
         });
         Route::get('/data-peminjaman', function () {
-            return view('master-table/data-peminjaman/index');
+            return view('master-table.data-peminjaman.index');
         });
         Route::get('/data-admin', function () {
-            return view('master-table/data-admin/index');
+            return view('master-table.data-admin.index');
         });
 
     });
