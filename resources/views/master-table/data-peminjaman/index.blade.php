@@ -27,9 +27,6 @@
                                 <a class="btn btn-icon icon-left btn-primary"
                                     href="{{ route('data-peminjaman.create') }}">Create New
                                     Data Peminjaman</a>
-                                <a class="btn btn-info btn-primary active" href="#">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export Data Peminjaman</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data Peminjaman</a>
@@ -61,38 +58,93 @@
                                             <th>Nama Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
+                                            @role('super-admin')
+                                                <th>Status</th>
+                                                <th class="text-right">Action Status</th>
+                                            @endrole
+                                            @role('user')
+                                                <th>Status</th>
+                                            @endrole
                                             <th class="text-right">Action</th>
                                         </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-right">
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="#" class="btn btn-sm btn-info btn-icon "><i
-                                                            class="fas fa-edit"></i>
-                                                        Edit</a>
-                                                    <form action="#" method="POST" class="ml-2" id="#">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" id="#submit"
-                                                            class="btn btn-sm btn-danger btn-icon "
-                                                            data-confirm="Hapus User List?|Apakah Kamu Yakin?"
-                                                            data-confirm-yes="#" data-id="#">
-                                                            <i class="fas fa-times"> </i> Delete </button>
-                                                    </form>
-
-                                                </div>
-                                            </td>
-
-                                        </tr>
+                                        @foreach ($dataPeminjaman as $key => $itemPeminjaman)
+                                            <tr>
+                                                <td>{{ ($dataPeminjaman->currentPage() - 1) * $dataPeminjaman->perPage() + $key + 1 }}
+                                                <td>{{ $itemPeminjaman->name }}</td>
+                                                <td>{{ $itemPeminjaman->jenis_barang }}</td>
+                                                <td>{{ $itemPeminjaman->nama_barang }}</td>
+                                                <td>{{ $itemPeminjaman->quantity }}</td>
+                                                <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
+                                                @role('super-admin')
+                                                    <td>{{ $itemPeminjaman->status }}</td>
+                                                    <td class="text-right">
+                                                        <div class="d-flex justify-content-end">
+                                                            @if ($itemPeminjaman->status == 'Sedang Dipinjam')
+                                                                <form
+                                                                    action="{{ route('data-peminjaman.update-status', $itemPeminjaman->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status"
+                                                                        value="Sudah Dikembalikan">
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-primary btn-icon">
+                                                                        <i class="fas fa-check"></i> Barang Sudah Kembali
+                                                                    </button>
+                                                                </form>
+                                                            @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')
+                                                                <form
+                                                                    action="{{ route('data-peminjaman.update-status', $itemPeminjaman->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status"
+                                                                        value="Sedang Dipinjam">
+                                                                    <button type="submit"
+                                                                        class="btn btn-sm btn-danger btn-icon">
+                                                                        <i class="fas fa-check"></i> Batalkan Barang Sudah
+                                                                        Kembali
+                                                                    </button>
+                                                                </form>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                @endrole
+                                                @role('user')
+                                                    @if ($itemPeminjaman->status == 'Sedang Dipinjam')
+                                                        <td>Barang Sedang Dipinjam</td>
+                                                    @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')
+                                                        <td>Barang Telah Dikembalikan</td>
+                                                    @endif
+                                                @endrole
+                                                <td class="text-right">
+                                                    <div class="d-flex justify-content-end">
+                                                        <a href="{{ route('data-peminjaman.edit', $itemPeminjaman->id) }}"
+                                                            class="btn btn-sm btn-info btn-icon "><i
+                                                                class="fas fa-edit"></i>
+                                                            Edit</a>
+                                                        <form
+                                                            action="{{ route('data-peminjaman.destroy', $itemPeminjaman->id) }}"
+                                                            method="POST" class="ml-2"
+                                                            id="del-<?= $itemPeminjaman->id ?>">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token"
+                                                                value="{{ csrf_token() }}">
+                                                            <button type="submit" id="#submit"
+                                                                class="btn btn-sm btn-danger btn-icon "
+                                                                data-confirm="Hapus Data Peminjaman?|Apakah Kamu Yakin?"
+                                                                data-confirm-yes="submitDel(<?= $itemPeminjaman->id ?>)"
+                                                                data-id="#">
+                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div class="d-flex justify-content-center">
-
+                                    {{ $dataPeminjaman->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>

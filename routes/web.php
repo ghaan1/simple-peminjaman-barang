@@ -42,8 +42,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::prefix('user-management')->group(function () {
         Route::resource('user', UserController::class);
-        Route::match(['get', 'post'], '/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])->name('user.verify-email');
-        Route::delete('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])->name('user.delete-verify-email');
+        Route::match(['get', 'post'], '/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
+            ->name('user.verify-email');
+        Route::delete('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
+            ->name('user.delete-verify-email');
         Route::post('import', [UserController::class, 'import'])->name('user.import');
         Route::get('export', [UserController::class, 'export'])->name('user.export');
         Route::get('demo', DemoController::class)->name('user.demo');
@@ -84,5 +86,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('jenis-barang', JenisBarangController::class);
         Route::resource('data-barang', DataBarangController::class);
         Route::resource('data-peminjaman', DataPeminjamanController::class);
+        Route::post('peminjaman-barang-filter', [DataPeminjamanController::class, 'PeminjamanBarangFilter'])
+            ->name('data-peminjaman-barang.filters');
+        Route::get('peminjaman-barang-filter-get', [DataPeminjamanController::class, 'PeminjamanBarangFilterGet'])
+            ->name('data-peminjaman-barang-get.filters');
+        Route::patch('/data-peminjaman/{dataPeminjaman}/update-status', [DataPeminjamanController::class, 'updateStatus'])->name('data-peminjaman.update-status');
     });
 });
