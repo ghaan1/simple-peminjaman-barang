@@ -34,16 +34,22 @@
                                     <div class="form-col" style="display: flex; flex-direction: center">
                                         <div class="form-row">
                                             <div class="form-group col-md-10">
+                                                <label for="role">Jenis Barang</label>
+                                                <select class="form-control select2" name="jenisbarang[]" multiple
+                                                    data-id="select-user" id="jenisbarang">
+                                                    <option value="">Pilih Jenis Barang </option>
+                                                    @foreach ($jenisBarang as $listJenisBarang)
+                                                        <option value="{{ $listJenisBarang->id }}"
+                                                            {{ (is_array(old('jenisBarang')) && in_array($listJenisBarang->id, old('jenisBarang'))) || (isset($jenisBarangSelected) && in_array($listJenisBarang->id, $jenisBarangSelected)) ? 'selected' : '' }}>
+                                                            {{ $listJenisBarang->jenis_barang }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-10">
                                                 <label for="role">Nama Barang</label>
                                                 <input type="text" name="nama_barang" class="form-control"
-                                                    id="nama_barang" placeholder="Nama Barang">
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-10">
-                                                <label for="role">Jenis Barang</label>
-                                                <input type="text" name="jenis_barang" class="form-control"
-                                                    id="jenis_barang" placeholder="Jenis Barang">
+                                                    id="nama_barang" placeholder="Nama Barang" value="{{ $nama_barang }}">
                                             </div>
                                         </div>
                                     </div>
@@ -115,6 +121,7 @@
     </section>
 @endsection
 @push('customScript')
+    <script src="/assets/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.import').click(function(event) {
@@ -147,4 +154,5 @@
 @endpush
 
 @push('customStyle')
+    <link rel="stylesheet" href="/assets/css/select2.min.css">
 @endpush

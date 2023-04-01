@@ -24,6 +24,8 @@ class DataBarangController extends Controller
 
     public function index(Request $request)
     {
+        $jenisBarang = JenisBarang::all();
+        $nama_barang = $request->input('nama_barang');
         $dataBarangs = DB::table('databarang')
             ->select(
                 'databarang.id',
@@ -41,15 +43,18 @@ class DataBarangController extends Controller
             ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                 return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
             })
-            ->when($request->input('harga_barang'), function ($query, $harga_barang) {
-                return $query->where('harga_barang', 'like', '%' . $harga_barang . '%');
-            })
-            ->when($request->input('jenis_barang_id'), function ($query, $jenis_barang_id) {
-                return $query->where('jenis_barang_id', 'like', '%' . $jenis_barang_id . '%');
+            ->when($request->input('jenisbarang'), function ($query, $jenisbarang) {
+                return $query->whereIn('databarang.jenis_barang_id', $jenisbarang);
             })
 
             ->paginate(5);
-        return view('master-table.data-barang.index', compact('dataBarangs'));
+        $jenisBarangSelected = $request->input('jenisbarang');
+        return view('master-table.data-barang.index')->with([
+            'dataBarangs' => $dataBarangs,
+            'jenisBarang' => $jenisBarang,
+            'jenisBarangSelected' => $jenisBarangSelected,
+            'nama_barang' => $nama_barang,
+        ]);
     }
 
     public function create()
