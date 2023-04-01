@@ -31,8 +31,17 @@ use App\Models\Category;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('home');
 });
+
+Route::get('/login', function () {
+    return view('auth/login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('auth/register');
+})->name('register');
+
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
