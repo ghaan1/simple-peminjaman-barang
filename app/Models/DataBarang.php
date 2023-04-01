@@ -9,8 +9,10 @@ class DataBarang extends Model
 {
     use HasFactory;
     protected $table = 'databarang';
-    protected $fillable = ['admin_id', 'nama_barang', 'jenis_barang_id',
-    'harga_barang', 'quantity', 'tersedia'];
+    protected $fillable = [
+        'admin_id', 'nama_barang', 'jenis_barang_id',
+        'harga_barang', 'quantity', 'tersedia'
+    ];
 
     public function jenisbarang()
     {
@@ -21,5 +23,4 @@ class DataBarang extends Model
     {
         return $this->belongsTo(DataPeminjaman::class);
     }
-
 }

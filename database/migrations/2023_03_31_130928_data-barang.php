@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->unsignedBigInteger('jenis_barang_id')->nullable();
             $table->string('harga_barang');
-            $table->string('quantity');
-            $table->string('tersedia');
+            $table->integer('quantity');
+            $table->integer('tersedia')->nullable();
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();
             $table->timestamps();
         });

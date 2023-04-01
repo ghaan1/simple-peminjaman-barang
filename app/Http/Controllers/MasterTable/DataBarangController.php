@@ -29,21 +29,23 @@ class DataBarangController extends Controller
     public function index(Request $request)
     {
         $dataBarangs = DB::table('databarang')
-        ->select('jenisbarang.jenis_barang as jenis_barang',
-        'databarang.*', )
-        ->leftJoin('jenisbarang', 'databarang.jenis_barang_id', '=', 'jenisbarang.id')
-        ->when($request->input('nama_barang'), function ($query, $nama_barang) {
-            return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
-        })
-        ->when($request->input('harga_barang'), function ($query, $harga_barang) {
-            return $query->where('harga_barang', 'like', '%' . $harga_barang . '%');
-        })
-        ->when($request->input('jenis_barang_id'), function ($query, $jenis_barang_id) {
-            return $query->where('jenis_barang_id', 'like', '%' . $jenis_barang_id . '%');
-        })
+            ->select(
+                'jenisbarang.jenis_barang as jenis_barang',
+                'databarang.*',
+            )
+            ->leftJoin('jenisbarang', 'databarang.jenis_barang_id', '=', 'jenisbarang.id')
+            ->when($request->input('nama_barang'), function ($query, $nama_barang) {
+                return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
+            })
+            ->when($request->input('harga_barang'), function ($query, $harga_barang) {
+                return $query->where('harga_barang', 'like', '%' . $harga_barang . '%');
+            })
+            ->when($request->input('jenis_barang_id'), function ($query, $jenis_barang_id) {
+                return $query->where('jenis_barang_id', 'like', '%' . $jenis_barang_id . '%');
+            })
 
-        ->paginate(5);
-        return view('master-table.data-barang.index',compact('dataBarangs'));
+            ->paginate(5);
+        return view('master-table.data-barang.index', compact('dataBarangs'));
     }
 
     /**
@@ -67,7 +69,6 @@ class DataBarangController extends Controller
      */
     public function store(StoreDataBarangRequest $request)
     {
-
         DataBarang::create([
             'admin_id' => $request->admin_id,
             'nama_barang' => $request->nama_barang,

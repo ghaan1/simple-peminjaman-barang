@@ -180,7 +180,9 @@ return [
         App\Providers\FortifyServiceProvider::class,
         //spatie
         Spatie\Permission\PermissionServiceProvider::class,
-        
+        //pdf
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
     ],
 
@@ -196,6 +198,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
