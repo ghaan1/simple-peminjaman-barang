@@ -31,25 +31,31 @@
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('data-barang.index') }}">
-                                    <div class="form-col" style="display: flex; flex-direction: center">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-10">
-                                                <label for="role">Jenis Barang</label>
-                                                <select class="form-control select2" name="jenisbarang[]" multiple
-                                                    data-id="select-user" id="jenisbarang">
-                                                    <option value="">Pilih Jenis Barang </option>
-                                                    @foreach ($jenisBarang as $listJenisBarang)
-                                                        <option value="{{ $listJenisBarang->id }}"
-                                                            {{ (is_array(old('jenisBarang')) && in_array($listJenisBarang->id, old('jenisBarang'))) || (isset($jenisBarangSelected) && in_array($listJenisBarang->id, $jenisBarangSelected)) ? 'selected' : '' }}>
-                                                            {{ $listJenisBarang->jenis_barang }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                    <div class="form-col" style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
+                                        <div class="form-row" width="100%" >
+                                            <div class="form-dol" style="width: 500px">
+                                                <div class="form-group col-md-9">
+                                                    <label for="role">Jenis Barang</label>
+                                                    <select class="form-control select2" name="jenisbarang[]" multiple
+                                                        data-id="select-user" id="jenisbarang">
+                                                        <option value="">Pilih Jenis Barang </option>
+                                                        @foreach ($jenisBarang as $listJenisBarang)
+                                                            <option value="{{ $listJenisBarang->id }}"
+                                                                {{ (is_array(old('jenisBarang')) && in_array($listJenisBarang->id, old('jenisBarang'))) || (isset($jenisBarangSelected) && in_array($listJenisBarang->id, $jenisBarangSelected)) ? 'selected' : '' }}>
+                                                                {{ $listJenisBarang->jenis_barang }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-10">
+                                        </div>
+                                        <div class="form-row" width="100%">
+                                            <div class="form-dol" style="width: 550px">
+                                            <div class="form-group col-md-9">
                                                 <label for="role">Nama Barang</label>
                                                 <input type="text" name="nama_barang" class="form-control"
                                                     id="nama_barang" placeholder="Nama Barang" value="{{ $nama_barang }}">
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +85,7 @@
                                                 <td>{{ $dataBarang->name }}</td>
                                                 <td>{{ $dataBarang->jenis_barang }}</td>
                                                 <td>{{ $dataBarang->nama_barang }}</td>
-                                                <td>{{ $dataBarang->harga_barang }}</td>
+                                                <td>Rp {{ number_format($dataBarang->harga_barang, 0, ',', '.') }}</td>
                                                 <td>{{ $dataBarang->quantity }}</td>
                                                 <td>{{ $dataBarang->tersedia }}</td>
                                                 <td class="text-right">

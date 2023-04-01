@@ -3,7 +3,7 @@
     <section class="section">
         <div class="section-header">
             <h1>Master Table Management</h1>
-            
+
         </div>
 
         <div class="section-body">
@@ -26,16 +26,19 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data Peminjaman</a>
+                            @role('super-admin')
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
                                     target="_blank">Print Data Peminjaman</a>
+                            @endrole
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('data-peminjaman.index') }}">
-                                    <div class="form-col" style="display: flex; flex-direction: center">
+                                    <div class="form-col" style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
                                         <div class="form-row">
-                                            <div class="form-group col-md-5">
+                                            <div class="form-dol" style="width: 500px">
+                                            <div class="form-group col-md-9">
                                                 <label for="role">Nama Peminjam</label>
                                                 <select class="form-control select2" name="users[]" multiple
                                                     data-id="select-user" id="users">
@@ -51,7 +54,9 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="form-group col-md-5">
+                                        </div>
+                                        <div class="form-dol" style="width: 590px;">
+                                            <div class="form-group col-md-9">
                                                 <label for="role">Jenis Barang</label>
                                                 <select class="form-control select2" name="jenisbarang[]" multiple
                                                     data-id="select-user" id="jenisbarang">
@@ -64,7 +69,8 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="form-group col-md-3">
+                                            </div>
+                                            <div class="form-group col-md-9" style=" margin-left: 10px">
                                                 <label for="status">Status</label>
                                                 <select class="form-control select2" name="status[]" multiple
                                                     data-id="select-status" id="status">
@@ -76,7 +82,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="form-group col-md-10">
+                                            <div class="form-group col-md-9" style=" margin-left: 10px">
                                                 <label for="role">Nama Barang</label>
                                                 <input type="text" name="nama_barang" class="form-control"
                                                     id="nama_barang" placeholder="Nama Barang" data-id="search-perusahaan"

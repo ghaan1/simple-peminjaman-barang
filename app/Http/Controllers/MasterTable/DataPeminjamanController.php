@@ -11,6 +11,8 @@ use App\Models\JenisBarang;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
+// use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -224,58 +226,43 @@ class DataPeminjamanController extends Controller
     public function print(Request $request)
     {
         $user = Auth::user();
+        $query = DB::table('datapeminjaman')
+            ->select(
+                'datapeminjaman.id',
+                'datapeminjaman.peminjam_id',
+                'users.name',
+                'datapeminjaman.jenis_barang_id',
+                'jenisbarang.jenis_barang',
+                'users.name',
+                'datapeminjaman.barang_id',
+                'databarang.nama_barang',
+                'datapeminjaman.quantity',
+                'datapeminjaman.tanggal_pinjam',
+                'datapeminjaman.status',
+            )
+            ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
+            ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
+            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id');
 
-        if ($user->hasRole('super-admin')) {
-            $dataPeminjaman = DB::table('datapeminjaman')
-                ->select(
-                    'datapeminjaman.id',
-                    'datapeminjaman.peminjam_id',
-                    'users.name',
-                    'datapeminjaman.jenis_barang_id',
-                    'jenisbarang.jenis_barang',
-                    'datapeminjaman.barang_id',
-                    'databarang.nama_barang',
-                    'datapeminjaman.quantity',
-                    'datapeminjaman.tanggal_pinjam',
-                    'datapeminjaman.status',
-                )
-                ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
-                ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-                ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-                ->when($request->has('databarang'), function ($query, $databarang) {
-                    return $query->whereIn('datapeminjaman.barang_id', $databarang);
-                })
-                ->when($request->has('jenisbarang'), function ($query, $jenisbarang) {
-                    return $query->whereIn('datapeminjaman.jenis_barang_id', $jenisbarang);
-                })
-                ->when($request->has('users'), function ($query, $users) {
-                    return $query->whereIn('datapeminjaman.peminjam_id', $users);
-                })
-                ->get();
-        } else {
-            $dataPeminjaman = DB::table('datapeminjaman')
-                ->select(
-                    'datapeminjaman.id',
-                    'datapeminjaman.peminjam_id',
-                    'users.name',
-                    'datapeminjaman.jenis_barang_id',
-                    'jenisbarang.jenis_barang',
-                    'datapeminjaman.barang_id',
-                    'databarang.nama_barang',
-                    'datapeminjaman.quantity',
-                    'datapeminjaman.tanggal_pinjam',
-                    'datapeminjaman.status',
-                )
-                ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
-                ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-                ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-                ->where('users.name', '=', $user->name)
-                ->get();
+        if (!$user->hasRole('super-admin')) {
+            $query->where('users.name', '=', $user->name);
+        }
+        if ($request->has('databarang')) {
+            $query->whereIn('datapeminjaman.barang_id', $request->databarang);
         }
 
-        $pdf = FacadePdf::loadView('master-table.data-peminjaman.print', compact('dataPeminjaman'));
+        if ($request->has('jenisbarang')) {
+            $query->whereIn('datapeminjaman.jenis_barang_id', $request->jenisbarang);
+        }
+
+        if ($request->has('users')) {
+            $query->whereIn('datapeminjaman.peminjam_id', $request->users);
+        }
+        $dataPeminjaman = $query->get();
+        $pdf = PDF::loadView('master-table.data-peminjaman.print', with(['dataPeminjaman'=>$dataPeminjaman, 'users'=>$user]));
         return $pdf->stream('data-peminjaman.pdf');
     }
+
 
     public function show(DataPeminjaman $dataPeminjaman)
     {
