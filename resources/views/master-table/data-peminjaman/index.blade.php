@@ -30,6 +30,8 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data Peminjaman</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
+                                    target="_blank">Print Data Peminjaman</a>
                             </div>
                         </div>
                         <div class="card-body">
