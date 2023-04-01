@@ -35,8 +35,14 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/dashboard', function () {
-        return view('home', ['users' => User::get(),]);
+
+    Route::get('/profile', function () {
+        return view('profile.index');
+    })->name('profile.edit');
+
+
+    Route::get('/master-table-management/data-peminjaman', function () {
+        return view('master-table.data-peminjaman.index', ['users' => User::get(),]);
     });
     //user list
 
