@@ -3,7 +3,7 @@
     <section class="section">
         <div class="section-header">
             <h1>Master Table Management</h1>
-         
+
         </div>
 
         <div class="section-body">
@@ -23,9 +23,6 @@
                                 <a class="btn btn-icon icon-left btn-primary"
                                     href="{{ route('jenis-barang.create') }}">Create New
                                     Data barang</a>
-                                <a class="btn btn-info btn-primary active" href="#">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export Data barang</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data barang</a>
@@ -34,13 +31,13 @@
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('jenis-barang.index') }}">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-10">
-                                                <label for="role">Jenis Barang</label>
-                                                <input type="text" name="jenis_barang" class="form-control" id="jenis_barang"
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label for="role">Jenis Barang</label>
+                                            <input type="text" name="jenis_barang" class="form-control" id="jenis_barang"
                                                 placeholder="Jenis Barang">
-                                            </div>
                                         </div>
+                                    </div>
 
                                     <div class="text-right">
                                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
@@ -57,32 +54,33 @@
                                             <th class="text-right">Action</th>
                                         </tr>
                                         @foreach ($jenisBarangs as $key => $jenisBarang)
-                                        <tr>
-                                            <td>{{ ($jenisBarangs->currentPage() - 1) * $jenisBarangs->perPage() + $key + 1 }}
-                                            </td>
-                                            <td>{{$jenisBarang->jenis_barang}}</td>
-                                            <td class="text-right">
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="{{ route('jenis-barang.edit', $jenisBarang->id) }}" class="btn btn-sm btn-info btn-icon "><i
-                                                            class="fas fa-edit"></i>
-                                                        Edit</a>
-                                                        <form
-                                                        action="{{ route('jenis-barang.destroy', $jenisBarang->id) }}"
-                                                        method="POST" class="ml-2"
-                                                        id="del-<?= $jenisBarang->id ?>">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" id="#submit"
-                                                            class="btn btn-sm btn-danger btn-icon "
-                                                            data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
-                                                            data-confirm-yes="submitDel(<?= $jenisBarang->id ?>)" data-id="#">
-                                                            <i class="fas fa-times"> </i> Delete </button>
-                                                    </form>
+                                            <tr>
+                                                <td>{{ ($jenisBarangs->currentPage() - 1) * $jenisBarangs->perPage() + $key + 1 }}
+                                                </td>
+                                                <td>{{ $jenisBarang->jenis_barang }}</td>
+                                                <td class="text-right">
+                                                    <div class="d-flex justify-content-end">
+                                                        <a href="{{ route('jenis-barang.edit', $jenisBarang->id) }}"
+                                                            class="btn btn-sm btn-info btn-icon "><i
+                                                                class="fas fa-edit"></i>
+                                                            Edit</a>
+                                                        <form action="{{ route('jenis-barang.destroy', $jenisBarang->id) }}"
+                                                            method="POST" class="ml-2" id="del-<?= $jenisBarang->id ?>">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token"
+                                                                value="{{ csrf_token() }}">
+                                                            <button type="submit" id="#submit"
+                                                                class="btn btn-sm btn-danger btn-icon "
+                                                                data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
+                                                                data-confirm-yes="submitDel(<?= $jenisBarang->id ?>)"
+                                                                data-id="#">
+                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                        </form>
 
-                                                </div>
-                                            </td>
+                                                    </div>
+                                                </td>
 
-                                        </tr>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

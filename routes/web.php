@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\MasterTable\DataBarangController;
 use App\Http\Controllers\MasterTable\DataPeminjamanController;
+use App\Http\Controllers\MasterTable\JenisBarangController;
 use App\Http\Controllers\DemoController;
-use App\Http\Controllers\JenisBarangController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;

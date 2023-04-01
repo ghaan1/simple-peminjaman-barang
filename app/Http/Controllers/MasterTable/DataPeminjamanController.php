@@ -11,7 +11,6 @@ use App\Models\JenisBarang;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
-// use Barryvdh\DomPDF\Facade as PDF;
 use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -259,7 +258,7 @@ class DataPeminjamanController extends Controller
             $query->whereIn('datapeminjaman.peminjam_id', $request->users);
         }
         $dataPeminjaman = $query->get();
-        $pdf = PDF::loadView('master-table.data-peminjaman.print', with(['dataPeminjaman'=>$dataPeminjaman, 'users'=>$user]));
+        $pdf = PDF::loadView('master-table.data-peminjaman.print', with(['dataPeminjaman' => $dataPeminjaman, 'users' => $user]));
         return $pdf->stream('data-peminjaman.pdf');
     }
 
