@@ -92,9 +92,9 @@ class DataPeminjamanController extends Controller
                 ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
                 ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
                 ->where('users.name', '=', $user->name)
-                ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
-                ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-                ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
+                ->leftJoin('users as u2', 'datapeminjaman.peminjam_id', '=', 'u2.id')
+                ->leftJoin('jenisbarang as jb', 'datapeminjaman.jenis_barang_id', '=', 'jb.id')
+                ->leftJoin('databarang as db', 'datapeminjaman.barang_id', '=', 'db.id')
                 ->when($request->input('databarang'), function ($query, $databarang) {
                     return $query->whereIn('datapeminjaman.barang_id', $databarang);
                 })
