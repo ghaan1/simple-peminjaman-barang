@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('peminjam_id');
             $table->unsignedBigInteger('jenis_barang_id');
             $table->unsignedBigInteger('barang_id');
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->date('tanggal_pinjam');
             $table->enum('status', ['Sedang Dipinjam', 'Sudah Dikembalikan'])->default('Sedang Dipinjam');
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();

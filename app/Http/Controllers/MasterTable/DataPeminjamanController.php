@@ -68,16 +68,32 @@ class DataPeminjamanController extends Controller
 
     public function store(StoreDataPeminjamanRequest $request)
     {
-        DataPeminjaman::create([
-            'peminjam_id' => $request->peminjam_id,
-            'jenis_barang_id' => $request->jenis_barang_id,
-            'barang_id' => $request->barang_id,
-            'quantity' => $request->quantity,
-            'tanggal_pinjam' => $request->tanggal_pinjam,
-            'status' => 'Sedang Dipinjam',
+        $validatedData = $request->validated();
+
+        // Validasi quantity pada DataBarang
+        $dataBarang = DataBarang::findOrFail($validatedData['barang_id']);
+        if ($validatedData['quantity'] > $dataBarang->tersedia) {
+            return redirect()->route('data-peminjaman.create')->withInput()->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);
+        }
+
+        // Buat DataPeminjaman
+        $dataPeminjaman = DataPeminjaman::create([
+            'peminjam_id' => $validatedData['peminjam_id'],
+            'jenis_barang_id' => $validatedData['jenis_barang_id'],
+            'barang_id' => $validatedData['barang_id'],
+            'quantity' => $validatedData['quantity'],
+            'tanggal_pinjam' => $validatedData['tanggal_pinjam'],
         ]);
+
+        // Kurangi quantity pada DataBarang dan update tersedia
+        $tersedia = $dataBarang->tersedia - $validatedData['quantity'];
+        $dataBarang->tersedia = $tersedia;
+        $dataBarang->save();
+
         return redirect()->route('data-peminjaman.index')->with('success', 'Tambah Data Peminjaman Sukses');
     }
+
+
 
     public function edit(DataPeminjaman $dataPeminjaman)
     {
@@ -96,13 +112,37 @@ class DataPeminjamanController extends Controller
 
     public function update(UpdateDataPeminjamanRequest $request, DataPeminjaman $dataPeminjaman)
     {
-        $validate = $request->validated();
-        $dataPeminjaman->update($validate);
+        $validatedData = $request->validated();
+
+        // Validasi quantity pada DataBarang
+        $dataBarang = DataBarang::findOrFail($validatedData['barang_id']);
+        $quantityDifference = $validatedData['quantity'] - $dataPeminjaman->quantity;
+        if ($quantityDifference > $dataBarang->quantity - $dataBarang->tersedia) {
+            return redirect()->route('data-peminjaman.edit', $dataPeminjaman)->withInput()->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);
+        }
+
+        // Perbarui DataPeminjaman
+        $dataPeminjaman->update($validatedData);
+
+        // Perbarui quantity pada DataBarang
+        $dataBarang->tersedia = $dataBarang->quantity - DataPeminjaman::where('barang_id', $dataBarang->id)->where('status', 'Sedang Dipinjam')->sum('quantity');
+        $dataBarang->save();
+
         return redirect()->route('data-peminjaman.index')->with('success', 'Edit Data Peminjaman Sukses');
     }
 
+
+
+
+
+
     public function destroy(DataPeminjaman $dataPeminjaman)
     {
+        if ($dataPeminjaman->status === 'Sedang Dipinjam') {
+            return redirect()->route('data-peminjaman.index')
+                ->with('error', 'Tidak Dapat Menghapus Data Peminjaman Yang Masih Dipinjam');
+        }
+
         try {
             $dataPeminjaman->delete();
             return redirect()->route('data-peminjaman.index')
@@ -119,6 +159,7 @@ class DataPeminjamanController extends Controller
         }
     }
 
+
     public function PeminjamanBarangFilter(Request $request)
     {
         $dataBarang['dataBarang'] = DataBarang::all()->where('jenis_barang_id', $request->jenis_barang_id);
@@ -133,8 +174,37 @@ class DataPeminjamanController extends Controller
 
     public function updateStatus(DataPeminjaman $dataPeminjaman, Request $request)
     {
-        $dataPeminjaman->status = $request->status;
-        $dataPeminjaman->save();
+        if ($request->status === 'Sudah Dikembalikan') {
+            // Mengembalikan quantity pada DataBarang dan update tersedia
+            $dataBarang = $dataPeminjaman->dataBarang;
+            $tersedia = $dataBarang->tersedia + $dataPeminjaman->quantity;
+
+            // Validasi stok tersedia sebelum melakukan penambahan
+            if ($tersedia > $dataBarang->quantity) {
+                return redirect()->back()->with('error', 'Stok barang melebihi jumlah yang tersedia');
+            }
+
+            $dataBarang->tersedia = $tersedia;
+            $dataBarang->save();
+
+            $dataPeminjaman->status = $request->status;
+            $dataPeminjaman->save();
+        } elseif ($request->status === 'Sedang Dipinjam') {
+            // Mengurangi quantity pada DataBarang dan update tersedia
+            $dataBarang = $dataPeminjaman->dataBarang;
+
+            // Validasi stok tersedia sebelum melakukan pengurangan
+            if ($dataBarang->tersedia < $dataPeminjaman->quantity) {
+                return redirect()->back()->with('error', 'Stok barang tidak cukup');
+            }
+
+            $tersedia = $dataBarang->tersedia - $dataPeminjaman->quantity;
+            $dataBarang->tersedia = $tersedia;
+            $dataBarang->save();
+
+            $dataPeminjaman->status = $request->status;
+            $dataPeminjaman->save();
+        }
 
         return redirect()->route('data-peminjaman.index')->with('success', 'Status Peminjaman berhasil diubah');
     }

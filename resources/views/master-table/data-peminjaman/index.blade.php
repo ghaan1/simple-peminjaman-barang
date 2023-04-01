@@ -87,10 +87,17 @@
                                                                     @method('PATCH')
                                                                     <input type="hidden" name="status"
                                                                         value="Sudah Dikembalikan">
-                                                                    <button type="submit"
-                                                                        class="btn btn-sm btn-primary btn-icon">
-                                                                        <i class="fas fa-check"></i> Barang Sudah Kembali
-                                                                    </button>
+                                                                    @if (session()->has('error'))
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-primary btn-icon" disabled>
+                                                                            <i class="fas fa-check"></i> Barang Sudah Kembali
+                                                                        </button>
+                                                                    @else
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-primary btn-icon">
+                                                                            <i class="fas fa-check"></i> Barang Sudah Kembali
+                                                                        </button>
+                                                                    @endif
                                                                 </form>
                                                             @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')
                                                                 <form
@@ -100,16 +107,26 @@
                                                                     @method('PATCH')
                                                                     <input type="hidden" name="status"
                                                                         value="Sedang Dipinjam">
-                                                                    <button type="submit"
-                                                                        class="btn btn-sm btn-danger btn-icon">
-                                                                        <i class="fas fa-check"></i> Batalkan Barang Sudah
-                                                                        Kembali
-                                                                    </button>
+                                                                    @if (session()->has('error'))
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-danger btn-icon" disabled>
+                                                                            <i class="fas fa-check"></i> Batalkan Barang Sudah
+                                                                            Kembali
+                                                                        </button>
+                                                                    @else
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-danger btn-icon">
+                                                                            <i class="fas fa-check"></i> Batalkan Barang Sudah
+                                                                            Kembali
+                                                                        </button>
+                                                                    @endif
                                                                 </form>
                                                             @endif
+
                                                         </div>
                                                     </td>
                                                 @endrole
+
                                                 @role('user')
                                                     @if ($itemPeminjaman->status == 'Sedang Dipinjam')
                                                         <td>Barang Sedang Dipinjam</td>

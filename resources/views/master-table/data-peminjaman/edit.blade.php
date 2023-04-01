@@ -147,7 +147,9 @@
                                     .nama_barang + ' </option>');
                                 $('#barang_id').append('<option value="' + val.id +
                                     '"> ' + val
-                                    .nama_barang + ' </option>')
+                                    .nama_barang + ' (Stok : ' + val.tersedia +
+                                    '  )' +
+                                    ' </option>')
                             }
                         });
                     }
@@ -176,7 +178,9 @@
                             $("#barang_id option[value='" + val.id + "']").attr(
                                 "selected", "selected");
                             formBarangID.append('<option value="' + val.id + '"> ' + val
-                                .nama_barang + ' </option>')
+                                .nama_barang + ' (Stok : ' + val.tersedia +
+                                '  )' +
+                                ' </option>')
                         }
                     });
                 }

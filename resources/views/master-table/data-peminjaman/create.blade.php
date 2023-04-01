@@ -73,7 +73,8 @@
                                 @foreach ($dataBarang as $listJenisBarang)
                                     <option value="{{ $listJenisBarang->id }}"
                                         data-jenis="{{ $listJenisBarang->jenis_barang }}">
-                                        {{ $listJenisBarang->nama_barang }} </option>
+                                        {{ $listJenisBarang->nama_barang }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('barang_id')
@@ -98,6 +99,16 @@
                             <input type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror"
                                 id="tanggal_pinjam" name="tanggal_pinjam">
                             @error('tanggal_pinjam')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group" hidden>
+                            <label for="status">Status</label>
+                            <input type="text" class="form-control @error('status') is-invalid @enderror" id="status"
+                                name="status" value="Sedang Dipinjam">
+                            @error('status')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -143,7 +154,9 @@
                                     .nama_barang + ' </option>');
                                 $('#barang_id').append('<option value="' + val.id +
                                     '"> ' + val
-                                    .nama_barang + ' </option>')
+                                    .nama_barang + ' (Stok : ' + val.tersedia +
+                                    '  )' +
+                                    ' </option>')
                             }
                         });
                     }
