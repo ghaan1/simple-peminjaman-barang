@@ -110,5 +110,11 @@ class RoleAndPermissionSeeder extends Seeder
         $user->assignRole('super-admin');
         $user = User::find(2);
         $user->assignRole('user');
+        $user = User::find(3);
+        $user->assignRole('user');
+        $user = User::find(4);
+        $user->assignRole('user');
+        $user = User::find(5);
+        $user->assignRole('user');
     }
 }

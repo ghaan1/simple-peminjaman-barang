@@ -35,11 +35,55 @@
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('data-peminjaman.index') }}">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label for="role">Data Peminjaman</label>
-                                            <input type="text" name="name" class="form-control" id="name"
-                                                placeholder="User Name">
+                                    <div class="form-col" style="display: flex; flex-direction: center">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-5">
+                                                <label for="role">Nama Peminjam</label>
+                                                <select class="form-control select2" name="users[]" multiple
+                                                    data-id="select-user" id="users">
+                                                    <option value="">Pilih Nama Peminjam </option>
+                                                    @foreach ($users as $listUser)
+                                                        <option value="{{ $listUser->id }}"
+                                                            {{ (is_array(old('users')) && in_array($listUser->id, old('users'))) ||
+                                                            (isset($userSelected) && in_array($listUser->id, $userSelected))
+                                                                ? 'selected'
+                                                                : '' }}>
+                                                            {{ $listUser->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <label for="role">Jenis Barang</label>
+                                                <select class="form-control select2" name="jenisbarang[]" multiple
+                                                    data-id="select-user" id="jenisbarang">
+                                                    <option value="">Pilih Jenis Barang </option>
+                                                    @foreach ($jenisBarang as $listJenisBarang)
+                                                        <option value="{{ $listJenisBarang->id }}"
+                                                            {{ (is_array(old('jenisBarang')) && in_array($listJenisBarang->id, old('jenisBarang'))) || (isset($jenisBarangSelected) && in_array($listJenisBarang->id, $jenisBarangSelected)) ? 'selected' : '' }}>
+                                                            {{ $listJenisBarang->jenis_barang }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="status">Status</label>
+                                                <select class="form-control select2" name="status[]" multiple
+                                                    data-id="select-status" id="status">
+                                                    <option value="">Pilih Status</option>
+                                                    @foreach ($status as $value)
+                                                        <option value="{{ $value }}"
+                                                            {{ (is_array(old('status')) && in_array($value, old('status'))) || (isset($statusSelected) && in_array($value, $statusSelected)) ? 'selected' : '' }}>
+                                                            {{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-10">
+                                                <label for="role">Nama Barang</label>
+                                                <input type="text" name="nama_barang" class="form-control"
+                                                    id="nama_barang" placeholder="Nama Barang" data-id="search-perusahaan"
+                                                    value="{{ $nama_barang }}">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="text-right">
@@ -172,6 +216,7 @@
     </section>
 @endsection
 @push('customScript')
+    <script src="/assets/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.import').click(function(event) {
@@ -204,4 +249,5 @@
 @endpush
 
 @push('customStyle')
+    <link rel="stylesheet" href="/assets/css/select2.min.css">
 @endpush

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             JenisBarangSeeder::class,
             DataBarangSeeder::class,
-            // DataPeminjamanSeeder::class
+            DataPeminjamanSeeder::class
         ]);
     }
 }
