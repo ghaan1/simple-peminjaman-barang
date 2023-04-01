@@ -3,7 +3,7 @@
     <section class="section">
         <div class="section-header">
             <h1>Master Table Management</h1>
-            
+
         </div>
 
         <div class="section-body">
@@ -23,9 +23,6 @@
                                 <a class="btn btn-icon icon-left btn-primary"
                                     href="{{ route('data-barang.create') }}">Create New
                                     Data barang</a>
-                                <a class="btn btn-info btn-primary active" href="#">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export Data barang</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data barang</a>
@@ -35,18 +32,18 @@
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('data-barang.index') }}">
                                     <div class="form-col" style="display: flex; flex-direction: center">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-10">
-                                            <label for="role">Nama Barang</label>
-                                            <input type="text" name="nama_barang" class="form-control" id="nama_barang"
-                                                placeholder="Nama Barang">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-10">
+                                                <label for="role">Nama Barang</label>
+                                                <input type="text" name="nama_barang" class="form-control"
+                                                    id="nama_barang" placeholder="Nama Barang">
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-10">
                                                 <label for="role">Jenis Barang</label>
-                                                <input type="text" name="jenis_barang" class="form-control" id="jenis_barang"
-                                                placeholder="Jenis Barang">
+                                                <input type="text" name="jenis_barang" class="form-control"
+                                                    id="jenis_barang" placeholder="Jenis Barang">
                                             </div>
                                         </div>
                                     </div>
@@ -62,45 +59,46 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Nama Input</th>
-                                            <th>Nama Barang</th>
                                             <th>Jenis Barang</th>
+                                            <th>Nama Barang</th>
                                             <th>Harga Barang</th>
                                             <th>Quantity</th>
                                             <th>Tersediaan</th>
                                             <th class="text-right">Action</th>
                                         </tr>
                                         @foreach ($dataBarangs as $key => $dataBarang)
-                                        <tr>
-                                            <td>{{ ($dataBarangs->currentPage() - 1) * $dataBarangs->perPage() + $key + 1 }}
-                                            </td>
-                                            <td>{{$dataBarang->admin_id}}</td>
-                                            <td>{{$dataBarang->nama_barang}}</td>
-                                            <td>{{$dataBarang->jenis_barang}}</td>
-                                            <td>{{$dataBarang->harga_barang}}</td>
-                                            <td>{{$dataBarang->quantity}}</td>
-                                            <td>{{$dataBarang->tersedia}}</td>
-                                            <td class="text-right">
-                                                <div class="d-flex justify-content-end">
-                                                    <a href="{{ route('data-barang.edit', $dataBarang->id) }}" class="btn btn-sm btn-info btn-icon "><i
-                                                            class="fas fa-edit"></i>
-                                                        Edit</a>
-                                                        <form
-                                                        action="{{ route('data-barang.destroy', $dataBarang->id) }}"
-                                                        method="POST" class="ml-2"
-                                                        id="del-<?= $dataBarang->id ?>">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                        <button type="submit" id="#submit"
-                                                            class="btn btn-sm btn-danger btn-icon "
-                                                            data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
-                                                            data-confirm-yes="submitDel(<?= $dataBarang->id ?>)" data-id="#">
-                                                            <i class="fas fa-times"> </i> Delete </button>
-                                                    </form>
+                                            <tr>
+                                                <td>{{ ($dataBarangs->currentPage() - 1) * $dataBarangs->perPage() + $key + 1 }}
+                                                </td>
+                                                <td>{{ $dataBarang->name }}</td>
+                                                <td>{{ $dataBarang->jenis_barang }}</td>
+                                                <td>{{ $dataBarang->nama_barang }}</td>
+                                                <td>{{ $dataBarang->harga_barang }}</td>
+                                                <td>{{ $dataBarang->quantity }}</td>
+                                                <td>{{ $dataBarang->tersedia }}</td>
+                                                <td class="text-right">
+                                                    <div class="d-flex justify-content-end">
+                                                        <a href="{{ route('data-barang.edit', $dataBarang->id) }}"
+                                                            class="btn btn-sm btn-info btn-icon "><i
+                                                                class="fas fa-edit"></i>
+                                                            Edit</a>
+                                                        <form action="{{ route('data-barang.destroy', $dataBarang->id) }}"
+                                                            method="POST" class="ml-2" id="del-<?= $dataBarang->id ?>">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token"
+                                                                value="{{ csrf_token() }}">
+                                                            <button type="submit" id="#submit"
+                                                                class="btn btn-sm btn-danger btn-icon "
+                                                                data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
+                                                                data-confirm-yes="submitDel(<?= $dataBarang->id ?>)"
+                                                                data-id="#">
+                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                        </form>
 
-                                                </div>
-                                            </td>
+                                                    </div>
+                                                </td>
 
-                                        </tr>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

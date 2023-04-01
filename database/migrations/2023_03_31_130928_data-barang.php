@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('databarang', function (Blueprint $table) {
             $table->id();
-            $table->string('admin_id');
+            $table->unsignedBigInteger('admin_id');
             $table->string('nama_barang');
             $table->unsignedBigInteger('jenis_barang_id')->nullable();
-            $table->string('harga_barang');
+            $table->integer('harga_barang');
             $table->integer('quantity');
             $table->integer('tersedia')->nullable();
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();

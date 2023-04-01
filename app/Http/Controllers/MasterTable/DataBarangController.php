@@ -21,19 +21,23 @@ class DataBarangController extends Controller
         $this->middleware('permission:data-barang.destroy')->only('destroy');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $dataBarangs = DB::table('databarang')
             ->select(
+                'databarang.id',
+                'databarang.admin_id',
+                'users.name',
+                'databarang.nama_barang',
                 'jenisbarang.jenis_barang as jenis_barang',
-                'databarang.*',
+                'databarang.jenis_barang_id',
+                'databarang.harga_barang',
+                'databarang.quantity',
+                'databarang.tersedia',
             )
             ->leftJoin('jenisbarang', 'databarang.jenis_barang_id', '=', 'jenisbarang.id')
+            ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
             ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                 return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
             })
@@ -48,11 +52,6 @@ class DataBarangController extends Controller
         return view('master-table.data-barang.index', compact('dataBarangs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $jenisBarangs = JenisBarang::all();
@@ -61,12 +60,6 @@ class DataBarangController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreDataBarangRequest $request)
     {
         DataBarang::create([
@@ -80,23 +73,12 @@ class DataBarangController extends Controller
         return redirect()->route('data-barang.index')->with('success', 'Tambah Data Barang Sukses');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DataBarang  $dataBarang
-     * @return \Illuminate\Http\Response
-     */
     public function show(DataBarang $dataBarang)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\DataBarang  $dataBarang
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(DataBarang $dataBarang)
     {
         $jenisBarangs = JenisBarang::all();
@@ -106,13 +88,6 @@ class DataBarangController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DataBarang  $dataBarang
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateDataBarangRequest $request, DataBarang $dataBarang)
     {
         $validate = $request->validated();
@@ -120,12 +95,6 @@ class DataBarangController extends Controller
         return redirect()->route('data-barang.index')->with('success', 'Edit Data Barang Sukses');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\DataBarang  $dataBarang
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(DataBarang $dataBarang)
     {
         try {
