@@ -28,7 +28,15 @@ class StoreDataBarangRequest extends FormRequest
             'nama_barang' => 'required|min:3|max:100',
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
-            'quantity' => 'required|regex:/^[0-9]*$/',
+            'quantity' => [
+                'required',
+                'regex:/^[0-9]*$/',
+                function ($attribute, $value, $fail) {
+                    if ($value <= $this->input('tersedia')) {
+                        $fail('Quantity harus lebih besar dari Tersedia.');
+                    }
+                },
+            ],
             'tersedia' => 'required|regex:/^[0-9]*$/',
         ];
     }
