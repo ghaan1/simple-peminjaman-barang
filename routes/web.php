@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::prefix('master-table-management')->group(function () {
         Route::resource('jenis-barang', JenisBarangController::class);
         Route::resource('data-barang', DataBarangController::class);
+        Route::get('/data-barang-pdf', [DataBarangController::class, 'print'])->name('data-barang.print');
         Route::resource('data-peminjaman', DataPeminjamanController::class);
         Route::post('peminjaman-barang-filter', [DataPeminjamanController::class, 'PeminjamanBarangFilter'])
             ->name('data-peminjaman-barang.filters');

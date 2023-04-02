@@ -26,6 +26,8 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data barang</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-barang.print') }}"
+                                    target="_blank">Print Data Barang</a>
                             </div>
                         </div>
                         <div class="card-body">

@@ -8,7 +8,9 @@ use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\JenisBarang;
 use Illuminate\Http\Request;
+use PDF;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DataBarangController extends Controller
 {
@@ -116,5 +118,39 @@ class DataBarangController extends Controller
                     ->with('success', 'Hapus Data barang Sukses');
             }
         }
+    }
+
+    public function print(Request $request)
+    {
+        $jenisBarang = JenisBarang::all();
+        $user = Auth::user();
+        $dataBarangs = DB::table('databarang')
+            ->select(
+                'databarang.id',
+                'databarang.admin_id',
+                'users.name',
+                'databarang.nama_barang',
+                'jenisbarang.jenis_barang as jenis_barang',
+                'databarang.jenis_barang_id',
+                'databarang.harga_barang',
+                'databarang.quantity',
+                'databarang.tersedia',
+            )
+            ->leftJoin('jenisbarang', 'databarang.jenis_barang_id', '=', 'jenisbarang.id')
+            ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
+            ->when($request->input('nama_barang'), function ($query, $nama_barang) {
+                return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
+            })
+            ->when($request->input('jenisbarang'), function ($query, $jenisbarang) {
+                return $query->whereIn('databarang.jenis_barang_id', $jenisbarang);
+            })->get();
+
+
+        $pdf = PDF::loadView('master-table.data-barang.print', with([
+            'dataBarangs' => $dataBarangs,
+            'jenisBarang' => $jenisBarang,
+            'users' => $user
+        ]));
+        return $pdf->stream('data-barang.pdf');
     }
 }

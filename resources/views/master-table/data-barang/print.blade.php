@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peminjaman Barang</title>
+    <title>Data Barang</title>
     <style>
         table {
             width: 100%;
@@ -25,38 +25,40 @@
 </head>
 <body>
     <center>
-        <h1>Peminjaman Barang</h1>
+        <h1>Data Barang</h1>
     </center>
     <br>
-    <p>Pemberitahuan Warga Barang yang masuk dalam list data peminjaman : </p>
+    <p>Data Barang yang baru masuk kedalam list yaitu : </p>
     <br>
 
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Peminjam</th>
+                <th>Nama Penginputan Data</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>
-                <th>Quantity</th>
-                <th>Tanggal Pinjam</th>
+                <th>Harga Barang</th>
+                <th>Jumlah </th>
+                <th>Tersediaan / Stok</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($dataPeminjaman as $key => $itemPeminjaman)
+            @foreach ($dataBarangs as $key => $itemBarang)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $itemPeminjaman->name }}</td>
-                    <td>{{ $itemPeminjaman->jenis_barang }}</td>
-                    <td>{{ $itemPeminjaman->nama_barang }}</td>
-                    <td>{{ $itemPeminjaman->quantity }}</td>
-                    <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
+                    <td>{{ $itemBarang->name }}</td>
+                    <td>{{ $itemBarang->jenis_barang }}</td>
+                    <td>{{ $itemBarang->nama_barang }}</td>
+                    <td>{{ $itemBarang->harga_barang }}</td>
+                    <td>{{ $itemBarang->quantity }}</td>
+                    <td>{{ $itemBarang->tersedia }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <br>
-    <p>Mohon agar peminjam dapat menjaga barang yang dipinjam dan mengembalikannya tepat waktu.</p>
+    <p>Mohon agar data barang selalu update pada saat mengeprint dikarenakan penanggungjawaban para user inputan </p>
     <p>Terima kasih.</p>
 </br>
     <p>{{$users->name}}</p>
