@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,20 +10,25 @@
             width: 100%;
             border-collapse: collapse;
         }
-        table, th, td {
-        border: 1px solid black;
-    }
 
-    th, td {
-        padding: 8px;
-        text-align: left;
-    }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
 
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
+
 <body>
     <center>
         <h1>Peminjaman Barang</h1>
@@ -58,9 +64,8 @@
     <br>
     <p>Mohon agar peminjam dapat menjaga barang yang dipinjam dan mengembalikannya tepat waktu.</p>
     <p>Terima kasih.</p>
-</br>
-    <p>{{$users->name}}</p>
+    </br>
+    <p>{{ $users->name }}</p>
 </body>
+
 </html>
-
-

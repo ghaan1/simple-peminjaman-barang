@@ -4,11 +4,9 @@
     <section class="section">
         <div class="section-header">
             <h1>Table</h1>
-            
         </div>
         <div class="section-body">
             <h2 class="section-title">Edit Data Peminjaman</h2>
-
             <div class="card">
                 <div class="card-header">
                     <h4>Edit Tambah Data</h4>
@@ -69,7 +67,6 @@
                                 {{ $message }}
                             @enderror
                         </div>
-
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
                             <input type="text" class="form-control @error('quantity') is-invalid @enderror"
@@ -102,7 +99,6 @@
                                 </div>
                             @enderror
                         </div>
-
                 </div>
                 <div class="card-footer text-right">
                     <button class="btn btn-primary">Submit</button>

@@ -4,11 +4,9 @@
     <section class="section">
         <div class="section-header">
             <h1>Table</h1>
-            
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Data Peminjaman</h2>
-
             <div class="card">
                 <div class="card-header">
                     <h4>Validasi Tambah Data</h4>
@@ -43,7 +41,6 @@
                                 <input type="hidden" name="peminjam_id" value="{{ Auth::user()->id }}">
                             </div>
                         @endif
-
                         <div class="form-group">
                             <label>Jenis Barang</label>
                             <select name="jenis_barang_id"
@@ -156,13 +153,11 @@
                             }
                         });
                     }
-
                 });
             });
         });
     </script>
 @endpush
-
 @push('customStyle')
     <link rel="stylesheet" href="/assets/css/select2.min.css">
 @endpush

@@ -3,12 +3,9 @@
     <section class="section">
         <div class="section-header">
             <h1>Master Table Management</h1>
-
         </div>
-
         <div class="section-body">
             <h2 class="section-title">Data Peminjaman Management</h2>
-
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -26,49 +23,50 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data Peminjaman</a>
-                            @role('super-admin')
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
-                                    target="_blank">Print Data Peminjaman</a>
-                            @endrole
+                                @role('super-admin')
+                                    <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
+                                        target="_blank">Print Data Peminjaman</a>
+                                @endrole
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('data-peminjaman.index') }}">
-                                    <div class="form-col" style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
+                                    <div class="form-col"
+                                        style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
                                         <div class="form-row">
                                             <div class="form-dol" style="width: 500px">
-                                            <div class="form-group col-md-8">
-                                                <label for="role">Nama Peminjam</label>
-                                                <select class="form-control select2" name="users[]" multiple
-                                                    data-id="select-user" id="users">
-                                                    <option value="">Pilih Nama Peminjam </option>
-                                                    @foreach ($users as $listUser)
-                                                        <option value="{{ $listUser->id }}"
-                                                            {{ (is_array(old('users')) && in_array($listUser->id, old('users'))) ||
-                                                            (isset($userSelected) && in_array($listUser->id, $userSelected))
-                                                                ? 'selected'
-                                                                : '' }}>
-                                                            {{ $listUser->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="form-group col-md-8">
+                                                    <label for="role">Nama Peminjam</label>
+                                                    <select class="form-control select2" name="users[]" multiple
+                                                        data-id="select-user" id="users">
+                                                        <option value="">Pilih Nama Peminjam </option>
+                                                        @foreach ($users as $listUser)
+                                                            <option value="{{ $listUser->id }}"
+                                                                {{ (is_array(old('users')) && in_array($listUser->id, old('users'))) ||
+                                                                (isset($userSelected) && in_array($listUser->id, $userSelected))
+                                                                    ? 'selected'
+                                                                    : '' }}>
+                                                                {{ $listUser->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-dol" style="width: 685px;">
-                                            <div class="form-group col-md-8">
-                                                <label for="role">Jenis Barang</label>
-                                                <select class="form-control select2" name="jenisbarang[]" multiple
-                                                    data-id="select-user" id="jenisbarang">
-                                                    <option value="">Pilih Jenis Barang </option>
-                                                    @foreach ($jenisBarang as $listJenisBarang)
-                                                        <option value="{{ $listJenisBarang->id }}"
-                                                            {{ (is_array(old('jenisBarang')) && in_array($listJenisBarang->id, old('jenisBarang'))) || (isset($jenisBarangSelected) && in_array($listJenisBarang->id, $jenisBarangSelected)) ? 'selected' : '' }}>
-                                                            {{ $listJenisBarang->jenis_barang }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <div class="form-dol" style="width: 685px;">
+                                                <div class="form-group col-md-8">
+                                                    <label for="role">Jenis Barang</label>
+                                                    <select class="form-control select2" name="jenisbarang[]" multiple
+                                                        data-id="select-user" id="jenisbarang">
+                                                        <option value="">Pilih Jenis Barang </option>
+                                                        @foreach ($jenisBarang as $listJenisBarang)
+                                                            <option value="{{ $listJenisBarang->id }}"
+                                                                {{ (is_array(old('jenisBarang')) && in_array($listJenisBarang->id, old('jenisBarang'))) || (isset($jenisBarangSelected) && in_array($listJenisBarang->id, $jenisBarangSelected)) ? 'selected' : '' }}>
+                                                                {{ $listJenisBarang->jenis_barang }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-9" style=" margin-left: 10px">
                                                 <label for="status">Status</label>
@@ -174,7 +172,6 @@
                                                         </div>
                                                     </td>
                                                 @endrole
-
                                                 @role('user')
                                                     @if ($itemPeminjaman->status == 'Sedang Dipinjam')
                                                         <td>Barang Sedang Dipinjam</td>

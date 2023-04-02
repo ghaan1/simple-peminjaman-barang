@@ -33,13 +33,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //index -> menampilkan tabel data
-
-        Category::create([
-            "name" => "Masuk User Page",
-        ]);
-
-        // mengambil data
         $users = DB::table('users')
             ->when($request->input('name'), function ($query, $name) {
                 return $query->where('name', 'like', '%' . $name . '%');
@@ -53,7 +46,6 @@ class UserController extends Controller
             )
             ->paginate(10);
 
-        // dd($users);
         return view('users.index', compact('users'));
     }
 

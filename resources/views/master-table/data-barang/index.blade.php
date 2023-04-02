@@ -3,12 +3,9 @@
     <section class="section">
         <div class="section-header">
             <h1>Master Table Management</h1>
-
         </div>
-
         <div class="section-body">
             <h2 class="section-title">Data barang Management</h2>
-
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -33,8 +30,9 @@
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('data-barang.index') }}">
-                                    <div class="form-col" style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
-                                        <div class="form-row" width="100%" >
+                                    <div class="form-col"
+                                        style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
+                                        <div class="form-row" width="100%">
                                             <div class="form-dol" style="width: 500px">
                                                 <div class="form-group col-md-9">
                                                     <label for="role">Jenis Barang</label>
@@ -53,11 +51,12 @@
                                         </div>
                                         <div class="form-row" width="100%">
                                             <div class="form-dol" style="width: 550px">
-                                            <div class="form-group col-md-9">
-                                                <label for="role">Nama Barang</label>
-                                                <input type="text" name="nama_barang" class="form-control"
-                                                    id="nama_barang" placeholder="Nama Barang" value="{{ $nama_barang }}">
-                                            </div>
+                                                <div class="form-group col-md-9">
+                                                    <label for="role">Nama Barang</label>
+                                                    <input type="text" name="nama_barang" class="form-control"
+                                                        id="nama_barang" placeholder="Nama Barang"
+                                                        value="{{ $nama_barang }}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
