@@ -50,7 +50,7 @@
                     <td>{{ $itemBarang->name }}</td>
                     <td>{{ $itemBarang->jenis_barang }}</td>
                     <td>{{ $itemBarang->nama_barang }}</td>
-                    <td>{{ $itemBarang->harga_barang }}</td>
+                    <td>Rp {{ number_format($itemBarang->harga_barang, 0, ',', '.') }}</td>
                     <td>{{ $itemBarang->quantity }}</td>
                     <td>{{ $itemBarang->tersedia }}</td>
                 </tr>
