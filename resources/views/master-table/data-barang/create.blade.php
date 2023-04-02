@@ -4,7 +4,7 @@
     <section class="section">
         <div class="section-header">
             <h1>Table</h1>
-            
+
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Data Peminjaman</h2>
@@ -16,10 +16,10 @@
                 <div class="card-body">
                     <form action="{{ route('data-barang.store') }}" method="post">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group" style="display: none">
                             <label>Admin</label>
                             <input type="text" id="admin_id" name="admin_id"
-                                class="form-control @error('admin_id') is-invalid @enderror" placeholder="Masukan Admin">
+                                class="form-control @error('admin_id') is-invalid @enderror" placeholder="Masukan Admin" value="{{$users->id}}">
                             @error('admin_id')
                                 {{ $message }}
                             @enderror

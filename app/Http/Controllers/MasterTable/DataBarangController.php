@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\JenisBarang;
+use App\Models\User;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\DB;
@@ -62,8 +63,11 @@ class DataBarangController extends Controller
     public function create()
     {
         $jenisBarangs = JenisBarang::all();
+        $user = Auth::user();
+
         return view('master-table.data-barang.create')->with([
             'jenisBarangs' => $jenisBarangs,
+            'users' => $user,
         ]);
     }
 

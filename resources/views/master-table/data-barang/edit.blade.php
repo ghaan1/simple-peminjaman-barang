@@ -4,7 +4,7 @@
     <section class="section">
         <div class="section-header">
             <h1>Table</h1>
-          
+
         </div>
         <div class="section-body">
             <h2 class="section-title">Update Data Barang</h2>
@@ -17,7 +17,7 @@
                     <form action="{{ route('data-barang.update', $dataBarang) }}" method="post">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label>Admin</label>
                             <input type="text" id="admin_id" name="admin_id" class="form-control @error('admin_id') is-invalid @enderror"
                             placeholder="Masukan Admin" value="{{ old('admin_id', $dataBarang->admin_id) }}" data-id="input_admin_id">

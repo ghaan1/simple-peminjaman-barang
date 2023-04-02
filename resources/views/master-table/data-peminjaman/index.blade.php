@@ -38,7 +38,7 @@
                                     <div class="form-col" style="display: flex; flex-direction: row; align-items: center; padding-left:100px;">
                                         <div class="form-row">
                                             <div class="form-dol" style="width: 500px">
-                                            <div class="form-group col-md-9">
+                                            <div class="form-group col-md-8">
                                                 <label for="role">Nama Peminjam</label>
                                                 <select class="form-control select2" name="users[]" multiple
                                                     data-id="select-user" id="users">
@@ -55,8 +55,8 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-dol" style="width: 590px;">
-                                            <div class="form-group col-md-9">
+                                        <div class="form-dol" style="width: 685px;">
+                                            <div class="form-group col-md-8">
                                                 <label for="role">Jenis Barang</label>
                                                 <select class="form-control select2" name="jenisbarang[]" multiple
                                                     data-id="select-user" id="jenisbarang">
