@@ -23,9 +23,12 @@ class UpdateDataBarangRequest extends FormRequest
      */
     public function rules()
     {
+        $databarang = $this->route('databarang');
+        if ($databarang) {
+            $id = $databarang->id;
         return [
             'admin_id' => 'required',
-            'nama_barang' => 'required|min:3|max:100',
+            'nama_barang' => 'required|min:3|max:100|unique:databarang,nama_barang,' . $id,
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
             'quantity' => [
@@ -39,6 +42,8 @@ class UpdateDataBarangRequest extends FormRequest
             ],
             'tersedia' => 'required|regex:/^[0-9]*$/',
         ];
+    }
+    return [];
     }
 
     public function messages()

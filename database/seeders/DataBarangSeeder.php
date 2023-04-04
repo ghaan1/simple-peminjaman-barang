@@ -78,7 +78,7 @@ class DataBarangSeeder extends Seeder
                 ],
                 [
                     'admin_id' => 1,
-                    'nama_barang' => 'Lotong Kontol',
+                    'nama_barang' => 'Lotong Balap',
                     'kode_jbs' => 'SAT-2',
                     'jenis_barang_id' => '7',
                     'harga_barang' => 1000000000,

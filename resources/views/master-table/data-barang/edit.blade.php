@@ -26,7 +26,24 @@
                             </div>
                             @enderror
                         </div>
-                        <div class="form-group" style="display:none;">
+                        <div class="form-group">
+                            <label>Jenis Barang</label>
+                            <select class="form-control select2 @error('jenis_barang_id') is-invalid @enderror"
+                                id="jenis_barang_id" name="jenis_barang_id" data-id="select-jenis_barang_id">
+                                <option value="">Pilih Jenis Barang</option>
+                                @foreach ($jenisBarangs as $jenisBarang)
+                                    <option @selected($jenisBarang->id == $dataBarang->jenis_barang_id) value="{{ $jenisBarang->id }}">
+                                        {{ $jenisBarang->jenis_barang }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('jenis_barang_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label>Nama Barang</label>
                             <input type="text" id="nama_barang" name="nama_barang"
                                 class="form-control @error('nama_barang') is-invalid @enderror "
@@ -44,23 +61,6 @@
                                 class="form-control @error('kode_jbs') is-invalid @enderror"
                                 placeholder="Masukan Kode Jenis Barang" autocomplete="off" value="{{ old('kode_jb', $dataBarang->kode_jb) }}">
                             @error('kode_jbs')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group" style="display:none;">
-                            <label>Jenis Barang</label>
-                            <select class="form-control select2 @error('jenis_barang_id') is-invalid @enderror"
-                                id="jenis_barang_id" name="jenis_barang_id" data-id="select-jenis_barang_id">
-                                <option value="">Pilih Jenis Barang</option>
-                                @foreach ($jenisBarangs as $jenisBarang)
-                                    <option @selected($jenisBarang->id == $dataBarang->jenis_barang_id) value="{{ $jenisBarang->id }}">
-                                        {{ $jenisBarang->jenis_barang }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('jenis_barang_id')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

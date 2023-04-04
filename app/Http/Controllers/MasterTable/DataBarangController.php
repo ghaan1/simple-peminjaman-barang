@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
 use App\Models\JenisBarang;
-use App\Models\User;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\DB;
@@ -91,12 +90,6 @@ class DataBarangController extends Controller
         return redirect()->route('data-barang.index')->with('success', 'Tambah Data Barang Sukses');
     }
 
-    public function show(DataBarang $dataBarang)
-    {
-        //
-    }
-
-
     public function edit(DataBarang $dataBarang)
     {
         $jenisBarangs = JenisBarang::all();
@@ -121,7 +114,6 @@ class DataBarangController extends Controller
             $dataBarangs = DataBarang::where('jenis_barang_id', $jenis_barang_id)->get();
             $jenis_barang = JenisBarang::find($jenis_barang_id);
             $kode_jb = $jenis_barang->kode_jb;
-            // dd($kode_jb);
             foreach ($dataBarangs as $index => $dataBarang) {
                 $dataBarang->update([
                     'kode_jbs' =>  $kode_jb . '-' . ($index + 1)
@@ -140,7 +132,6 @@ class DataBarangController extends Controller
             }
         }
     }
-
 
 
     public function print(Request $request)
