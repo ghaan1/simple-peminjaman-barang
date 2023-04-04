@@ -20,9 +20,9 @@
                                 class="form-control @error('admin_id') is-invalid @enderror" placeholder="Masukan Admin"
                                 value="{{ $users->id }}">
                             @error('admin_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group" style="display:none">
@@ -31,9 +31,9 @@
                                 class="form-control @error('kode_jbs') is-invalid @enderror"
                                 placeholder="Masukan Kode Jenis Barang" autocomplete="off">
                             @error('kode_jbs')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -47,9 +47,9 @@
                                 @endforeach
                             </select>
                             @error('jenis_barang_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
@@ -59,9 +59,9 @@
                                 class="form-control @error('nama_barang') is-invalid @enderror"
                                 placeholder="Masukan Nama Barang" autocomplete="off">
                             @error('nama_barang')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
@@ -71,9 +71,9 @@
                                 class="form-control @error('harga_barang') is-invalid @enderror"
                                 placeholder="Masukan Harga Barang" autocomplete="off">
                             @error('harga_barang')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
@@ -108,9 +108,7 @@
     </section>
 @endsection
 @push('customScript')
-
     <script src="/assets/js/select2.min.js"></script>
-
 @endpush
 
 @push('customStyle')

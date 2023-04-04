@@ -16,10 +16,11 @@ class StoreDataBarangRequest extends FormRequest
     {
         return [
             'admin_id' => 'required',
-            'nama_barang' => 'required|min:3|max:100|unique:databarang|regex:/^[\pL\s\d]+$/u',
+            'nama_barang' => 'required|min:3|max:100|unique:databarang|regex:/^[\pL\s\d]+$/u|unique:jenisbarang',
             'jenis_barang_id' => 'required',
-            'harga_barang' => 'required|min:3|regex:/^[\pL\s\d]+$/u|max:100',
-            'quantity' => 'required|regex:/^[\pL\s\d]+$/u',
+            'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
+            'quantity' => 'required|regex:/^[0-9]*$/',
+            'tersedia' => 'nullable|regex:/^[0-9]*$/',
         ];
     }
 
@@ -39,7 +40,7 @@ class StoreDataBarangRequest extends FormRequest
             'harga_barang.regex' => 'Harga Barang Wajib Angka ',
             'quantity.required' => 'Quantity Wajib Diisi',
             'quantity.regex' => 'Quantity Wajib Angka',
+            'tersedia.regex' => 'Tersedia Wajib Angka',
         ];
     }
-
 }

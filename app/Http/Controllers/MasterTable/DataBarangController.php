@@ -77,7 +77,6 @@ class DataBarangController extends Controller
         $jenis_barang = JenisBarang::find($request->jenis_barang_id);
         $item_count = DataBarang::where('jenis_barang_id', $request->jenis_barang_id)->count();
         $kode_jb = $jenis_barang->kode_jbs . '-' . ($item_count + 1);
-
         DataBarang::create([
             'admin_id' => $request->admin_id,
             'nama_barang' => $request->nama_barang,
@@ -102,8 +101,6 @@ class DataBarangController extends Controller
     public function update(UpdateDataBarangRequest $request, DataBarang $dataBarang)
     {
         $validate = $request->validated();
-
-        // validasi tersedia tidak boleh melebihi quantity
         if ($validate['tersedia'] > $dataBarang->quantity) {
             return redirect()->back()->withInput()
                 ->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);

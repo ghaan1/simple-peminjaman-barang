@@ -5,7 +5,7 @@
             <h1>Master Table Management</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Data barang Management</h2>
+            <h2 class="section-title">Jenis barang Management</h2>
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -72,7 +72,7 @@
                                                                 class="btn btn-sm btn-danger btn-icon "
                                                                 data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $jenisBarang->id ?>)"
-                                                                data-id="#">
+                                                                data-id="del-{{ $jenisBarang->id }}">
                                                                 <i class="fas fa-times"> </i> Delete </button>
                                                         </form>
 
