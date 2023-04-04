@@ -24,6 +24,7 @@ class UpdateJenisBarangRequest extends FormRequest
     public function rules()
     {
         return [
+            'kode_jb' => 'required|max:3',
             'jenis_barang' => 'required|min:3|max:100',
         ];
     }
@@ -31,9 +32,11 @@ class UpdateJenisBarangRequest extends FormRequest
     public function messages()
     {
         return [
+            'kode_jb.required' => 'Kode Jenis barang Wajib Diisi',
             'jenis_barang.required' => 'Jenis Barang Wajib Diisi',
-            'jenis_barang.min' => 'Jenis Barang Minimal 3 ',
-            'jenis_barang.max' => 'Jenis Barang Minimal 100 ',
+            'jenis_barang.min' => 'Jenis Barang Minimal 3 karakter ',
+            'jenis_barang.max' => 'Jenis Barang Maksimal 100 karakter ',
+            'kode_jb.max' => 'Kode Jenis barang Maksimal 3 karakter',
         ];
     }
 

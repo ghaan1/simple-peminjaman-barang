@@ -19,10 +19,10 @@
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary"
                                     href="{{ route('jenis-barang.create') }}">Create New
-                                    Data barang</a>
+                                    Jenis barang</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Data barang</a>
+                                    Search Jenis barang</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -47,6 +47,7 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
+                                            <th>Kode</th>
                                             <th>Jenis Barang</th>
                                             <th class="text-right">Action</th>
                                         </tr>
@@ -54,6 +55,7 @@
                                             <tr>
                                                 <td>{{ ($jenisBarangs->currentPage() - 1) * $jenisBarangs->perPage() + $key + 1 }}
                                                 </td>
+                                                <td>{{ $jenisBarang->kode_jb }}</td>
                                                 <td>{{ $jenisBarang->jenis_barang }}</td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">

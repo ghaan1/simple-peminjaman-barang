@@ -35,6 +35,8 @@ class DataBarangController extends Controller
                 'databarang.admin_id',
                 'users.name',
                 'databarang.nama_barang',
+                'databarang.kode_jbs',
+                'jenisbarang.kode_jb as kode_jb',
                 'jenisbarang.jenis_barang as jenis_barang',
                 'databarang.jenis_barang_id',
                 'databarang.harga_barang',
@@ -73,13 +75,18 @@ class DataBarangController extends Controller
 
     public function store(StoreDataBarangRequest $request)
     {
+    $jenis_barang = JenisBarang::find($request->jenis_barang_id);
+    $item_count = DataBarang::where('jenis_barang_id', $request->jenis_barang_id)->count();
+    $kode_jb = $jenis_barang->kode_jbs . '-' . ($item_count + 1);
+
         DataBarang::create([
             'admin_id' => $request->admin_id,
             'nama_barang' => $request->nama_barang,
+            'kode_jbs' => $jenis_barang->kode_jb . $kode_jb,
             'jenis_barang_id' => $request->jenis_barang_id,
             'harga_barang' => $request->harga_barang,
             'quantity' => $request->quantity,
-            'tersedia' => $request->tersedia,
+            'tersedia' => $request->quantity,
         ]);
         return redirect()->route('data-barang.index')->with('success', 'Tambah Data Barang Sukses');
     }
@@ -134,6 +141,8 @@ class DataBarangController extends Controller
                 'databarang.admin_id',
                 'users.name',
                 'databarang.nama_barang',
+                'databarang.kode_jbs',
+                'jenisbarang.kode_jb as kode_jb',
                 'jenisbarang.jenis_barang as jenis_barang',
                 'databarang.jenis_barang_id',
                 'databarang.harga_barang',

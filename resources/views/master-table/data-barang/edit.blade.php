@@ -21,20 +21,35 @@
                                 class="form-control @error('admin_id') is-invalid @enderror" placeholder="Masukan Admin"
                                 value="{{ old('admin_id', $dataBarang->admin_id) }}" data-id="input_admin_id">
                             @error('admin_id')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label>Nama Barang</label>
                             <input type="text" id="nama_barang" name="nama_barang"
                                 class="form-control @error('nama_barang') is-invalid @enderror "
                                 placeholder="Masukan Nama Barang" value="{{ old('nama_barang', $dataBarang->nama_barang) }}"
                                 data-id="input_nama_barang">
                             @error('nama_barang')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
+                            <label>kode Jenis Barang</label>
+                            <input type="text" id="kode_jenis_barang" name="kode_jbs"
+                                class="form-control @error('kode_jbs') is-invalid @enderror"
+                                placeholder="Masukan Kode Jenis Barang" autocomplete="off" value="{{ old('kode_jb', $dataBarang->kode_jb) }}">
+                            @error('kode_jbs')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group" style="display:none;">
                             <label>Jenis Barang</label>
                             <select class="form-control select2 @error('jenis_barang_id') is-invalid @enderror"
                                 id="jenis_barang_id" name="jenis_barang_id" data-id="select-jenis_barang_id">
@@ -46,7 +61,9 @@
                                 @endforeach
                             </select>
                             @error('jenis_barang_id')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -56,7 +73,9 @@
                                 placeholder="Masukan Harga Barang"
                                 value="{{ old('harga_barang', $dataBarang->harga_barang) }}" data-id="input_harga_barang">
                             @error('harga_barang')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
                         <div class="form-group">

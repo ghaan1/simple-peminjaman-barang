@@ -38,6 +38,7 @@ class JenisBarangController extends Controller
     public function store(StoreJenisBarangRequest $request)
     {
         JenisBarang::create([
+            'kode_jb' => $request->kode_jb,
             'jenis_barang' => $request->jenis_barang,
         ]);
         return redirect()->route('jenis-barang.index')->with('success', 'Tambah Data Barang Sukses');

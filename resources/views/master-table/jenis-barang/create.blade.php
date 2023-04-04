@@ -15,6 +15,15 @@
                     <form action="{{ route('jenis-barang.store') }}" method="post">
                         @csrf
                         <div class="form-group">
+                            <label>Kode Jenis Barang</label>
+                            <input type="text" id="kode_jb" name="kode_jb"
+                                class="form-control @error('kode_jb') is-invalid @enderror"
+                                placeholder="Kode Jenis Barang">
+                            @error('kode_jb')
+                                {{ $message }}
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label>Jenis Barang</label>
                             <input type="text" id="jenis_barang" name="jenis_barang"
                                 class="form-control @error('jenis_barang') is-invalid @enderror"

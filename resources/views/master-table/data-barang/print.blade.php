@@ -36,6 +36,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Penginputan Data</th>
+                <th>Kode Jenis Barang</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>
                 <th>Harga Barang</th>
@@ -48,6 +49,7 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $itemBarang->name }}</td>
+                    <td>{{ $itemBarang->kode_jbs }}</td>
                     <td>{{ $itemBarang->jenis_barang }}</td>
                     <td>{{ $itemBarang->nama_barang }}</td>
                     <td>Rp {{ number_format($itemBarang->harga_barang, 0, ',', '.') }}</td>

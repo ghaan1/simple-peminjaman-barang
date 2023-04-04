@@ -71,6 +71,7 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
+                                            <th>Kode Jenis Barang</th>
                                             <th>Nama Input</th>
                                             <th>Jenis Barang</th>
                                             <th>Nama Barang</th>
@@ -83,6 +84,7 @@
                                             <tr>
                                                 <td>{{ ($dataBarangs->currentPage() - 1) * $dataBarangs->perPage() + $key + 1 }}
                                                 </td>
+                                                <td>{{ $dataBarang->kode_jbs }}</td>
                                                 <td>{{ $dataBarang->name }}</td>
                                                 <td>{{ $dataBarang->jenis_barang }}</td>
                                                 <td>{{ $dataBarang->nama_barang }}</td>

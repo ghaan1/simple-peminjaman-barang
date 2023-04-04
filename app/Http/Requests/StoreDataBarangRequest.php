@@ -28,16 +28,8 @@ class StoreDataBarangRequest extends FormRequest
             'nama_barang' => 'required|min:3|max:100',
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
-            'quantity' => [
-                'required',
-                'regex:/^[0-9]*$/',
-                function ($attribute, $value, $fail) {
-                    if ($value <= $this->input('tersedia')) {
-                        $fail('Quantity harus lebih besar dari Tersedia.');
-                    }
-                },
-            ],
-            'tersedia' => 'required|regex:/^[0-9]*$/',
+            'quantity' => 'required|regex:/^[0-9]*$/',
+            // 'tersedia' => 'required|regex:/^[0-9]*$/',
         ];
     }
 
@@ -54,9 +46,9 @@ class StoreDataBarangRequest extends FormRequest
             'harga_barang.max' => 'Harga Barang Minimal 100 ',
             'harga_barang.regex' => 'Harga Barang Wajib Angka ',
             'quantity.required' => 'Quantity Wajib Diisi',
-            'tersedia.required' => 'tersedia Wajib Diisi',
+            // 'tersedia.required' => 'tersedia Wajib Diisi',
             'quantity.regex' => 'Quantity Wajib Angka',
-            'tersedia.regex' => 'tersedia Wajib Angka',
+            // 'tersedia.regex' => 'tersedia Wajib Angka',
         ];
     }
 

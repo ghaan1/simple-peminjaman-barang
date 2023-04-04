@@ -9,7 +9,7 @@ class JenisBarang extends Model
 {
     use HasFactory;
     protected $table = 'jenisbarang';
-    protected $fillable = ['jenis_barang'];
+    protected $fillable = [ 'kode_jb','jenis_barang'];
 
     public function databarang()
     {

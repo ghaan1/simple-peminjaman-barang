@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('admin_id');
             $table->string('nama_barang');
+            $table->string('kode_jbs')->nullable();
             $table->unsignedBigInteger('jenis_barang_id')->nullable();
             $table->integer('harga_barang');
             $table->integer('quantity');
