@@ -116,7 +116,17 @@ class DataBarangController extends Controller
     public function destroy(DataBarang $dataBarang)
     {
         try {
+            $jenis_barang_id = $dataBarang->jenis_barang_id;
             $dataBarang->delete();
+            $dataBarangs = DataBarang::where('jenis_barang_id', $jenis_barang_id)->get();
+            $jenis_barang = JenisBarang::find($jenis_barang_id);
+            $kode_jb = $jenis_barang->kode_jb;
+            // dd($kode_jb);
+            foreach ($dataBarangs as $index => $dataBarang) {
+                $dataBarang->update([
+                    'kode_jbs' =>  $kode_jb . '-' . ($index + 1)
+                ]);
+            }
             return redirect()->route('data-barang.index')
                 ->with('success', 'Hapus Data barang Sukses');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -126,10 +136,12 @@ class DataBarangController extends Controller
                     ->with('error', 'Tidak Dapat Menghapus barang Yang Masih Digunakan Oleh Kolom Lain');
             } else {
                 return redirect()->route('data-barang.index')
-                    ->with('success', 'Hapus Data barang Sukses');
+                    ->with('error', 'Terjadi Kesalahan Saat Menghapus Data barang');
             }
         }
     }
+
+
 
     public function print(Request $request)
     {

@@ -16,7 +16,7 @@ class DataBarangSeeder extends Seeder
                 [
                     'admin_id' => 1,
                     'nama_barang' => 'Televison',
-                    'kode_jbs' => 'ET-1',
+                    'kode_jbs' => 'EK-1',
                     'jenis_barang_id' => '1',
                     'harga_barang' => 1000000000,
                     'quantity' => 50,
@@ -25,7 +25,7 @@ class DataBarangSeeder extends Seeder
                 [
                     'admin_id' => 1,
                     'nama_barang' => 'Anime',
-                    'kode_jbs' => 'ET-2',
+                    'kode_jbs' => 'EK-2',
                     'jenis_barang_id' => '1',
                     'harga_barang' => 1000000000,
                     'quantity' => 50,
@@ -43,7 +43,7 @@ class DataBarangSeeder extends Seeder
                 [
                     'admin_id' => 1,
                     'nama_barang' => 'HandPhone',
-                    'kode_jbs' => 'ET-3',
+                    'kode_jbs' => 'EK-3',
                     'jenis_barang_id' => '1',
                     'harga_barang' => 1000000000,
                     'quantity' => 50,
@@ -71,6 +71,15 @@ class DataBarangSeeder extends Seeder
                     'admin_id' => 1,
                     'nama_barang' => 'Lotong Sayur',
                     'kode_jbs' => 'SAT-1',
+                    'jenis_barang_id' => '7',
+                    'harga_barang' => 1000000000,
+                    'quantity' => 50,
+                    'tersedia' => 50,
+                ],
+                [
+                    'admin_id' => 1,
+                    'nama_barang' => 'Lotong Kontol',
+                    'kode_jbs' => 'SAT-2',
                     'jenis_barang_id' => '7',
                     'harga_barang' => 1000000000,
                     'quantity' => 50,

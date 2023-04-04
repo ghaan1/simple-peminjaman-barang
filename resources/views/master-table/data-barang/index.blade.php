@@ -71,7 +71,7 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
-                                            <th>Kode Jenis Barang</th>
+                                            <th>Kode Barang</th>
                                             <th>Nama Input</th>
                                             <th>Jenis Barang</th>
                                             <th>Nama Barang</th>

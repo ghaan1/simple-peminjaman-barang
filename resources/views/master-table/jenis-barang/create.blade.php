@@ -20,7 +20,9 @@
                                 class="form-control @error('kode_jb') is-invalid @enderror"
                                 placeholder="Kode Jenis Barang">
                             @error('kode_jb')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -29,7 +31,9 @@
                                 class="form-control @error('jenis_barang') is-invalid @enderror"
                                 placeholder="Masukan Jenis Barang">
                             @error('jenis_barang')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
                 </div>
