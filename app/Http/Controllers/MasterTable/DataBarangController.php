@@ -6,6 +6,7 @@ use App\Models\DataBarang;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDataBarangRequest;
 use App\Http\Requests\UpdateDataBarangRequest;
+use App\Models\DataPeminjaman;
 use App\Models\JenisBarang;
 use Illuminate\Http\Request;
 use PDF;
@@ -101,14 +102,23 @@ class DataBarangController extends Controller
     public function update(UpdateDataBarangRequest $request, DataBarang $dataBarang)
     {
         $validate = $request->validated();
-        if ($validate['tersedia'] > $dataBarang->quantity) {
+        $peminjamanQuantity = DataPeminjaman::where('barang_id', $dataBarang->id)
+            ->where('status', '=', 'Sedang Dipinjam')
+            ->sum('quantity');
+        $tersedia = $dataBarang->quantity - $peminjamanQuantity;
+
+        if ($validate['tersedia'] > $tersedia) {
             return redirect()->back()->withInput()
                 ->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);
         }
-
+        // dd($validate);
         $dataBarang->update($validate);
+        $dataBarang->tersedia = $tersedia;
+        $dataBarang->save();
         return redirect()->route('data-barang.index')->with('success', 'Edit Data Barang Sukses');
     }
+
+
 
 
     public function destroy(DataBarang $dataBarang)
