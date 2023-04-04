@@ -6,10 +6,10 @@
             <h1>Table</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Tambah Jenis Barang</h2>
+            <h2 class="section-title">Edit Jenis Barang</h2>
             <div class="card">
                 <div class="card-header">
-                    <h4>Validasi Tambah Data</h4>
+                    <h4>Edit Tambah Data</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('jenis-barang.update', $jenisBarang) }}" method="post">
@@ -21,7 +21,7 @@
                                 class="form-control
                                 @error('kode_jb') is-invalid @enderror"
                                 placeholder="Masukan Jenis Barang"
-                                value="{{ old('kode_jb', $jenisBarang->kode_jb) }}" data-id="input_kode_jb">
+                                value="{{ old('kode_jb', $jenisBarang->kode_jb) }}" data-id="input_kode_jb" autocomplete="off">
                             @error('kode_jb')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -34,7 +34,7 @@
                                 class="form-control
                                 @error('jenis_barang') is-invalid @enderror"
                                 placeholder="Masukan Jenis Barang"
-                                value="{{ old('jenis_barang', $jenisBarang->jenis_barang) }}" data-id="input_jenis_barang">
+                                value="{{ old('jenis_barang', $jenisBarang->jenis_barang) }}" data-id="input_jenis_barang" autocomplete="off">
                             @error('jenis_barang')
                             <div class="invalid-feedback">
                                 {{ $message }}

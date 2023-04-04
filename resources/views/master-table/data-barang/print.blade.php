@@ -36,7 +36,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Penginputan Data</th>
-                <th>Kode Jenis Barang</th>
+                <th>Kode Barang</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>
                 <th>Harga Barang</th>

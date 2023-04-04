@@ -59,6 +59,7 @@ class JenisBarangController extends Controller
     public function update(UpdateJenisBarangRequest $request, JenisBarang $jenisBarang)
     {
         $validate = $request->validated();
+        // dd($validate);
         $jenisBarang->update($validate);
         return redirect()->route('jenis-barang.index')->with('success', 'Edit Jenis Barang Sukses');
     }

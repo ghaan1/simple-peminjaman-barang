@@ -37,17 +37,6 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Nama Barang</label>
-                            <input type="text" id="nama_barang" name="nama_barang"
-                                class="form-control @error('nama_barang') is-invalid @enderror"
-                                placeholder="Masukan Nama Barang" autocomplete="off">
-                            @error('nama_barang')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label>Jenis Barang</label>
                             <select class="form-control select2 @error('jenis_barang_id') is-invalid @enderror"
                                 name="jenis_barang_id" data-id="select-jenis-barang" id="jenis_barang_id">
@@ -65,10 +54,22 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Nama Barang</label>
+                            <input type="text" id="nama_barang" name="nama_barang"
+                                class="form-control @error('nama_barang') is-invalid @enderror"
+                                placeholder="Masukan Nama Barang" autocomplete="off">
+                            @error('nama_barang')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label>Harga Barang</label>
                             <input type="text" id="harga_barang" name="harga_barang"
                                 class="form-control @error('harga_barang') is-invalid @enderror"
-                                placeholder="Masukan Harga Barang">
+                                placeholder="Masukan Harga Barang" autocomplete="off">
                             @error('harga_barang')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -107,33 +108,9 @@
     </section>
 @endsection
 @push('customScript')
-    <script src="/assets/js/databarang.js"></script>
+
     <script src="/assets/js/select2.min.js"></script>
-    <script>
-    $(document).ready(function() {
-    $('.select2').select2();
 
-    $('#nama_barang').on('input', function() {
-            const selectedNamaBarang = $(this).val().toLowerCase();
-            if (selectedNamaBarang === '') {
-                $('#kode_jenis_barang').val('');
-                $('#jenis_barang_id').val('').trigger('change');
-                return;
-            }
-            const matchedBarang = dataBarang.find(
-                barang => barang.text.toLowerCase().includes(selectedNamaBarang)
-            );
-            if (matchedBarang) {
-                $('#kode_jenis_barang').val(matchedBarang.kode_jb);
-                $('#jenis_barang_id').val(matchedBarang.jenis_barang_id).trigger('change');
-            } else {
-                $('#kode_jenis_barang').val('');
-                $('#jenis_barang_id').val('').trigger('change');
-            }
-        });
-    });
-
-    </script>
 @endpush
 
 @push('customStyle')

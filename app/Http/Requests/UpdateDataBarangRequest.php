@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 
 class UpdateDataBarangRequest extends FormRequest
+
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,26 +26,36 @@ class UpdateDataBarangRequest extends FormRequest
     public function rules()
     {
         $databarang = $this->route('databarang');
+        $id = null;
         if ($databarang) {
             $id = $databarang->id;
-        return [
+        }
+
+        $rules = [
             'admin_id' => 'required',
-            'nama_barang' => 'required|min:3|max:100|unique:databarang,nama_barang,' . $id,
+            'nama_barang' => 'required|min:3|max:100|regex:/^[\pL\s\d]+$/u',
             'jenis_barang_id' => 'required',
-            'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
-            'quantity' => [
-                'required',
-                'regex:/^[0-9]*$/',
-                function ($attribute, $value, $fail) {
-                    if ($value <= $this->input('tersedia')) {
-                        $fail('Quantity harus lebih besar dari Tersedia.');
-                    }
-                },
-            ],
-            'tersedia' => 'required|regex:/^[0-9]*$/',
+            'harga_barang' => 'required|min:3|regex:/^[\pL\s\d]+$/u|max:100',
+            'quantity' => 'required|regex:/^[\pL\s\d]+$/u',
+            'tersedia' => 'required|regex:/^[\pL\s\d]+$/u',
         ];
-    }
-    return [];
+
+        if ($this->getMethod() == 'PATCH') {
+            $rules['nama_barang'] .= '|unique:databarang,nama_barang,' . $id;
+
+            $validator = Validator::make($this->all(), $rules);
+            $validator->sometimes('nama_barang', 'unique:databarang,nama_barang,' . $id, function ($input) use ($databarang) {
+                return $input->nama_barang != $databarang->nama_barang;
+            });
+
+            $validator->sometimes('quantity', 'required', function ($input) {
+                return $input->quantity > $input->tersedia;
+            });
+
+            $this->setValidator($validator);
+        }
+
+        return $rules;
     }
 
     public function messages()
@@ -52,11 +64,12 @@ class UpdateDataBarangRequest extends FormRequest
             'admin_id.required' => 'Admin Wajib Diisi',
             'nama_barang.required' => 'Nama Barang Wajib Diisi',
             'nama_barang.min' => 'Nama Barang Minimal 3 ',
-            'nama_barang.max' => 'Nama Barang Maxsimal 100 ',
+            'nama_barang.max' => 'Nama Barang Maksimal 100 ',
+            'nama_barang.regex' => 'Nama Barang gak boleh karakter !@?/',
             'jenis_barang_id.required' => 'Jenis Barang Wajib Diisi',
             'harga_barang.required' => 'Harga Barang Wajib Diisi',
             'harga_barang.min' => 'Harga Barang Minimal 3 ',
-            'harga_barang.max' => 'Harga Barang Minimal 100 ',
+            'harga_barang.max' => 'Harga Barang Maksimal 100 ',
             'harga_barang.regex' => 'Harga Barang Wajib Angka ',
             'quantity.required' => 'Quantity Wajib Diisi',
             'tersedia.required' => 'tersedia Wajib Diisi',

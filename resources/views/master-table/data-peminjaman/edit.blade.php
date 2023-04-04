@@ -51,6 +51,7 @@
                                     </option>
                                 @endforeach
                             </select>
+                            <input type="hidden" id="selected_jenis_barang_id" value="{{ old('jenis_barang_id', $dataPeminjaman->jenis_barang_id) }}">
                             @error('jenis_barang_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -63,8 +64,10 @@
                             <select name="barang_id" class="form-control select2" id="barang_id">
                                 <option value="">Nama Barang</option>
                             </select>
-                            @error('nama-barang')
+                            @error('barang_id')
+                            <div class="invalid-feedback">
                                 {{ $message }}
+                            </div>
                             @enderror
                         </div>
                         <div class="form-group">

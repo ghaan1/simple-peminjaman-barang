@@ -18,7 +18,7 @@
                             <label>Kode Jenis Barang</label>
                             <input type="text" id="kode_jb" name="kode_jb"
                                 class="form-control @error('kode_jb') is-invalid @enderror"
-                                placeholder="Kode Jenis Barang">
+                                placeholder="Kode Jenis Barang" autocomplete="off">
                             @error('kode_jb')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -29,7 +29,7 @@
                             <label>Jenis Barang</label>
                             <input type="text" id="jenis_barang" name="jenis_barang"
                                 class="form-control @error('jenis_barang') is-invalid @enderror"
-                                placeholder="Masukan Jenis Barang">
+                                placeholder="Masukan Jenis Barang" autocomplete="off">
                             @error('jenis_barang')
                             <div class="invalid-feedback">
                                 {{ $message }}
