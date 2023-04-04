@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             RoleAndPermissionSeeder::class,
             MenuGroupSeeder::class,
             MenuItemSeeder::class,
-            // JenisBarangSeeder::class,
-            // DataBarangSeeder::class,
-            // DataPeminjamanSeeder::class
+            JenisBarangSeeder::class,
+            DataBarangSeeder::class,
+            DataPeminjamanSeeder::class
         ]);
     }
 }

@@ -185,6 +185,10 @@ class DataPeminjamanController extends Controller
 
     public function update(UpdateDataPeminjamanRequest $request, DataPeminjaman $dataPeminjaman)
     {
+        if ($dataPeminjaman->status == 'Sedang Dipinjam') {
+            return redirect()->route('data-peminjaman.edit', $dataPeminjaman)
+                ->with('error', 'Barang Masih Dipinjam');
+        }
         $validatedData = $request->validated();
         $dataBarang = DataBarang::findOrFail($validatedData['barang_id']);
         $quantityDifference = $validatedData['quantity'] - $dataPeminjaman->quantity;

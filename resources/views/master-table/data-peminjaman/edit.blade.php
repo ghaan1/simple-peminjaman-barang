@@ -5,6 +5,11 @@
         <div class="section-header">
             <h1>Table</h1>
         </div>
+        <div class="row">
+            <div class="col-12">
+                @include('layouts.alert')
+            </div>
+        </div>
         <div class="section-body">
             <h2 class="section-title">Edit Data Peminjaman</h2>
             <div class="card">
@@ -30,7 +35,9 @@
                                     @endforeach
                                 </select>
                                 @error('peminjam_id')
-                                    {{ $message }}
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div>
                         @else
@@ -51,11 +58,12 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <input type="hidden" id="selected_jenis_barang_id" value="{{ old('jenis_barang_id', $dataPeminjaman->jenis_barang_id) }}">
+                            <input type="hidden" id="selected_jenis_barang_id"
+                                value="{{ old('jenis_barang_id', $dataPeminjaman->jenis_barang_id) }}">
                             @error('jenis_barang_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
@@ -63,11 +71,17 @@
                             <label>Nama Barang</label>
                             <select name="barang_id" class="form-control select2" id="barang_id">
                                 <option value="">Nama Barang</option>
+                                @foreach ($dataBarang as $listdataBarang)
+                                    <option value="{{ $listdataBarang->id }}"
+                                        {{ old('barang_id', $dataPeminjaman->barang_id) == $listdataBarang->id ? 'selected' : '' }}>
+                                        {{ $listdataBarang->nama_barang }} - {{ $listdataBarang->tersedia }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('barang_id')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
                         <div class="form-group">
@@ -152,34 +166,34 @@
                 });
             });
 
-            var selectDataBarang = "{{ $dataBarang }}";
-            var dataBarang = JSON.parse(selectDataBarang.replace(/&quot;/g, '"'));
-            var selectedDataPeminjamanJenisBarang = ({{ $dataPeminjaman->jenis_barang_id }});
-            $.ajax({
-                url: '{{ route('data-peminjaman-barang-get.filters') }}',
-                type: 'get',
-                data: {
-                    id: selectedDataPeminjamanJenisBarang
-                },
-                success: function(data) {
-                    console.log(dataBarang);
-                    $('#barang_id').empty();
-                    var formBarangID = $('#barang_id');
-                    formBarangID.empty();
-                    $.each(dataBarang, function(index, val) {
-                        if (val.jenis_barang_id == selectedDataPeminjamanJenisBarang) {
-                            console.log('<option value="' + val.id + '"> ' + val
-                                .nama_barang + ' </option>')
-                            $("#barang_id option[value='" + val.id + "']").attr(
-                                "selected", "selected");
-                            formBarangID.append('<option value="' + val.id + '"> ' + val
-                                .nama_barang + ' (Stok : ' + val.tersedia +
-                                '  )' +
-                                ' </option>')
-                        }
-                    });
-                }
-            });
+            // var selectDataBarang = "{{ $dataBarang }}";
+            // var dataBarang = JSON.parse(selectDataBarang.replace(/&quot;/g, '"'));
+            // var selectedDataPeminjamanJenisBarang = ({{ $dataPeminjaman->jenis_barang_id }});
+            // $.ajax({
+            //     url: '{{ route('data-peminjaman-barang-get.filters') }}',
+            //     type: 'get',
+            //     data: {
+            //         id: selectedDataPeminjamanJenisBarang
+            //     },
+            //     success: function(data) {
+            //         console.log(dataBarang);
+            //         $('#barang_id').empty();
+            //         var formBarangID = $('#barang_id');
+            //         formBarangID.empty();
+            //         $.each(dataBarang, function(index, val) {
+            //             if (val.jenis_barang_id == selectedDataPeminjamanJenisBarang) {
+            //                 console.log('<option value="' + val.id + '"> ' + val
+            //                     .nama_barang + ' </option>')
+            //                 $("#barang_id option[value='" + val.id + "']").attr(
+            //                     "selected", "selected");
+            //                 formBarangID.append('<option value="' + val.id + '"> ' + val
+            //                     .nama_barang + ' (Stok : ' + val.tersedia +
+            //                     '  )' +
+            //                     ' </option>')
+            //             }
+            //         });
+            //     }
+            // });
         });
     </script>
 @endpush
