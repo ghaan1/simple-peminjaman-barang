@@ -44,11 +44,6 @@ class JenisBarangController extends Controller
         return redirect()->route('jenis-barang.index')->with('success', 'Tambah Data Barang Sukses');
     }
 
-    public function show(JenisBarang $jenisBarang)
-    {
-        //
-    }
-
     public function edit(JenisBarang $jenisBarang)
     {
         return view('master-table.jenis-barang.edit')->with([
@@ -59,7 +54,6 @@ class JenisBarangController extends Controller
     public function update(UpdateJenisBarangRequest $request, JenisBarang $jenisBarang)
     {
         $validate = $request->validated();
-        // dd($validate);
         $jenisBarang->update($validate);
         return redirect()->route('jenis-barang.index')->with('success', 'Edit Jenis Barang Sukses');
     }

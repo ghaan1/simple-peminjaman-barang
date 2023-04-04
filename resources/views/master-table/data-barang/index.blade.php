@@ -106,7 +106,7 @@
                                                                 class="btn btn-sm btn-danger btn-icon "
                                                                 data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $dataBarang->id ?>)"
-                                                                data-id="#">
+                                                                data-id="del-{{ $dataBarang->id }}">
                                                                 <i class="fas fa-times"> </i> Delete </button>
                                                         </form>
 

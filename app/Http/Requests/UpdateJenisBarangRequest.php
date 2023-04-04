@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UpdateJenisBarangRequest extends FormRequest
 {
@@ -12,37 +12,37 @@ class UpdateJenisBarangRequest extends FormRequest
     {
         return true;
     }
-
     public function rules()
     {
-        $jenisbarang = $this->route('jenisbarang');
         $id = null;
+        $jenisbarang = $this->route('jenis_barang') ?? $this->route('jenis_barang.*');
         if ($jenisbarang) {
             $id = $jenisbarang->id;
         }
+        return [
+            'kode_jb' => [
+                'required',
+                'max:3',
+                'regex:/^[\pL\s\d]+$/u',
+                Rule::unique('jenisbarang', 'kode_jb')->ignore($id),
 
-        $rules = [
-            'kode_jb' => 'required|max:3|regex:/^[\pL\s\d]+$/u',
-            'jenis_barang' => 'required|min:3|max:100|regex:/^[\pL\s\d]+$/u',
+            ],
+            'jenis_barang' => [
+                'required',
+                'min:3',
+                'max:100',
+                'regex:/^[\pL\s\d]+$/u',
+                Rule::unique('jenisbarang', 'jenis_barang')->ignore($id),
+
+            ],
         ];
-
-        if ($this->getMethod() == 'PATCH') {
-            $rules['kode_jb'] .= '|unique:jenisbarang,kode_jb,' . $id;
-            $rules['jenis_barang'] .= '|unique:jenisbarang,jenis_barang,' . $id;
-
-            $validator = Validator::make($this->all(), $rules);
-            $validator->sometimes('kode_jb', 'unique:jenisbarang,kode_jb,' . $id, function ($input) use ($jenisbarang) {
-                return $input->kode_jb != $jenisbarang->kode_jb;
-            });
-            $validator->sometimes('jenis_barang', 'unique:jenisbarang,jenis_barang,' . $id, function ($input) use ($jenisbarang) {
-                return $input->jenis_barang != $jenisbarang->jenis_barang;
-            });
-
-            $this->setValidator($validator);
-        }
-
-        return $rules;
     }
+
+
+
+
+
+
 
 
 

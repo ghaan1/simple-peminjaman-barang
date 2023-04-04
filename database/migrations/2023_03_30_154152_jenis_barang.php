@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('jenisbarang', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_jb');
-            $table->string('jenis_barang');
+            $table->string('kode_jb')->unique();
+            $table->string('jenis_barang')->unique();
             $table->timestamps();
         });
     }

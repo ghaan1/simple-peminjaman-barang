@@ -101,6 +101,7 @@
                                             <th>#</th>
                                             <th>Nama Peminjam</th>
                                             <th>Jenis Barang</th>
+                                            <th>Kode Barang</th>
                                             <th>Nama Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
@@ -118,6 +119,7 @@
                                                 <td>{{ ($dataPeminjaman->currentPage() - 1) * $dataPeminjaman->perPage() + $key + 1 }}
                                                 <td>{{ $itemPeminjaman->name }}</td>
                                                 <td>{{ $itemPeminjaman->jenis_barang }}</td>
+                                                <td>{{ $itemPeminjaman->kode_jbs }}</td>
                                                 <td>{{ $itemPeminjaman->nama_barang }}</td>
                                                 <td>{{ $itemPeminjaman->quantity }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
