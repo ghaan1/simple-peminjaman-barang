@@ -19,7 +19,7 @@ class StoreDataBarangRequest extends FormRequest
             'nama_barang' => 'required|min:3|max:100|unique:databarang|regex:/^[\pL\s\d]+$/u',
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
-            'quantity' => 'required|regex:/^[0-9]*$/',
+            'quantity' => 'required|regex:/^[0-9]*$/|max:5',
             'tersedia' => 'nullable|regex:/^[0-9]*$/',
         ];
     }
@@ -36,10 +36,11 @@ class StoreDataBarangRequest extends FormRequest
             'jenis_barang_id.required' => 'Jenis Barang Wajib Diisi',
             'harga_barang.required' => 'Harga Barang Wajib Diisi',
             'harga_barang.min' => 'Harga Barang Minimal 3 ',
-            'harga_barang.max' => 'Harga Barang Maksimal 100 ',
+            'harga_barang.max' => 'Harga Barang Maksimal 100 Digit',
             'harga_barang.regex' => 'Harga Barang Wajib Angka ',
             'quantity.required' => 'Quantity Wajib Diisi',
             'quantity.regex' => 'Quantity Wajib Angka',
+            'quantity.max' => 'Quantity Maksimal 5 Digit',
             'tersedia.regex' => 'Tersedia Wajib Angka',
         ];
     }

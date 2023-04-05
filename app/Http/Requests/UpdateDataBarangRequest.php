@@ -31,7 +31,7 @@ class UpdateDataBarangRequest extends FormRequest
             ],
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
-            'quantity' => 'required|regex:/^[0-9]*$/',
+            'quantity' => 'required|regex:/^[0-9]*$/|max:5',
             'tersedia' => 'nullable|regex:/^[0-9]*$/',
         ];
     }
@@ -52,6 +52,7 @@ class UpdateDataBarangRequest extends FormRequest
             'harga_barang.regex' => 'Harga Barang Wajib Angka ',
             'quantity.required' => 'Quantity Wajib Diisi',
             'quantity.regex' => 'Quantity Wajib Angka',
+            'quantity.max' => 'Quantity Maksimal 5 Digit',
             'tersedia.regex' => 'Tersedia Wajib Angka',
         ];
     }

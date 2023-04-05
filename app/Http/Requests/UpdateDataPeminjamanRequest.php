@@ -18,7 +18,7 @@ class UpdateDataPeminjamanRequest extends FormRequest
             'peminjam_id' => 'required',
             'jenis_barang_id' => 'required',
             'barang_id' => 'required',
-            'quantity' => 'required|regex:/^[0-9]*$/',
+            'quantity' => 'required|regex:/^[0-9]*$/|max:5',
             'tanggal_pinjam' => 'required|date',
             'status' => 'required',
         ];
@@ -32,6 +32,7 @@ class UpdateDataPeminjamanRequest extends FormRequest
             'barang_id.required' => 'Nama Barang Wajib Diisi',
             'quantity.required' => 'Quantity Wajib Diisi',
             'quantity.regex' => 'Quantity Wajib Angka',
+            'quantity.max' => 'Quantity Maksimal 5 Digit',
             'tanggal_pinjam.required' => 'Tanggal Wajib Diisi',
             'tanggal_pinjam.date' => 'Tanggal Wajib Diluar Format',
             'status.required' => 'Status Wajib Diisi',
