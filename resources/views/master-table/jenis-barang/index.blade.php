@@ -70,7 +70,7 @@
                                                                 value="{{ csrf_token() }}">
                                                             <button type="submit" id="#submit"
                                                                 class="btn btn-sm btn-danger btn-icon "
-                                                                data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
+                                                                data-confirm="Hapus Jenis Barang ?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $jenisBarang->id ?>)"
                                                                 data-id="del-{{ $jenisBarang->id }}">
                                                                 <i class="fas fa-times"> </i> Delete </button>

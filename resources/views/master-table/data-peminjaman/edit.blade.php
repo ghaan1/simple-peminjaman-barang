@@ -88,7 +88,7 @@
                             <label for="quantity">Quantity</label>
                             <input type="text" class="form-control @error('quantity') is-invalid @enderror"
                                 id="quantity" name="quantity" value="{{ old('quantity', $dataPeminjaman->quantity) }}"
-                                placeholder="Masukkan Quantity">
+                                placeholder="Masukkan Quantity" autocomplete="off">
                             @error('quantity')
                                 <div class="invalid-feedback">
                                     {{ $message }}

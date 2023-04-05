@@ -80,7 +80,7 @@
                             <label for="quantity">Quantity</label>
                             <input type="text" name="quantity"
                                 class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                                placeholder="Masukkan Quantity">
+                                placeholder="Masukkan Quantity" autocomplete="off">
                             @error('quantity')
                                 <div class="invalid-feedback">
                                     {{ $message }}
