@@ -71,6 +71,7 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                     return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
                 })
+                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC')
                 ->paginate(5);
             $dataBarangSelected = $request->input('databarang');
             $jenisBarangSelected = $request->input('jenisbarang');
@@ -113,6 +114,7 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                     return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
                 })
+                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC')
                 ->paginate(5);
             $dataBarangSelected = $request->input('databarang');
             $jenisBarangSelected = $request->input('jenisbarang');

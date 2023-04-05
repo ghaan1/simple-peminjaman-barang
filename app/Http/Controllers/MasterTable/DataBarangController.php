@@ -51,7 +51,7 @@ class DataBarangController extends Controller
             ->when($request->input('jenisbarang'), function ($query, $jenisbarang) {
                 return $query->whereIn('databarang.jenis_barang_id', $jenisbarang);
             })
-
+            ->orderBy('databarang.kode_jbs', 'asc')
             ->paginate(5);
         $jenisBarangSelected = $request->input('jenisbarang');
         return view('master-table.data-barang.index')->with([
@@ -111,7 +111,6 @@ class DataBarangController extends Controller
             return redirect()->back()->withInput()
                 ->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);
         }
-        // dd($validate);
         $dataBarang->update($validate);
         $dataBarang->tersedia = $tersedia;
         $dataBarang->save();
