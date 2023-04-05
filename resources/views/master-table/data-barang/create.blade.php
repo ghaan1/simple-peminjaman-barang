@@ -26,7 +26,7 @@
                             @enderror
                         </div>
                         <div class="form-group" style="display:none">
-                            <label>kode Jenis Barang</label>
+                            <label>Kode Jenis Barang</label>
                             <input type="text" id="kode_jenis_barang" name="kode_jbs"
                                 class="form-control @error('kode_jbs') is-invalid @enderror"
                                 placeholder="Masukan Kode Jenis Barang" autocomplete="off">
