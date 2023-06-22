@@ -1,5 +1,13 @@
+# Ignore everything
 *
+
+# Except the .gitignore file itself
 !.gitignore
+
+# Include the public folder and its contents
 !public/
-/storage/database/profile/.gitignore
-/storage/app/public/.gitignore
+!public/**/*
+
+# Include the storage/app/public/database/profile folder and its contents
+!/storage/app/public/database/profile/
+!/storage/app/public/database/profile/**/*
