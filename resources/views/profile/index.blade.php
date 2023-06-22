@@ -257,24 +257,47 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="form-group col-md-12 col-12">
+                                    <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="show_foto"
                                                 id="show_foto" {{ old('show_foto') ? 'checked' : '' }}>
                                             <label class="form-check-label" for="show_foto">
-                                                Update Photo
+                                                Perbarui Foto
                                             </label>
                                         </div>
                                     </div>
-
+                                    <div class="form-group col-md-6 col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="show_ktp"
+                                                id="show_ktp" {{ old('show_ktp') ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="show_ktp">
+                                                Perbarui KTP
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="form-group col-md-12 col-12" id="foto_upload_form"
                                         style="{{ old('show_foto') ? '' : 'display: none' }}">
                                         <div class="form-group">
-                                            <label>File</label>
+                                            <label>Unggah Foto</label>
                                             <input name="foto" type="file"
                                                 class="form-control @error('foto') is-invalid @enderror">
                                         </div>
                                         @error('foto')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12 col-12" id="ktp_upload_form"
+                                        style="{{ old('show_ktp') ? '' : 'display: none' }}">
+                                        <div class="form-group">
+                                            <label>Unggah KTP</label>
+                                            <input name="ktp" type="file"
+                                                class="form-control @error('ktp') is-invalid @enderror">
+                                        </div>
+                                        @error('ktp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -298,6 +321,11 @@
     <script>
         document.getElementById('show_foto').addEventListener('change', function() {
             var fotoUploadForm = document.getElementById('foto_upload_form');
+            fotoUploadForm.style.display = this.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('show_ktp').addEventListener('change', function() {
+            var fotoUploadForm = document.getElementById('ktp_upload_form');
             fotoUploadForm.style.display = this.checked ? 'block' : 'none';
         });
 

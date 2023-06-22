@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->string('no_hp')->nullable();
             $table->string('foto')->nullable();
+            $table->string('ktp')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
         });
