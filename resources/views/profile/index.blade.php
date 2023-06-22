@@ -7,14 +7,14 @@
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Hi, {{ Auth::user()->name }}!</h2>
+            <h2 class="section-title">Hai, {{ Auth::user()->name }}!</h2>
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
                 </div>
             </div>
             <p class="section-lead">
-                Change information about yourself on this page.
+                Ubah informasi tentang diri Anda di halaman ini.
             </p>
             <div class="row mt-sm-4">
                 <div class="col-12 col-md-12 col-lg-5">
@@ -27,15 +27,15 @@
 
                             <div class="profile-widget-items">
                                 <div class="profile-widget-item">
-                                    <div class="profile-widget-item-label">Posts</div>
+                                    <div class="profile-widget-item-label">Unggahan</div>
                                     <div class="profile-widget-item-value">187</div>
                                 </div>
                                 <div class="profile-widget-item">
-                                    <div class="profile-widget-item-label">Followers</div>
+                                    <div class="profile-widget-item-label">Pengikut</div>
                                     <div class="profile-widget-item-value">6,8K</div>
                                 </div>
                                 <div class="profile-widget-item">
-                                    <div class="profile-widget-item-label">Following</div>
+                                    <div class="profile-widget-item-label">Mengikuti</div>
                                     <div class="profile-widget-item-value">2,1K</div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                             {{ Auth::user()->bio }}
                         </div>
                         <div class="card-footer text-center">
-                            <div class="font-weight-bold mb-2">Follow {{ Auth::user()->name }} On</div>
+                            <div class="font-weight-bold mb-2">Ikuti {{ Auth::user()->name }} Aktif</div>
                             <a href="#" class="btn btn-social-icon btn-facebook mr-1">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
@@ -67,12 +67,12 @@
                             @csrf
                             @method('PUT')
                             <div class="card-header">
-                                <h4>Edit Password</h4>
+                                <h4>Edit Kata Sandi</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <label for="current_password">Current Password</label>
+                                        <label for="current_password">Kata Sandi Saat Ini</label>
                                         <input id="current_password" type="password"
                                             class="form-control select @error('current_password', 'updatePassword') is-invalid @enderror"
                                             data-indicator="pwindicator" name="current_password" tabindex="2">
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <label for="password">New Password</label>
+                                        <label for="password">Kata Sandi Baru</label>
                                         <input id="password" type="password"
                                             class="form-control select @error('password', 'updatePassword') is-invalid @enderror"
                                             data-indicator="pwindicator" name="password" tabindex="2">
@@ -104,7 +104,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6 col-12">
-                                        <label for="password_confirmation">Password Confirmation</label>
+                                        <label for="password_confirmation">Konfirmasi Kata Sandi</label>
                                         <input id="password_confirmation" type="password"
                                             class="form-control select @error('password_confirmation') is-invalid @enderror"
                                             data-indicator="pwindicator" name="password_confirmation" tabindex="2">
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary" type="submit">Change Password</button>
+                                <button class="btn btn-primary" type="submit">Ubah Kata Sandi</button>
                             </div>
                         </form>
                     </div>
@@ -138,7 +138,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <label>Name</label>
+                                        <label>Nama</label>
                                         <input name="name" type="text"
                                             class="form-control @error('name', 'updateProfileInformation')
                                     is-invalid
@@ -166,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary" type="submit">Change Profile</button>
+                                <button class="btn btn-primary" type="submit">Ubah Profil</button>
                             </div>
                         </form>
                     </div>
