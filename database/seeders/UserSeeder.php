@@ -9,11 +9,7 @@ use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
         User::create([
@@ -28,20 +24,20 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
-        $user = User::create([
+        User::create([
             'name' => "RT1",
             'email' => "rt1@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => "RT2",
             'email' => "rt2@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
-        $user = User::create([
+        User::create([
             'name' => "RT3",
             'email' => "rt3@gmail.com",
             'password' => Hash::make('password'),
