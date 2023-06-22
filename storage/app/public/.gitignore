@@ -4,7 +4,7 @@
 # Except the .gitignore file itself
 
 # Include the public folder and its contents
-!public/database/
+!public/database
 !public/**/*
 
 # Include the storage/app/public/database/profile folder and its contents
