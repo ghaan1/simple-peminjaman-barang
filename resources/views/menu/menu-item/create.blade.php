@@ -5,7 +5,7 @@
     <section class="section">
         <div class="section-header">
             <h1>Menu Group and Menu Item</h1>
-        
+
         </div>
         <div class="section-body">
             <h2 class="section-title">Menu Item Management</h2>
@@ -69,12 +69,12 @@
                                     <option value="{{ $item->uri() }}">{{ $item->uri() }}</option>
                                 @endforeach
                             </select>
+                            @error('url')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
-                        @error('url')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
 
                 </div>
                 <div class="card-footer text-right">
