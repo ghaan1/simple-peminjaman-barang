@@ -11,5 +11,5 @@
 /storage/database/profile/.gitignore
 /storage/app/public/.gitignore
 # Include files in storage/app/public/database/profile
-!/storage/app/public/database/profile
-!/storage/app/public/database/profile/
+# !/storage/app/public/database/profile
+# !/storage/app/public/database/profile/
