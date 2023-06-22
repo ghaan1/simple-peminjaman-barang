@@ -3,6 +3,8 @@
 # Except the .gitignore file itself
 *
 !public/
+!public/database
+!database
 !.gitignore
 # Include storage/public/.gitignore
 /storage/database/profile/.gitignore
