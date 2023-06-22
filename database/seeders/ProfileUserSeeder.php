@@ -54,15 +54,6 @@ class ProfileUserSeeder extends Seeder
                     'foto' => 'database/profile/default.jpg',
                     'user_id' => '4'
                 ],
-                [
-                    'nik' => '5',
-                    'tanggal_lahir' => '2000-01-05',
-                    'alamat' => 'Jl. Jalan5',
-                    'jenis_kelamin' => 'L',
-                    'no_hp' => '081234567895',
-                    'foto' => 'database/profile/default.jpg',
-                    'user_id' => '5'
-                ],
             ]
         );
     }

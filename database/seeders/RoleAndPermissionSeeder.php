@@ -91,8 +91,26 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'jenis-barang.destroy']);
 
         // create roles
-        $roleUser = Role::create(['name' => 'user']);
-        $roleUser->givePermissionTo([
+        $roleWarga = Role::create(['name' => 'warga']);
+        $roleWarga->givePermissionTo([
+            'master.table.management',
+            'data-peminjaman.index',
+            'data-peminjaman.create',
+            'data-peminjaman.edit',
+            'data-peminjaman.destroy',
+        ]);
+
+        $roleRT = Role::create(['name' => 'warga-rt']);
+        $roleRT->givePermissionTo([
+            'master.table.management',
+            'data-peminjaman.index',
+            'data-peminjaman.create',
+            'data-peminjaman.edit',
+            'data-peminjaman.destroy',
+        ]);
+
+        $roleKelurahan = Role::create(['name' => 'kelurahan']);
+        $roleKelurahan->givePermissionTo([
             'master.table.management',
             'data-peminjaman.index',
             'data-peminjaman.create',
@@ -101,19 +119,17 @@ class RoleAndPermissionSeeder extends Seeder
         ]);
 
         // create Super Admin
-        $role = Role::create(['name' => 'super-admin']);
+        $role = Role::create(['name' => 'admin-rt']);
         $role->givePermissionTo(Permission::all());
 
         //assign user id 1 ke super admin
         $user = User::find(1);
-        $user->assignRole('super-admin');
+        $user->assignRole('admin-rt');
         $user = User::find(2);
-        $user->assignRole('user');
+        $user->assignRole('warga');
         $user = User::find(3);
-        $user->assignRole('user');
+        $user->assignRole('warga-rt');
         $user = User::find(4);
-        $user->assignRole('user');
-        $user = User::find(5);
-        $user->assignRole('user');
+        $user->assignRole('kelurahan');
     }
 }

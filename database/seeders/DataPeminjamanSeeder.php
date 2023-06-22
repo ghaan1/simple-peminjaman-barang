@@ -42,7 +42,7 @@ class DataPeminjamanSeeder extends Seeder
                     'status' => 'Sedang Dipinjam',
                 ],
                 [
-                    'peminjam_id' => 4,
+                    'peminjam_id' => 1,
                     'jenis_barang_id' => 1,
                     'barang_id' => 4,
                     'quantity' => 1,
@@ -50,7 +50,7 @@ class DataPeminjamanSeeder extends Seeder
                     'status' => 'Sedang Dipinjam',
                 ],
                 [
-                    'peminjam_id' => 5,
+                    'peminjam_id' => 1,
                     'jenis_barang_id' => 3,
                     'barang_id' => 5,
                     'quantity' => 50,
