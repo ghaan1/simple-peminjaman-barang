@@ -1,2 +1,9 @@
+# Ignore everything
 *
-.gitignore
+# Except the .gitignore file itself
+!.gitignore
+
+# Include storage/public/.gitignore
+/storage/public/.gitignore
+# Include files in storage/app/public/database/profile
+!/storage/app/public/database/profile
