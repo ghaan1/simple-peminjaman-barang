@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{ config('app.name') }} - Register</title>
+    <title>{{ config('app.name') }} - Daftar</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -34,7 +34,7 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Register</h4>
+                                <h4>Daftar</h4>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('register') }}" method="POST">
@@ -42,7 +42,7 @@
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <div class="form-group">
-                                                <label for="first_name">Full Name</label>
+                                                <label for="first_name">Nama Lengkap</label>
                                                 <input id="first_name" type="text" name="name"
                                                     value="{{ old('name') }}"
                                                     class="form-control @error('name') is-invalid @enderror"
@@ -73,10 +73,10 @@
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <div class="form-group">
-                                                <label for="password" class="d-block">Password</label>
+                                                <label for="password" class="d-block">Kata Sandi</label>
                                                 <input id="password" type="password" name="password"
                                                     class="form-control @error('password') is-invalid @enderror"
-                                                    placeholder="Masukkan Password" data-indicator="pwindicator">
+                                                    placeholder="Masukkan Kata Sandi" data-indicator="pwindicator">
                                                 @error('password')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -87,11 +87,10 @@
 
                                         <div class="form-group col-6">
                                             <div class="form-group">
-                                                <label for="password_confirmation" class="d-block">Password
-                                                    Confirmation</label>
+                                                <label for="password_confirmation" class="d-block">Konfirmasi Kata Sandi</label>
                                                 <input id="password_confirmation" name="password_confirmation"
                                                     type="password" class="form-control"
-                                                    placeholder="Masukkan Konfirmasi Password">
+                                                    placeholder="Masukkan Konfirmasi Kata Sandi">
                                                 @error('password')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -103,7 +102,7 @@
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                            Register
+                                            Daftar
                                         </button>
                                     </div>
                                 </form>

@@ -33,7 +33,7 @@
                         </div>
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Login</h4>
+                                <h4>Masuk</h4>
                             </div>
                             <div class="card-body">
                                 @if (session('status'))
@@ -55,31 +55,31 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
+                                            <label for="password" class="control-label">Kata Sandi</label>
                                             <div class="float-right">
                                                 <a href="/forgot-password" class="text-small">
-                                                    Forgot Password?
+                                                    Lupa Kata Sandi?
                                                 </a>
                                             </div>
                                         </div>
                                         <!-- <label class="font-weight-bold text-uppercase">Password</label> -->
                                         <input type="password" name="password"
                                             class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="Masukkan Password">
+                                            placeholder="Masukkan Kata Sandi">
                                         @error('password')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Login
+                                            Masuk
                                         </button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="mt-5 text-muted text-center">
-                            Don't have an account? <a href="/register">Create One</a>
+                            Belum memiliki akun? <a href="/register">Daftar</a>
                         </div>
                         <div class="simple-footer">
                             Copyright &copy; Stisla 2018
