@@ -11,7 +11,7 @@ class DataPeminjaman extends Model
     protected $table = 'datapeminjaman';
     protected $fillable = [
         'peminjam_id', 'jenis_barang_id', 'barang_id',
-        'quantity', 'tanggal_pinjam', 'status'
+        'quantity', 'tanggal_pinjam', 'status', 'ktp_peminjam'
     ];
 
     public function dataBarang()

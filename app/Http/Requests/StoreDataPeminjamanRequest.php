@@ -22,6 +22,7 @@ class StoreDataPeminjamanRequest extends FormRequest
             'quantity' => 'required|regex:/^[0-9]*$/|max:5',
             'tanggal_pinjam' => 'required|date',
             'status' => 'required',
+            'ktp' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -37,6 +38,9 @@ class StoreDataPeminjamanRequest extends FormRequest
             'tanggal_pinjam.required' => 'Tanggal Wajib Diisi',
             'tanggal_pinjam.date' => 'Tanggal Wajib Diluar Format',
             'status.required' => 'Status Wajib Diisi',
+            'ktp.image' => 'KTP Tidak Sesuai Format',
+            'ktp.mimes' => 'KTP Hanya Mendukung Format jpeg, png, jpg',
+            'ktp.max' => 'Ukuran KTP Terlalu Besar',
         ];
     }
 }

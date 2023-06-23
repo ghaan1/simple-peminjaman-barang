@@ -23,7 +23,7 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Search Data Peminjaman</a>
-                                @role('super-admin')
+                                @role('admin-rt')
                                     <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
                                         target="_blank">Print Data Peminjaman</a>
                                 @endrole
@@ -105,7 +105,7 @@
                                             <th>Nama Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
-                                            @role('super-admin')
+                                            @role('admin-rt')
                                                 <th>Status</th>
                                                 <th class="text-right">Action Status</th>
                                             @endrole
@@ -123,7 +123,7 @@
                                                 <td>{{ $itemPeminjaman->nama_barang }}</td>
                                                 <td>{{ $itemPeminjaman->quantity }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
-                                                @role('super-admin')
+                                                @role('admin-rt')
                                                     <td>{{ $itemPeminjaman->status }}</td>
                                                     <td class="text-right">
                                                         <div class="d-flex justify-content-end">
@@ -170,7 +170,6 @@
                                                                     @endif
                                                                 </form>
                                                             @endif
-
                                                         </div>
                                                     </td>
                                                 @endrole
@@ -183,8 +182,15 @@
                                                 @endrole
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
+                                                        <button class="btn btn-sm btn-primary btn-icon show-foto-btn"
+                                                            data-toggle="modal"
+                                                            data-target="#modal-foto-{{ $itemPeminjaman->id }}"
+                                                            data-id="{{ $itemPeminjaman->id }}"
+                                                            data-val="{{ $itemPeminjaman->ktp_peminjam }}">
+                                                            <i class="fas fa-image"></i> Tampilkan Foto
+                                                        </button>
                                                         <a href="{{ route('data-peminjaman.edit', $itemPeminjaman->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon "><i
+                                                            class="btn btn-sm btn-info btn-icon ml-2"><i
                                                                 class="fas fa-edit"></i>
                                                             Edit</a>
                                                         <form
@@ -232,7 +238,6 @@
                 $(".show-search").slideToggle("fast");
                 $(".show-import").hide();
             });
-            //ganti label berdasarkan nama file
             $('#file-upload').change(function() {
                 var i = $(this).prev('label').clone();
                 var file = $('#file-upload')[0].files[0].name;
@@ -248,6 +253,33 @@
         function submitVeri(id) {
             $('#vel-' + id).submit()
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.show-foto-btn').click(function() {
+                var id = $(this).data('id');
+                var fotoUrl = $(this).data('val');
+                var modalHtml = `
+            <div class="modal fade" tabindex="-1" role="dialog" id="modal-foto-${id}">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-foto-${id}-label">Foto Peminjaman</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ asset('storage/${fotoUrl}') }}" alt="Foto Peminjaman" style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+                $('body').append(modalHtml);
+                $(`#modal-foto-${id}`).modal('show');
+            });
+        });
     </script>
 @endpush
 

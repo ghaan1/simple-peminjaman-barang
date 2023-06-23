@@ -12,7 +12,7 @@
                     <h4>Validasi Tambah Data</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('data-peminjaman.store') }}" method="post">
+                    <form action="{{ route('data-peminjaman.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @if (in_array(
                                 'super-admin',
@@ -107,6 +107,41 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="show_ktp" id="show_ktp"
+                                        {{ old('show_ktp') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="show_ktp">
+                                        Ambil Dari Database?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 col-12">
+                                <div class="mt-2" id="ktp_preview" style="display: none;">
+                                    <h6>Preview KTP:</h6>
+                                    @if (Auth::user()->profile && Auth::user()->profile->ktp)
+                                        <img src="{{ asset('storage/' . Auth::user()->profile->ktp) }}" alt="KTP Preview"
+                                            width="200">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12 col-12" id="ktp_upload_form"
+                                style="{{ old('show_ktp') ? 'display: none' : 'display: block' }}">
+                                <div class="form-group">
+                                    <label>Unggah KTP</label>
+                                    <input name="ktp_peminjam" type="file"
+                                        class="form-control @error('ktp_peminjam') is-invalid @enderror">
+                                    @error('ktp_peminjam')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <div class="card-footer text-right">
                     <button class="btn btn-primary">Submit</button>
@@ -119,6 +154,19 @@
 @endsection
 @push('customScript')
     <script src="/assets/js/select2.min.js"></script>
+    <script>
+        document.getElementById('show_ktp').addEventListener('change', function() {
+            var ktpUploadForm = document.getElementById('ktp_upload_form');
+            var ktpPreview = document.getElementById('ktp_preview');
+            if (this.checked) {
+                ktpUploadForm.style.display = 'none';
+                ktpPreview.style.display = 'block';
+            } else {
+                ktpUploadForm.style.display = 'block';
+                ktpPreview.style.display = 'none';
+            }
+        });
+    </script>
     <script>
         jQuery(document).ready(function() {
             $('#jenis_barang_id').change(function() {

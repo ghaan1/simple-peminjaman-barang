@@ -8,6 +8,7 @@ use App\Http\Requests\StoreDataPeminjamanRequest;
 use App\Http\Requests\UpdateDataPeminjamanRequest;
 use App\Models\DataBarang;
 use App\Models\JenisBarang;
+use App\Models\ProfileUser;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
@@ -15,7 +16,7 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Request as GlobalRequest;
 
 class DataPeminjamanController extends Controller
 {
@@ -38,7 +39,7 @@ class DataPeminjamanController extends Controller
 
         $user = Auth::user();
 
-        if ($user->hasRole('super-admin')) {
+        if ($user->hasRole('admin-rt')) {
             $dataPeminjaman = DB::table('datapeminjaman')
                 ->select(
                     'datapeminjaman.id',
@@ -52,6 +53,7 @@ class DataPeminjamanController extends Controller
                     'datapeminjaman.quantity',
                     'datapeminjaman.tanggal_pinjam',
                     'datapeminjaman.status',
+                    'datapeminjaman.ktp_peminjam',
                 )
                 ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
                 ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
@@ -141,34 +143,94 @@ class DataPeminjamanController extends Controller
         $dataBarang = DataBarang::all();
         $jenisBarang = JenisBarang::all();
         $user = User::all();
+        $ktp = ProfileUser::all();
         return view('master-table.data-peminjaman.create')->with([
             'dataBarang' => $dataBarang,
             'jenisBarang' => $jenisBarang,
             'user' => $user,
+            'ktp' => $ktp,
         ]);
     }
 
-    public function store(StoreDataPeminjamanRequest $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validated();
-        $dataBarang = DataBarang::findOrFail($validatedData['barang_id']);
-        if ($validatedData['quantity'] > $dataBarang->tersedia) {
-            return redirect()->route('data-peminjaman.create')
-                ->withInput()->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);
-        }
-        $dataPeminjaman = DataPeminjaman::create([
-            'peminjam_id' => $validatedData['peminjam_id'],
-            'jenis_barang_id' => $validatedData['jenis_barang_id'],
-            'barang_id' => $validatedData['barang_id'],
-            'quantity' => $validatedData['quantity'],
-            'tanggal_pinjam' => $validatedData['tanggal_pinjam'],
+        $request->validate([
+            'peminjam_id' => 'required',
+            'jenis_barang_id' => 'required',
+            'barang_id' => 'required',
+            'quantity' => 'required|regex:/^[0-9]*$/|max:5',
+            'tanggal_pinjam' => 'required|date',
+            'status' => 'required',
+            'ktp_peminjam' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ], [
+            'peminjam_id.required' => 'Nama Peminjam Wajib Diisi',
+            'jenis_barang_id.required' => 'Jenis Barang Wajib Diisi',
+            'barang_id.required' => 'Nama Barang Wajib Diisi',
+            'quantity.required' => 'Quantity Wajib Diisi',
+            'quantity.regex' => 'Quantity Wajib Angka',
+            'quantity.max' => 'Quantity Maksimal 5 Digit',
+            'tanggal_pinjam.required' => 'Tanggal Wajib Diisi',
+            'tanggal_pinjam.date' => 'Tanggal Wajib Diluar Format',
+            'status.required' => 'Status Wajib Diisi',
+            'ktp_peminjam.image' => 'KTP Tidak Sesuai Format',
+            'ktp_peminjam.mimes' => 'KTP Hanya Mendukung Format jpeg, png, jpg',
+            'ktp_peminjam.max' => 'Ukuran KTP Terlalu Besar',
         ]);
-        $tersedia = $dataBarang->tersedia - $validatedData['quantity'];
+
+        $dataBarang = DataBarang::findOrFail($request['barang_id']);
+        if ($request['quantity'] > $dataBarang->tersedia) {
+            return redirect()->route('data-peminjaman.create')
+                ->withInput()
+                ->withErrors(['quantity' => 'Quantity melebihi stok yang tersedia']);
+        }
+
+        // Proses foto yang diunggah
+        if ($request->hasFile('ktp_peminjam')) {
+            $ktp = $request->file('ktp_peminjam');
+            $validExtensions = ['jpg', 'jpeg', 'png'];
+            if (!in_array(strtolower($ktp->getClientOriginalExtension()), $validExtensions)) {
+                return redirect()->route('data-peminjaman.create')
+                    ->withInput()
+                    ->withErrors(['ktp_peminjam' => 'KTP harus berupa file dengan format jpeg, png, atau jpg']);
+            }
+
+            $namaKtp = uniqid() . '.' . $ktp->getClientOriginalExtension();
+            $ktp->storeAs('public/ktp-peminjaman', $namaKtp);
+            // dd($ktp);
+
+            $dataPeminjaman = DataPeminjaman::create([
+                'peminjam_id' => $request['peminjam_id'],
+                'jenis_barang_id' => $request['jenis_barang_id'],
+                'barang_id' => $request['barang_id'],
+                'quantity' => $request['quantity'],
+                'tanggal_pinjam' => $request['tanggal_pinjam'],
+                'ktp_peminjam' => 'database/ktp/' . $namaKtp, // Simpan nama ktp ke dalam kolom 'ktp'
+            ]);
+        } elseif ($request->show_ktp === 'on') {
+            $ktpLama = ProfileUser::where('user_id', $request['peminjam_id'])->first();
+            // dd($ktpLama->ktp);
+            $fotoKtpLAMA = $ktpLama->ktp;
+            $dataPeminjaman = DataPeminjaman::create([
+                'peminjam_id' => $request['peminjam_id'],
+                'jenis_barang_id' => $request['jenis_barang_id'],
+                'barang_id' => $request['barang_id'],
+                'quantity' => $request['quantity'],
+                'tanggal_pinjam' => $request['tanggal_pinjam'],
+                'ktp_peminjam' => $fotoKtpLAMA,
+            ]);
+        } else {
+            return redirect()->route('data-peminjaman.create')
+                ->withInput()
+                ->withErrors(['ktp_peminjam' => 'KTP Harus Ada']);
+        }
+
+        $tersedia = $dataBarang->tersedia - $request['quantity'];
         $dataBarang->tersedia = $tersedia;
         $dataBarang->save();
 
         return redirect()->route('data-peminjaman.index')->with('success', 'Tambah Data Peminjaman Sukses');
     }
+
 
 
 

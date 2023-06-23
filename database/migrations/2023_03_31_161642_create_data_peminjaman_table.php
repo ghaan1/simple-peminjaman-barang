@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();
             $table->foreign('barang_id')->references('id')->on('databarang')->restrictOnDelete();
             $table->foreign('peminjam_id')->references('id')->on('users')->restrictOnDelete();
+            $table->string('ktp_peminjam')->nullable();
             $table->timestamps();
         });
     }

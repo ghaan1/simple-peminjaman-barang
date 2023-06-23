@@ -9,11 +9,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class ProfileUserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
         ProfileUser::insert(
@@ -25,6 +21,7 @@ class ProfileUserSeeder extends Seeder
                     'jenis_kelamin' => 'L',
                     'no_hp' => '081234567891',
                     'foto' => 'database/profile/default.jpg',
+                    'ktp' => 'database/ktp/ktp.jpg',
                     'user_id' => '1'
                 ],
                 [
@@ -34,6 +31,7 @@ class ProfileUserSeeder extends Seeder
                     'jenis_kelamin' => 'P',
                     'no_hp' => '081234567892',
                     'foto' => 'database/profile/default.jpg',
+                    'ktp' => 'database/ktp/ktp.jpg',
                     'user_id' => '2'
                 ],
                 [
@@ -43,6 +41,7 @@ class ProfileUserSeeder extends Seeder
                     'jenis_kelamin' => 'L',
                     'no_hp' => '081234567893',
                     'foto' => 'database/profile/default.jpg',
+                    'ktp' => 'database/ktp/ktp.jpg',
                     'user_id' => '3'
                 ],
                 [
@@ -52,6 +51,7 @@ class ProfileUserSeeder extends Seeder
                     'jenis_kelamin' => 'P',
                     'no_hp' => '081234567894',
                     'foto' => 'database/profile/default.jpg',
+                    'ktp' => 'database/ktp/ktp.jpg',
                     'user_id' => '4'
                 ],
             ]
