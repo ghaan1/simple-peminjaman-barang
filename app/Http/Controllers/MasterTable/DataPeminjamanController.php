@@ -204,7 +204,7 @@ class DataPeminjamanController extends Controller
                 'barang_id' => $request['barang_id'],
                 'quantity' => $request['quantity'],
                 'tanggal_pinjam' => $request['tanggal_pinjam'],
-                'ktp_peminjam' => 'database/ktp/' . $namaKtp, // Simpan nama ktp ke dalam kolom 'ktp'
+                'ktp_peminjam' => 'ktp-peminjaman/' . $namaKtp, // Simpan nama ktp ke dalam kolom 'ktp'
             ]);
         } elseif ($request->show_ktp === 'on') {
             $ktpLama = ProfileUser::where('user_id', $request['peminjam_id'])->first();
