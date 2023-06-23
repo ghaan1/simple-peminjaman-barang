@@ -25,6 +25,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'role.permission.management']);
         Permission::create(['name' => 'menu.management']);
         Permission::create(['name' => 'master.table.management']);
+        Permission::create(['name' => 'rusak.perbaikan.management']);
         //user
         Permission::create(['name' => 'user.index']);
         Permission::create(['name' => 'user.create']);
@@ -90,6 +91,21 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'jenis-barang.edit']);
         Permission::create(['name' => 'jenis-barang.destroy']);
 
+        //barang-rusak
+        Permission::create(['name' => 'rusak.index']);
+        Permission::create(['name' => 'rusak.create']);
+        Permission::create(['name' => 'rusak.edit']);
+        Permission::create(['name' => 'rusak.destroy']);
+
+        //barang-perbaikan
+        Permission::create(['name' => 'perbaikan.index']);
+        Permission::create(['name' => 'perbaikan.create']);
+        Permission::create(['name' => 'perbaikan.edit']);
+        Permission::create(['name' => 'perbaikan.destroy']);
+
+        // create Super Admin
+        $role = Role::create(['name' => 'admin-rt']);
+        $role->givePermissionTo(Permission::all());
         // create roles
         $roleWarga = Role::create(['name' => 'warga']);
         $roleWarga->givePermissionTo([
@@ -118,9 +134,7 @@ class RoleAndPermissionSeeder extends Seeder
             'data-peminjaman.destroy',
         ]);
 
-        // create Super Admin
-        $role = Role::create(['name' => 'admin-rt']);
-        $role->givePermissionTo(Permission::all());
+
 
         //assign user id 1 ke super admin
         $user = User::find(1);

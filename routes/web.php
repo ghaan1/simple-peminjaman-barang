@@ -6,6 +6,8 @@ use App\Http\Controllers\MasterTable\JenisBarangController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Menu\MenuGroupController;
 use App\Http\Controllers\Menu\MenuItemController;
+use App\Http\Controllers\PerbaikanRusak\DataPerbaikanController;
+use App\Http\Controllers\PerbaikanRusak\DataRusakController;
 use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\RoleAndPermission\AssignPermissionController;
 use App\Http\Controllers\RoleAndPermission\AssignUserToRoleController;
@@ -112,5 +114,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             ->name('data-peminjaman-barang-get.filters');
         Route::patch('/data-peminjaman/{dataPeminjaman}/update-status', [DataPeminjamanController::class, 'updateStatus'])->name('data-peminjaman.update-status');
         Route::get('/data-peminjaman-pdf', [DataPeminjamanController::class, 'print'])->name('data-peminjaman.print');
+    });
+
+    Route::prefix('rusak-perbaikan-management')->group(function () {
+        Route::resource('rusak', DataRusakController::class);
+        Route::post('get-data-barang-quantity', [DataRusakController::class, 'getDataBarangQuantity'])
+            ->name('get-data-barang-quantity');
+        Route::post('get-barang-peminjam', [DataRusakController::class, 'getBarangPeminjam'])->name('get-barang-peminjam');
+        Route::post('get-user-role', [DataRusakController::class, 'getUserFromRole'])->name('get-user-role');
+        Route::resource('perbaikan', DataPerbaikanController::class);
     });
 });

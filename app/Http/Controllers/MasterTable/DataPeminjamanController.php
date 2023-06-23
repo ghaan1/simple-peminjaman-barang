@@ -93,6 +93,7 @@ class DataPeminjamanController extends Controller
                     'datapeminjaman.quantity',
                     'datapeminjaman.tanggal_pinjam',
                     'datapeminjaman.status',
+                    'datapeminjaman.ktp_peminjam',
                 )
                 ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
                 ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')

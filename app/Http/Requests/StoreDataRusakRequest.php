@@ -13,7 +13,7 @@ class StoreDataRusakRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class StoreDataRusakRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'barang_id' => 'required',
+            'quantity_rusak' => 'required|regex:/^[0-9]*$/|max:5',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'barang_id.required' => 'Nama Barang Wajib Diisi',
+            'quantity_rusak.required' => 'Quantity Wajib Diisi',
+            'quantity_rusak.regex' => 'Quantity Wajib Angka',
+            'quantity_rusak.max' => 'Quantity Maksimal 5 Digit',
         ];
     }
 }

@@ -78,6 +78,18 @@ class MenuItemSeeder extends Seeder
                     'permission_name' => 'data-peminjaman.index',
                     'menu_group_id' => 4,
                 ],
+                [
+                    'name' => 'Barang Rusak',
+                    'route' => 'rusak-perbaikan-management/rusak',
+                    'permission_name' => 'rusak.index',
+                    'menu_group_id' => 5,
+                ],
+                [
+                    'name' => 'Barang Perbaikan',
+                    'route' => 'rusak-perbaikan-management/perbaikan',
+                    'permission_name' => 'perbaikan.index',
+                    'menu_group_id' => 5,
+                ],
 
             ]
         );

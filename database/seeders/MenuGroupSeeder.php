@@ -39,6 +39,12 @@ class MenuGroupSeeder extends Seeder
                     'permisison_name' => 'master.table.management',
 
                 ],
+                [
+                    'name' => 'Tabel Rusak - Perbaikan Barang',
+                    'icon' => 'fas fa-bars',
+                    'permisison_name' => 'rusak.perbaikan.management',
+
+                ],
             ]
         );
     }
