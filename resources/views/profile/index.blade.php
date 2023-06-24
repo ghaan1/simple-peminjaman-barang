@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Edit Profile</h1>
+            <h1>Ubah Profile</h1>
         </div>
 
         <div class="section-body">
@@ -67,7 +67,7 @@
                             @csrf
                             @method('PUT')
                             <div class="card-header">
-                                <h4>Edit Kata Sandi</h4>
+                                <h4>Ubah Kata Sandi</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -133,7 +133,7 @@
                             @csrf
                             @method('PUT')
                             <div class="card-header">
-                                <h4>Edit Informasi Login</h4>
+                                <h4>Ubah Informasi Login</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -176,7 +176,7 @@
                             @csrf
                             @method('PUT')
                             <div class="card-header">
-                                <h4>Edit Data Diri</h4>
+                                <h4>Ubah Data Diri</h4>
                             </div>
                             <div class="card-body">
                                 <div class="row">

@@ -32,7 +32,7 @@
                                         <div class="form-group col-md-10">
                                             <label for="role">Jenis Barang</label>
                                             <input type="text" name="jenis_barang" class="form-control" id="jenis_barang"
-                                                placeholder="Jenis Barang">
+                                                placeholder="Jenis Barang" value="{{ $jenis_barang }}">
                                         </div>
                                     </div>
 

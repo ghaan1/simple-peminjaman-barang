@@ -23,11 +23,15 @@ class JenisBarangController extends Controller
 
     public function index(Request $request)
     {
+        $jenis_barang = $request->input('jenis_barang');
         $jenisBarangs = DB::table('jenisbarang')
             ->when($request->input('jenis_barang'), function ($query, $jenis_barang) {
                 return $query->where('jenis_barang', 'like', '%' . $jenis_barang . '%');
             })->paginate(5);
-        return view('master-table.jenis-barang.index', compact('jenisBarangs'));
+        return view('master-table.jenis-barang.index')->with([
+            'jenisBarangs' => $jenisBarangs,
+            'jenis_barang' => $jenis_barang
+        ]);
     }
 
     public function create()

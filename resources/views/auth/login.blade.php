@@ -57,9 +57,6 @@
                                         <div class="d-block">
                                             <label for="password" class="control-label">Kata Sandi</label>
                                             <div class="float-right">
-                                                <a href="/forgot-password" class="text-small">
-                                                    Lupa Kata Sandi?
-                                                </a>
                                             </div>
                                         </div>
                                         <!-- <label class="font-weight-bold text-uppercase">Password</label> -->
@@ -80,9 +77,6 @@
                         </div>
                         <div class="mt-5 text-muted text-center">
                             Belum memiliki akun? <a href="/register">Daftar</a>
-                        </div>
-                        <div class="simple-footer">
-                            Copyright &copy; Stisla 2018
                         </div>
                     </div>
                 </div>

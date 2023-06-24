@@ -197,7 +197,6 @@ class DataPeminjamanController extends Controller
             ]);
         } elseif ($request->show_ktp === 'on') {
             $ktpLama = ProfileUser::where('user_id', $request['peminjam_id'])->first();
-            // dd($ktpLama->ktp);
             $fotoKtpLAMA = $ktpLama->ktp;
             $dataPeminjaman = DataPeminjaman::create([
                 'peminjam_id' => $request['peminjam_id'],
@@ -210,7 +209,7 @@ class DataPeminjamanController extends Controller
         } else {
             return redirect()->route('data-peminjaman.create')
                 ->withInput()
-                ->withErrors(['ktp_peminjam' => 'KTP Harus Ada']);
+                ->with(['ktp_review' => 'KTP Harus Ada']);
         }
 
         $tersedia = $dataBarang->tersedia - $request['quantity'];

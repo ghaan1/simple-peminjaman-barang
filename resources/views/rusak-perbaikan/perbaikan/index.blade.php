@@ -70,8 +70,14 @@
                                                 <td>{{ $listBarangPerbaikan->nama_barang }}</td>
                                                 <td>{{ $listBarangPerbaikan->status_rusak }}</td>
                                                 <td>{{ $listBarangPerbaikan->quantity_rusak }}</td>
-                                                <td>{{ $listBarangPerbaikan->bukti_perbaikan }}</td>
-                                                <td>{{ $listBarangPerbaikan->ktp_perbaikan }}</td>
+                                                <td>
+                                                    <img
+                                                        src="{{ Storage::url('public/' . $listBarangPerbaikan->bukti_perbaikan) }}"width="100px">
+                                                </td>
+                                                <td>
+                                                    <img
+                                                        src="{{ Storage::url('public/' . $listBarangPerbaikan->ktp_perbaikan) }}"width="100px">
+                                                </td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('perbaikan.edit', $listBarangPerbaikan->id) }}"

@@ -118,11 +118,15 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-12 col-12">
-                                <div class="mt-2" id="ktp_preview" style="display: none;">
-                                    <h6>Preview KTP:</h6>
+                                <div class="mt-2" id="ktp_preview"
+                                    style="{{ Auth::user()->profile && Auth::user()->profile->ktp ? 'display: none' : 'display: block' }}"
+                                    name="ktp_review">
+                                    <h6 id="headerKTP" style="display: none">Preview KTP:</h6>
                                     @if (Auth::user()->profile && Auth::user()->profile->ktp)
                                         <img src="{{ asset('storage/' . Auth::user()->profile->ktp) }}" alt="KTP Preview"
                                             width="200">
+                                    @else
+                                        <p id="ktp_message" style="display: none">Tidak ada KTP, Isi Dulu Di Profile</p>
                                     @endif
                                 </div>
                             </div>
@@ -142,12 +146,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-footer text-right">
+                            <button class="btn btn-primary" id="submitBtn">Submit</button>
+                            <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Cancel</a>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Cancel</a>
-                </div>
-                </form>
             </div>
         </div>
     </section>
@@ -155,15 +159,37 @@
 @push('customScript')
     <script src="/assets/js/select2.min.js"></script>
     <script>
+        // Get the checkbox element, submit button element, and KTP message element
+        const checkbox = document.getElementById('show_ktp');
+        const submitBtn = document.getElementById('submitBtn');
+        const ktpMessage = document.getElementById('ktp_message');
+
+        // Add event listener for the checkbox
+        checkbox.addEventListener('change', function() {
+            // Disable or enable the submit button based on the checkbox state and KTP message existence
+            if (checkbox.checked && ktpMessage && ktpMessage.textContent === "Tidak ada KTP, Isi Dulu Di Profile") {
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+    <script>
         document.getElementById('show_ktp').addEventListener('change', function() {
             var ktpUploadForm = document.getElementById('ktp_upload_form');
             var ktpPreview = document.getElementById('ktp_preview');
+            var ktpMessage = document.getElementById('ktp_message');
+            var headerKTP = document.getElementById('headerKTP');
             if (this.checked) {
                 ktpUploadForm.style.display = 'none';
                 ktpPreview.style.display = 'block';
+                ktpMessage.style.display = 'block';
+                headerKTP.style.display = 'block';
             } else {
                 ktpUploadForm.style.display = 'block';
                 ktpPreview.style.display = 'none';
+                ktpMessage.style.display = 'none';
+                headerKTP.style.display = 'none';
             }
         });
     </script>

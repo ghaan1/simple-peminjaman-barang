@@ -40,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         // Assign a role to the new user
-        $user->assignRole('user'); // Change 'user' to the name of the role you want to assign
+        $user->assignRole('warga'); // Change 'user' to the name of the role you want to assign
 
         return $user;
     }

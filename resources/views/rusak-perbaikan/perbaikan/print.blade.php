@@ -58,7 +58,10 @@
                     <td>{{ $itemPerbaikan->nama_barang }}</td>
                     <td>{{ $itemPerbaikan->status_rusak }}</td>
                     <td>{{ $itemPerbaikan->quantity_rusak }}</td>
-                    <td>{{ $itemPerbaikan->bukti_perbaikan }}</td>
+                    <td>
+                        <img src="{{ public_path('storage/' . $itemPerbaikan->bukti_perbaikan) }}" width="100px">
+                    </td>
+
                 </tr>
             @endforeach
         </tbody>
