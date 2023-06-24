@@ -86,6 +86,12 @@
                                                     id="nama_barang" placeholder="Nama Barang" data-id="search-perusahaan"
                                                     value="{{ $nama_barang }}">
                                             </div>
+                                            <div id="tanggalGroup" class="form-group col-md-4" style="margin-left: 10px;">
+                                                <label for="tanggal">Tanggal</label>
+                                                <input type="date" name="tanggal" class="form-control" id="tanggal"
+                                                    placeholder="Tanggal" value="{{ $tanggalSelected }}">
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="text-right">

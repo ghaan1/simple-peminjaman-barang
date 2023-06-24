@@ -36,31 +36,31 @@ class DataPeminjamanController extends Controller
         $nama_barang = $request->input('nama_barang');
         $status = ['Sedang Dipinjam', 'Sudah Dikembalikan'];
 
-
         $user = Auth::user();
 
+        $query = DB::table('datapeminjaman')
+            ->select(
+                'datapeminjaman.id',
+                'datapeminjaman.peminjam_id',
+                'users.name',
+                'datapeminjaman.jenis_barang_id',
+                'databarang.kode_jbs',
+                'jenisbarang.jenis_barang',
+                'datapeminjaman.barang_id',
+                'databarang.nama_barang',
+                'datapeminjaman.quantity',
+                'datapeminjaman.tanggal_pinjam',
+                'datapeminjaman.status',
+                'datapeminjaman.ktp_peminjam',
+            )
+            ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
+            ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
+            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id');
+
         if ($user->hasRole('admin-rt')) {
-            $dataPeminjaman = DB::table('datapeminjaman')
-                ->select(
-                    'datapeminjaman.id',
-                    'datapeminjaman.peminjam_id',
-                    'users.name',
-                    'datapeminjaman.jenis_barang_id',
-                    'databarang.kode_jbs',
-                    'jenisbarang.jenis_barang',
-                    'datapeminjaman.barang_id',
-                    'databarang.nama_barang',
-                    'datapeminjaman.quantity',
-                    'datapeminjaman.tanggal_pinjam',
-                    'datapeminjaman.status',
-                    'datapeminjaman.ktp_peminjam',
-                )
-                ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
-                ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-                ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-                ->when($request->input('databarang'), function ($query, $databarang) {
-                    return $query->whereIn('datapeminjaman.barang_id', $databarang);
-                })
+            $query->when($request->input('databarang'), function ($query, $databarang) {
+                return $query->whereIn('datapeminjaman.barang_id', $databarang);
+            })
                 ->when($request->input('jenisbarang'), function ($query, $jenisbarang) {
                     return $query->whereIn('datapeminjaman.jenis_barang_id', $jenisbarang);
                 })
@@ -73,32 +73,12 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                     return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
                 })
-                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC')
-                ->paginate(5);
-            $dataBarangSelected = $request->input('databarang');
-            $jenisBarangSelected = $request->input('jenisbarang');
-            $userSelected = $request->input('users');
-            $statusSelected = $request->input('status');
+                ->when($request->input('tanggal'), function ($query, $tanggal) {
+                    return $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
+                })
+                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } else {
-            $dataPeminjaman = DB::table('datapeminjaman')
-                ->select(
-                    'datapeminjaman.id',
-                    'datapeminjaman.peminjam_id',
-                    'users.name',
-                    'datapeminjaman.jenis_barang_id',
-                    'jenisbarang.jenis_barang',
-                    'databarang.kode_jbs',
-                    'datapeminjaman.barang_id',
-                    'databarang.nama_barang',
-                    'datapeminjaman.quantity',
-                    'datapeminjaman.tanggal_pinjam',
-                    'datapeminjaman.status',
-                    'datapeminjaman.ktp_peminjam',
-                )
-                ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
-                ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-                ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-                ->where('users.name', '=', $user->name)
+            $query->where('users.name', '=', $user->name)
                 ->leftJoin('users as u2', 'datapeminjaman.peminjam_id', '=', 'u2.id')
                 ->leftJoin('jenisbarang as jb', 'datapeminjaman.jenis_barang_id', '=', 'jb.id')
                 ->leftJoin('databarang as db', 'datapeminjaman.barang_id', '=', 'db.id')
@@ -117,13 +97,19 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                     return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
                 })
-                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC')
-                ->paginate(5);
-            $dataBarangSelected = $request->input('databarang');
-            $jenisBarangSelected = $request->input('jenisbarang');
-            $userSelected = $request->input('users');
-            $statusSelected = $request->input('status');
+                ->when($request->input('tanggal'), function ($query, $tanggal) {
+                    return $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
+                })
+                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         }
+
+        $dataPeminjaman = $query->paginate(5);
+        $dataBarangSelected = $request->input('databarang');
+        $jenisBarangSelected = $request->input('jenisbarang');
+        $userSelected = $request->input('users');
+        $statusSelected = $request->input('status');
+        $tanggalSelected = $request->input('tanggal');
+        $request->session()->put('tanggal', $tanggalSelected);
 
         return view('master-table.data-peminjaman.index')->with([
             'nama_barang' => $nama_barang,
@@ -132,12 +118,14 @@ class DataPeminjamanController extends Controller
             'userSelected' => $userSelected,
             'jenisBarangSelected' => $jenisBarangSelected,
             'dataBarangSelected' => $dataBarangSelected,
+            'tanggalSelected' => $tanggalSelected,
             'dataPeminjaman' => $dataPeminjaman,
             'jenisBarang' => $jenisBarang,
             'user' => $user,
             'users' => $users,
         ]);
     }
+
 
     public function create()
     {
@@ -295,6 +283,7 @@ class DataPeminjamanController extends Controller
 
     public function print(Request $request)
     {
+        $tanggal = $request->session()->get('tanggal');
         $user = Auth::user();
         $query = DB::table('datapeminjaman')
             ->select(
@@ -312,11 +301,9 @@ class DataPeminjamanController extends Controller
             )
             ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id');
+            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
+            ->where('datapeminjaman.status', 'Sudah Dikembalikan');
 
-        if (!$user->hasRole('super-admin')) {
-            $query->where('users.name', '=', $user->name);
-        }
         if ($request->has('databarang')) {
             $query->whereIn('datapeminjaman.barang_id', $request->databarang);
         }
@@ -328,10 +315,16 @@ class DataPeminjamanController extends Controller
         if ($request->has('users')) {
             $query->whereIn('datapeminjaman.peminjam_id', $request->users);
         }
+
+        if ($tanggal) {
+            $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
+        }
+
         $dataPeminjaman = $query->get();
         $pdf = PDF::loadView('master-table.data-peminjaman.print', with(['dataPeminjaman' => $dataPeminjaman, 'users' => $user]));
         return $pdf->stream('data-peminjaman.pdf');
     }
+
 
 
     public function show(DataPeminjaman $dataPeminjaman)
