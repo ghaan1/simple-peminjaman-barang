@@ -20,17 +20,25 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Cari Data Barang Perbaikan</a>
+                                @role('admin-rt')
+                                    <a class="btn btn-icon icon-left btn-primary" href="{{ route('perbaikan.print') }}"
+                                        target="_blank">Print Data Peminjaman</a>
+                                @endrole
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('perbaikan.index') }}">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-10">
-                                            <label for="role">Nama Barang</label>
-                                            <input type="text" name="jenis_barang" class="form-control" id="jenis_barang"
-                                                placeholder="Nama Barang">
-                                        </div>
+                                    <div class="form-group col-md-9" style=" margin-left: 10px">
+                                        <label for="role">Nama Barang</label>
+                                        <input type="text" name="nama_barang" class="form-control" id="nama_barang"
+                                            placeholder="Nama Barang" data-id="search-perusahaan"
+                                            value="{{ $nama_barang }}">
+                                    </div>
+                                    <div id="tanggalGroup" class="form-group col-md-4" style="margin-left: 10px;">
+                                        <label for="tanggal">Tanggal</label>
+                                        <input type="date" name="tanggal" class="form-control" id="tanggal"
+                                            placeholder="Tanggal" value="{{ $tanggalSelected }}">
                                     </div>
 
                                     <div class="text-right">

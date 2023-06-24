@@ -123,5 +123,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('get-barang-peminjam', [DataRusakController::class, 'getBarangPeminjam'])->name('get-barang-peminjam');
         Route::post('get-user-role', [DataRusakController::class, 'getUserFromRole'])->name('get-user-role');
         Route::resource('perbaikan', DataPerbaikanController::class);
+        Route::get('/perbaikan-pdf', [DataPerbaikanController::class, 'print'])->name('perbaikan.print');
     });
 });

@@ -10,7 +10,9 @@ use App\Models\DataPerbaikan;
 use App\Models\DataRusak;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class DataPerbaikanController extends Controller
 {
@@ -19,8 +21,9 @@ class DataPerbaikanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
+        $nama_barang = $request->input('nama_barang');
         $dataPerbaikan = DB::table('data_perbaikans')->select(
             'data_perbaikans.id',
             'data_perbaikans.tanggal_perbaikan',
@@ -37,10 +40,16 @@ class DataPerbaikanController extends Controller
             ->join('data_rusaks', 'data_perbaikans.rusak_id', '=', 'data_rusaks.id')
             ->join('databarang', 'data_rusaks.barang_id', '=', 'databarang.id')
             ->join('users', 'data_rusaks.user_id', '=', 'users.id')
+            ->when($request->input('tanggal'), function ($query, $tanggal) {
+                return $query->whereDate('data_perbaikans.tanggal_perbaikan', $tanggal);
+            })
             ->paginate(5);
-
+        $tanggalSelected = $request->input('tanggal');
+        $request->session()->put('tanggal', $tanggalSelected);
         return view('rusak-perbaikan.perbaikan.index')->with([
             'dataPerbaikan' => $dataPerbaikan,
+            'tanggalSelected' => $tanggalSelected,
+            'nama_barang' => $nama_barang,
         ]);
     }
 
@@ -140,6 +149,38 @@ class DataPerbaikanController extends Controller
 
         // Redirect atau berikan respon sesuai kebutuhan
         return redirect()->route('perbaikan.index')->with('success', 'Perbaikan berhasil diupdate');
+    }
+
+    public function print(Request $request)
+    {
+        $tanggal = $request->session()->get('tanggal');
+        $user = Auth::user();
+        $query = DB::table('data_perbaikans')
+            ->select(
+                'data_perbaikans.id',
+                'data_perbaikans.tanggal_perbaikan',
+                'data_perbaikans.rusak_id',
+                'data_perbaikans.bukti_perbaikan',
+                'data_perbaikans.ktp_perbaikan',
+                'data_rusaks.user_id',
+                'users.name',
+                'data_rusaks.barang_id',
+                'data_rusaks.quantity_rusak',
+                'data_rusaks.status_rusak',
+                'databarang.nama_barang',
+            )
+            ->join('data_rusaks', 'data_perbaikans.rusak_id', '=', 'data_rusaks.id')
+            ->join('databarang', 'data_rusaks.barang_id', '=', 'databarang.id')
+            ->join('users', 'data_rusaks.user_id', '=', 'users.id');
+
+        if ($tanggal) {
+            $query->whereDate('data_perbaikans.tanggal_perbaikan', $tanggal);
+        }
+
+        $dataPerbaikan = $query->get();
+        // dd($dataPerbaikan);
+        $pdf = PDF::loadView('rusak-perbaikan.perbaikan.print', with(['dataPerbaikan' => $dataPerbaikan, 'users' => $user]));
+        return $pdf->stream('perbaikan.pdf');
     }
 
 
