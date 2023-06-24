@@ -46,6 +46,8 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
+                                            <th>Status User</th>
+                                            <th>Nama User</th>
                                             <th>Nama Barang</th>
                                             <th>Quantity</th>
                                             <th>Status</th>
@@ -55,6 +57,8 @@
                                             <tr>
                                                 <td>{{ ($dataRusak->currentPage() - 1) * $dataRusak->perPage() + $key + 1 }}
                                                 </td>
+                                                <td>{{ $listBarangRusak->role_name }}</td>
+                                                <td>{{ $listBarangRusak->name }}</td>
                                                 <td>{{ $listBarangRusak->nama_barang }}</td>
                                                 <td>{{ $listBarangRusak->quantity_rusak }}</td>
                                                 <td>{{ $listBarangRusak->status_rusak }}</td>

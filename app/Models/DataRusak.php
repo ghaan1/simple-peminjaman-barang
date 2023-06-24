@@ -17,4 +17,14 @@ class DataRusak extends Model
     {
         return $this->belongsTo(DataBarang::class, 'barang_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function perbaikan()
+    {
+        return $this->hasOne(DataPerbaikan::class, 'rusak_id');
+    }
 }

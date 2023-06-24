@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDataRusakRequest;
 use App\Http\Requests\UpdateDataRusakRequest;
 use App\Models\DataBarang;
 use App\Models\DataPeminjaman;
+use App\Models\DataPerbaikan;
 use App\Models\DataRusak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,11 +27,18 @@ class DataRusakController extends Controller
     {
         $dataRusak = DB::table('data_rusaks')->select(
             'data_rusaks.id',
+            'data_rusaks.user_id',
+            'users.name',
+            'roles.name as role_name',
             'data_rusaks.barang_id',
             'data_rusaks.quantity_rusak',
             'data_rusaks.status_rusak',
             'databarang.nama_barang',
-        )->join('databarang', 'data_rusaks.barang_id', '=', 'databarang.id')->paginate(5);
+        )->join('databarang', 'data_rusaks.barang_id', '=', 'databarang.id')
+            ->join('users', 'data_rusaks.user_id', '=', 'users.id')
+            ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+            ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+            ->paginate(5);
 
         return view('rusak-perbaikan.rusak.index', compact('dataRusak'));
     }
@@ -50,11 +58,15 @@ class DataRusakController extends Controller
 
     public function store(StoreDataRusakRequest $request)
     {
-        DataRusak::create([
+        $dataRusak = DataRusak::create([
             'barang_id' => $request->barang_id,
             'quantity_rusak' => $request->quantity_rusak,
             'status_rusak' => 'rusak',
             'user_id' => $request->user_id,
+        ]);
+
+        DataPerbaikan::create([
+            'rusak_id' => $dataRusak->id,
         ]);
 
         $dataBarang = DataBarang::find($request->barang_id);
