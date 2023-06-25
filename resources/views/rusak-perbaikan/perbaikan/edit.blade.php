@@ -69,8 +69,7 @@
                                     Pilih Status</option>
                                 <option value="rusak">
                                     RUSAK</option>
-                                <option value="diperbaiki"
-                                    {{ 'diperbaiki' ? 'selected' : '' }}>
+                                <option value="diperbaiki" {{ 'diperbaiki' ? 'selected' : '' }}>
                                     DIPERBAIKI</option>
                             </select>
                             @error('status_rusak')
@@ -80,7 +79,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="quantity_rusak">Quantity</label>
+                            <label for="quantity_rusak">Jumlah Kerusakan</label>
                             <input type="text" class="form-control @error('quantity_rusak') is-invalid @enderror"
                                 id="quantity_rusak" name="quantity_rusak"
                                 value="{{ old('quantity_rusak', $dataRusak->quantity_rusak) }}"
@@ -130,126 +129,6 @@
 @endsection
 @push('customScript')
     <script src="/assets/js/select2.min.js"></script>
-    {{-- <script>
-        jQuery(document).ready(function() {
-            $('#role').change(function() {
-                if ($(this).val() == '') {
-                    $('#user_id').attr('disabled', true);
-                } else {
-                    $('#user_id').removeAttr('disabled', false);
-                }
-                let roleId = $(this).val();
-                $.ajax({
-                    url: '{{ route('get-user-role') }}',
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        id: roleId,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#user_id').html('<option value="">Pilih Nama User</option>');
-                        $.each(data['userRole'], function(index, val) {
-                            console.log('<option value="' + val.id + '"> ' + val
-                                .name + ' </option>');
-                            $('#user_id').append('<option value="' + val.id +
-                                '"> ' + val
-                                .name +
-                                ' </option>')
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-    <script>
-        jQuery(document).ready(function() {
-            $('#user_id').change(function() {
-                if ($(this).val() == '') {
-                    $('#barang_id').attr('disabled', true);
-                } else {
-                    $('#barang_id').removeAttr('disabled', false);
-                }
-                let userId = $(this).val();
-                $.ajax({
-                    url: '{{ route('get-barang-peminjam') }}',
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        id: userId,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
-                        $.each(data['dataPeminjaman'], function(index, val) {
-                            if (val.peminjam_id == userId) {
-                                console.log('<option value="' + val.id + '"> ' +
-                                    val
-                                    .nama_barang + ' </option>');
-                                $('#barang_id').append('<option value="' + val.id +
-                                    '"> ' + val
-                                    .nama_barang +
-                                    ' </option>')
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#barang_id').change(function() {
-                var barangId = $(this).val();
-                var quantity = getDataBarangQuantity(barangId);
-                $('#quantity-info').text('Quantity: ' + quantity);
-                if (barangId == '') {
-                    $('#quantity-info').hide();
-                    $('#quantity-tersedia').hide();
-                } else {
-                    $('#quantity-info').show();
-                    $('#quantity-tersedia').show();
-                }
-            });
-
-
-            function getDataBarangQuantity(barangId) {
-                $.ajax({
-                    url: '{{ route('get-data-barang-quantity') }}',
-                    method: 'POST',
-                    data: {
-                        barang_id: barangId
-                    },
-                    success: function(databarang) {
-                        console.log(databarang.databarang['quantity']);
-                        console.log(databarang.databarang['tersedia']);
-                        var quantity = databarang.databarang['quantity'];
-                        var quantityTersedia = databarang.databarang['tersedia'];
-                        $('#quantity-tersedia').text('Quantity Total: ' + quantity);
-                        $('#quantity-info').text('Quantity Yang Tidak Dipinjam: ' + quantityTersedia);
-
-
-                        $('#quantity_rusak').on('input', function() {
-                            var enteredQuantity = parseInt($(this).val());
-                            if (enteredQuantity > quantityTersedia) {
-                                $(this).addClass('is-invalid');
-                                $(this).siblings('.invalid-feedback').text(
-                                    'Quantity melebihi yang tersedia');
-                            } else {
-                                $(this).removeClass('is-invalid');
-                                $(this).siblings('.invalid-feedback').empty();
-                            }
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                    }
-                });
-            }
-        });
-    </script> --}}
 @endpush
 
 @push('customStyle')

@@ -24,6 +24,8 @@ class StoreDataRusakRequest extends FormRequest
     public function rules()
     {
         return [
+            'role' => 'required',
+            'user_id' => 'required',
             'barang_id' => 'required',
             'quantity_rusak' => 'required|regex:/^[0-9]*$/|max:5',
         ];
@@ -32,6 +34,8 @@ class StoreDataRusakRequest extends FormRequest
     public function messages()
     {
         return [
+            'role.required' => 'Nama Peran Wajib Diisi',
+            'user_id.required' => 'Nama User Wajib Diisi',
             'barang_id.required' => 'Nama Barang Wajib Diisi',
             'quantity_rusak.required' => 'Quantity Wajib Diisi',
             'quantity_rusak.regex' => 'Quantity Wajib Angka',

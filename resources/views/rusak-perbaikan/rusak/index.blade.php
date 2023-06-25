@@ -49,7 +49,7 @@
                                             <th>Status User</th>
                                             <th>Nama User</th>
                                             <th>Nama Barang</th>
-                                            <th>Quantity</th>
+                                            <th>Jumlah</th>
                                             <th>Status</th>
                                             <th class="text-right">Action</th>
                                         </tr>

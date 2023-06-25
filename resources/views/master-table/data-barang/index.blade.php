@@ -18,13 +18,13 @@
                             <h4>Data Barang</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary"
-                                    href="{{ route('data-barang.create') }}">Create New
+                                    href="{{ route('data-barang.create') }}">Tambah Data
                                     Data barang</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Data barang</a>
+                                    Cari Data barang</a>
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-barang.print') }}"
-                                    target="_blank">Print Data Barang</a>
+                                    target="_blank">Cetak Data Barang</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -96,7 +96,7 @@
                                                         <a href="{{ route('data-barang.edit', $dataBarang->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                         <form action="{{ route('data-barang.destroy', $dataBarang->id) }}"
                                                             method="POST" class="ml-2" id="del-<?= $dataBarang->id ?>">
                                                             <input type="hidden" name="_method" value="DELETE">
@@ -107,7 +107,7 @@
                                                                 data-confirm="Hapus Data Barang?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $dataBarang->id ?>)"
                                                                 data-id="del-{{ $dataBarang->id }}">
-                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                                <i class="fas fa-times"> </i> Hapus </button>
                                                         </form>
 
                                                     </div>

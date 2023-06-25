@@ -15,17 +15,17 @@
                     <form action="{{ route('rusak.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label>Nama Role</label>
+                            <label>Nama Peran</label>
                             <select name="role" class="form-control select2 @error('role') is-invalid @enderror"
                                 id="role">
-                                <option value="">Nama Role</option>
+                                <option value="">Nama Peran</option>
                                 @foreach ($role as $listRole)
                                     <option value="{{ $listRole->id }}">
                                         {{ $listRole->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('barang_id')
+                            @error('role')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -56,10 +56,10 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="quantity_rusak">Quantity Rusak</label>
+                            <label for="quantity_rusak">Jumlah Barang Rusak</label>
                             <input type="text" name="quantity_rusak"
                                 class="form-control @error('quantity_rusak') is-invalid @enderror" id="quantity_rusak"
-                                placeholder="Masukkan Quantity" autocomplete="off">
+                                placeholder="Masukkan Jumlah" autocomplete="off">
                             @error('quantity_rusak')
                                 <div class="invalid-feedback">
                                     {{ $message }}

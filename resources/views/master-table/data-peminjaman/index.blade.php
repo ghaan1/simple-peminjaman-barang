@@ -18,14 +18,14 @@
                             <h4>Data Peminjaman</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary"
-                                    href="{{ route('data-peminjaman.create') }}">Create New
+                                    href="{{ route('data-peminjaman.create') }}">Tambah Data
                                     Data Peminjaman</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Data Peminjaman</a>
+                                    Cari Data Peminjaman</a>
                                 @role('admin-rt')
                                     <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
-                                        target="_blank">Print Data Peminjaman</a>
+                                        target="_blank">Cetak Data Peminjaman</a>
                                 @endrole
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                                                         <a href="{{ route('data-peminjaman.edit', $itemPeminjaman->id) }}"
                                                             class="btn btn-sm btn-info btn-icon ml-2"><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                         <form
                                                             action="{{ route('data-peminjaman.destroy', $itemPeminjaman->id) }}"
                                                             method="POST" class="ml-2"
@@ -211,7 +211,7 @@
                                                                 data-confirm="Hapus Data Peminjaman?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $itemPeminjaman->id ?>)"
                                                                 data-id="#">
-                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                                <i class="fas fa-times"> </i> Hapus </button>
                                                         </form>
                                                     </div>
                                                 </td>

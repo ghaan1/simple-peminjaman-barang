@@ -21,7 +21,7 @@
                         <div class="card-header">
                             <h4>User List</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Create New
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Tambah Baru
                                     User</a>
                                 <a class="btn btn-info btn-primary active import">
                                     <i class="fa fa-download" aria-hidden="true"></i>
@@ -31,7 +31,7 @@
                                     Export User</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search User</a>
+                                    Cari User</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -39,7 +39,7 @@
                                 <div class="custom-file">
                                     <form action="{{ route('user.import') }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <label class="custom-file-label" for="file-upload">Choose File</label>
+                                        <label class="custom-file-label" for="file-upload">Pilih File</label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import_file">
                                         <br /> <br />
                                         <div class="footer text-right">
@@ -93,7 +93,7 @@
                                                         <a href="{{ route('user.edit', $user->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                         <form action="{{ route('user.destroy', $user->id) }}"
                                                             method="POST" class="ml-2" id="del-<?= $user->id ?>">
                                                             <input type="hidden" name="_method" value="DELETE">

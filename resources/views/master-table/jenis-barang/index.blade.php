@@ -18,11 +18,11 @@
                             <h4>Jenis Barang</h4>
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary"
-                                    href="{{ route('jenis-barang.create') }}">Create New
+                                    href="{{ route('jenis-barang.create') }}">Tambah Data
                                     Jenis barang</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Jenis barang</a>
+                                    Cari Jenis barang</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -62,7 +62,7 @@
                                                         <a href="{{ route('jenis-barang.edit', $jenisBarang->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                         <form action="{{ route('jenis-barang.destroy', $jenisBarang->id) }}"
                                                             method="POST" class="ml-2" id="del-<?= $jenisBarang->id ?>">
                                                             <input type="hidden" name="_method" value="DELETE">
@@ -73,7 +73,7 @@
                                                                 data-confirm="Hapus Jenis Barang ?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $jenisBarang->id ?>)"
                                                                 data-id="del-{{ $jenisBarang->id }}">
-                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                                <i class="fas fa-times"> </i> Hapus </button>
                                                         </form>
 
                                                     </div>

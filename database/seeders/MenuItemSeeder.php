@@ -19,37 +19,37 @@ class MenuItemSeeder extends Seeder
         MenuItem::insert(
             [
                 [
-                    'name' => 'User List',
+                    'name' => 'List User',
                     'route' => 'user-management/user',
                     'permission_name' => 'user.index',
                     'menu_group_id' => 1,
                 ],
                 [
-                    'name' => 'Role List',
+                    'name' => 'List Peran',
                     'route' => 'role-and-permission/role',
                     'permission_name' => 'role.index',
                     'menu_group_id' => 2,
                 ],
                 [
-                    'name' => 'Permission List',
+                    'name' => 'List Perizinan',
                     'route' => 'role-and-permission/permission',
                     'permission_name' => 'permission.index',
                     'menu_group_id' => 2,
                 ],
                 [
-                    'name' => 'Permission To Role',
+                    'name' => 'Perizinan Untuk Peran',
                     'route' => 'role-and-permission/assign',
                     'permission_name' => 'assign.index',
                     'menu_group_id' => 2,
                 ],
                 [
-                    'name' => 'User To Role',
+                    'name' => 'Peran Untuk User',
                     'route' => 'role-and-permission/assign-user',
                     'permission_name' => 'assign.user.index',
                     'menu_group_id' => 2,
                 ],
                 [
-                    'name' => 'Menu Group',
+                    'name' => 'Menu Grup',
                     'route' => 'menu-management/menu-group',
                     'permission_name' => 'menu-group.index',
                     'menu_group_id' => 3,

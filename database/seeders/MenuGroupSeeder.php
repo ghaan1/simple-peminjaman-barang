@@ -19,22 +19,22 @@ class MenuGroupSeeder extends Seeder
         MenuGroup::insert(
             [
                 [
-                    'name' => 'Users Management',
+                    'name' => 'Manajemen Orang',
                     'icon' => 'fas fa-users',
                     'permission_name' => 'user.management',
                 ],
                 [
-                    'name' => 'Role Management',
+                    'name' => 'Manajemen Peran',
                     'icon' => 'fas fa-user-tag',
                     'permisison_name' => 'role.permission.management',
                 ],
                 [
-                    'name' => 'Menu Management',
+                    'name' => 'Manajemen Menu',
                     'icon' => 'fas fa-bars',
                     'permisison_name' => 'menu.management',
                 ],
                 [
-                    'name' => 'Table Management',
+                    'name' => 'Manajemen Master',
                     'icon' => 'fas fa-bars',
                     'permisison_name' => 'master.table.management',
 

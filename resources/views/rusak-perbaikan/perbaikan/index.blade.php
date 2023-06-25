@@ -56,7 +56,7 @@
                                             <th>Nama User</th>
                                             <th>Nama Barang</th>
                                             <th>Status</th>
-                                            <th>Quantity</th>
+                                            <th>Jumlah</th>
                                             <th>Bukti Perbaikan</th>
                                             <th>KTP</th>
                                             <th class="text-right">Action</th>
