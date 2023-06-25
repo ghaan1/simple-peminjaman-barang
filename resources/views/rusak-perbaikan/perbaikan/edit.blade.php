@@ -16,7 +16,7 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="tanggal_perbaikan">Tanggal Pinjam</label>
+                            <label for="tanggal_perbaikan">Tanggal Perbaikan</label>
                             <input type="date" class="form-control @error('tanggal_perbaikan') is-invalid @enderror"
                                 id="tanggal_perbaikan" name="tanggal_perbaikan"
                                 value="{{ old('tanggal_perbaikan', $perbaikan->tanggal_perbaikan) }}">
@@ -98,24 +98,24 @@
                                     <label>Unggah Bukti</label>
                                     <input name="bukti_perbaikan" type="file"
                                         class="form-control @error('bukti_perbaikan') is-invalid @enderror">
+                                    @error('bukti_perbaikan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                                @error('bukti_perbaikan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
                             </div>
                             <div class="form-group col-md-6 col-12" id="foto_upload_form">
                                 <div class="form-group">
                                     <label>Unggah KTP</label>
                                     <input name="ktp_perbaikan" type="file"
                                         class="form-control @error('ktp_perbaikan') is-invalid @enderror">
+                                    @error('ktp_perbaikan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                                @error('ktp_perbaikan')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
                             </div>
                         </div>
 

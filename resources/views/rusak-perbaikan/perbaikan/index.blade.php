@@ -22,14 +22,14 @@
                                     Cari Data Barang Perbaikan</a>
                                 @role('admin-rt')
                                     <a class="btn btn-icon icon-left btn-primary" href="{{ route('perbaikan.print') }}"
-                                        target="_blank">Print Data Peminjaman</a>
+                                        target="_blank">Print Data Perbaikan</a>
                                 @endrole
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('perbaikan.index') }}">
-                                    <div class="form-group col-md-9" style=" margin-left: 10px">
+                                    <div class="form-group col-md-4" style=" margin-left: 10px">
                                         <label for="role">Nama Barang</label>
                                         <input type="text" name="nama_barang" class="form-control" id="nama_barang"
                                             placeholder="Nama Barang" data-id="search-perusahaan"
@@ -71,21 +71,30 @@
                                                 <td>{{ $listBarangPerbaikan->status_rusak }}</td>
                                                 <td>{{ $listBarangPerbaikan->quantity_rusak }}</td>
                                                 <td>
-                                                    <img
-                                                        src="{{ Storage::url('public/' . $listBarangPerbaikan->bukti_perbaikan) }}"width="100px">
+                                                    @if ($listBarangPerbaikan->bukti_perbaikan)
+                                                        <img src="{{ Storage::url('public/' . $listBarangPerbaikan->bukti_perbaikan) }}"
+                                                            width="100px">
+                                                    @else
+                                                        Belum ada bukti
+                                                    @endif
                                                 </td>
                                                 <td>
-                                                    <img
-                                                        src="{{ Storage::url('public/' . $listBarangPerbaikan->ktp_perbaikan) }}"width="100px">
+                                                    @if ($listBarangPerbaikan->ktp_perbaikan)
+                                                        <img src="{{ Storage::url('public/' . $listBarangPerbaikan->ktp_perbaikan) }}"
+                                                            width="100px">
+                                                    @else
+                                                        Belum ada bukti
+                                                    @endif
                                                 </td>
+
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('perbaikan.edit', $listBarangPerbaikan->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                         <form
-                                                            action="{{ route('rusak.destroy', $listBarangPerbaikan->id) }}"
+                                                            action="{{ route('perbaikan.destroy', $listBarangPerbaikan->id) }}"
                                                             method="POST" class="ml-2"
                                                             id="del-<?= $listBarangPerbaikan->id ?>">
                                                             <input type="hidden" name="_method" value="DELETE">
@@ -96,7 +105,7 @@
                                                                 data-confirm="Hapus Data Rusak ?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $listBarangPerbaikan->id ?>)"
                                                                 data-id="del-{{ $listBarangPerbaikan->id }}">
-                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                                <i class="fas fa-times"> </i> Hapus </button>
                                                         </form>
 
                                                     </div>
