@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
     <section class="section">
         <div class="section-header">
             <h1>Table</h1>
-          
+
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah User</h2>
@@ -18,9 +17,9 @@
                     <form action="{{ route('user.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Your Name</label>
+                            <label for="name">Nama</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" placeholder="Enter User Name">
+                                name="name" placeholder="Masukkan Nama">
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -30,7 +29,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" placeholder="Enter User Email" value="{{ old('email') }}">
+                                name="email" placeholder="Masukkan Email" value="{{ old('email') }}">
                             @error('email')
                                 <div class="invalid-feedback">
                                     {{ $message }}

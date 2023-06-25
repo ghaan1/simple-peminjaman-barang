@@ -1,25 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permission</h1>
-         
+            <h1>Peran dan Perizinan</h1>
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Edit Roles</h2>
+            <h2 class="section-title">Ubah Peran</h2>
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Edit Roles Form</h4>
+                    <h4>Form Ubah Peran</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('role.update', $role->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="name">Role Name</label>
+                            <label for="name">Nama Peran</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ old('name', $role->name) }}">
                             @error('name')

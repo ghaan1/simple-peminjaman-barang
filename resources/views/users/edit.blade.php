@@ -3,20 +3,20 @@
     <section class="section">
         <div class="section-header">
             <h1>Table</h1>
-            
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Edit User</h2>
+            <h2 class="section-title">Ubah User</h2>
             <div class="card">
                 <form action="{{ route('user.update', $user) }}" method="POST">
                     <div class="card-header">
-                        <h4>Validasi Edit Data User</h4>
+                        <h4>Validasi Ubah Data User</h4>
                     </div>
                     <div class="card-body">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="name">Your Name</label>
+                            <label for="name">Nama</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ $user->name }}">
                             @error('name')

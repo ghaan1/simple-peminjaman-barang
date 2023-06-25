@@ -3,22 +3,22 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permission</h1>
-        
+            <h1>Peran dan Perizinan</h1>
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Create Roles</h2>
+            <h2 class="section-title">Tambah Peran</h2>
             <div class="card">
                 <div class="card-header">
-                    <h4>Form Create Role</h4>
+                    <h4>Form Tambah Peran</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('role.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Role Name</label>
+                            <label for="name">Nama Peran</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                name="name" placeholder="Role Name" value="{{ old('name') }}">
+                                name="name" placeholder="Nama Peran" value="{{ old('name') }}">
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}

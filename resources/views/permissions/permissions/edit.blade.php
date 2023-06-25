@@ -1,25 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permission Management</h1>
-        
+            <h1>Manajemen Peran dan Perizinan</h1>
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Permission Edit</h2>
+            <h2 class="section-title">Ubah Perizinan</h2>
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Permission Edit Form</h4>
+                    <h4>Form Ubah Perizinan</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('permission.update', $permission->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label for="name">Permission</label>
+                            <label for="name">Perizinan</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ old('name', $permission->name) }}">
                             @error('name')

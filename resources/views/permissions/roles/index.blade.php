@@ -4,11 +4,11 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Role and Permission</h1>
-         
+            <h1>Peran dan Perizinan</h1>
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Role Management</h2>
+            <h2 class="section-title">Manajemen Peran</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -19,19 +19,13 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Roles List</h4>
+                            <h4>List Peran</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('role.create') }}">Create New
-                                    Role</a>
-                                <a class="btn btn-info btn-primary active import">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import Role</a>
-                                <a class="btn btn-info btn-primary active" href="{{ route('role.export') }}">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export Role</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('role.create') }}">Tambah Baru
+                                    Peran</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Role</a>
+                                    Cari Peran</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -82,14 +76,14 @@
                                                         <a href="{{ route('role.edit', $role->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
-                                                        <form action="{{ route('role.destroy', $role->id) }}"
-                                                            method="POST" class="ml-2">
+                                                            Ubah</a>
+                                                        <form action="{{ route('role.destroy', $role->id) }}" method="POST"
+                                                            class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}">
                                                             <button class="btn btn-sm btn-danger btn-icon confirm-delete">
-                                                                <i class="fas fa-times"></i> Delete </button>
+                                                                <i class="fas fa-times"></i> Hapus </button>
                                                         </form>
                                                     </div>
                                                 </td>

@@ -1,24 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permission</h1>
-         
+            <h1>Peran dan Perizinan</h1>
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Permission Management</h2>
+            <h2 class="section-title">Manajemen Perizinan</h2>
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Create Permission Form</h4>
+                    <h4>Form Buat Perizinan</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('permission.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Permission</label>
+                            <label for="name">Peran</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" placeholder="" value="{{ old('name') }}">
                             @error('name')

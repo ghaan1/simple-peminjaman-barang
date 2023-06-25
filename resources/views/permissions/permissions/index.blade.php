@@ -4,11 +4,11 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permissions</h1>
-       
+            <h1>Peran dan Perizinan</h1>
+
         </div>
         <div class="section-body">
-            <h2 class="section-title">Permission Management</h2>
+            <h2 class="section-title">Manajemen Perizinan</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -19,20 +19,13 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>Permission List</h4>
+                            <h4>List Perizinan</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('permission.create') }}">Create
-                                    New
-                                    Permission</a>
-                                <a class="btn btn-info btn-primary active import">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import Permission</a>
-                                <a class="btn btn-info btn-primary active" href="{{ route('permission.export') }}">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                    Export Permission</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('permission.create') }}">Tambah
+                                    Baru Perizinan</a>
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Permission</a>
+                                    Cari Perizinan</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -41,7 +34,7 @@
                                     <form action="{{ route('permission.import') }}" method="post"
                                         enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <label class="custom-file-label" for="file-upload">Choose File</label>
+                                        <label class="custom-file-label" for="file-upload">Pilih File</label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import_file">
                                         <br /> <br />
                                         <div class="footer text-right">
@@ -54,7 +47,7 @@
                                 <form id="search" method="GET" action="{{ route('permission.index') }}">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="role">Role</label>
+                                            <label for="role">Peran</label>
                                             <input type="text" name="name" class="form-control" id="name"
                                                 placeholder="Role Name">
                                         </div>
@@ -85,14 +78,14 @@
                                                         <a href="{{ route('permission.edit', $permission->id) }}"
                                                             class="btn btn-sm btn-info btn-icon "><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                         <form action="{{ route('permission.destroy', $permission->id) }}"
                                                             method="POST" class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE">
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}">
                                                             <button class="btn btn-sm btn-danger btn-icon confirm-delete"><i
-                                                                    class="fas fa-times"></i> Delete </button>
+                                                                    class="fas fa-times"></i> Hapus </button>
                                                         </form>
                                                     </div>
                                                 </td>

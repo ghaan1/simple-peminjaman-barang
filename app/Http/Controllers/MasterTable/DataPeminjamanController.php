@@ -300,8 +300,7 @@ class DataPeminjamanController extends Controller
             )
             ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-            ->where('datapeminjaman.status', 'Sudah Dikembalikan');
+            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id');
 
         if ($request->has('databarang')) {
             $query->whereIn('datapeminjaman.barang_id', $request->databarang);

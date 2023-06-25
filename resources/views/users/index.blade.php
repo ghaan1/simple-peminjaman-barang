@@ -23,9 +23,6 @@
                             <div class="card-header-action">
                                 <a class="btn btn-icon icon-left btn-primary" href="{{ route('user.create') }}">Tambah Baru
                                     User</a>
-                                <a class="btn btn-info btn-primary active import">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    Import User</a>
                                 <a class="btn btn-info btn-primary active" href="{{ route('user.export') }}">
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                     Export User</a>
@@ -104,7 +101,7 @@
                                                                 data-confirm="Hapus User List?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $user->id ?>)"
                                                                 data-id="del-{{ $user->id }}">
-                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                                <i class="fas fa-times"> </i> Hapus </button>
                                                         </form>
 
                                                     </div>
