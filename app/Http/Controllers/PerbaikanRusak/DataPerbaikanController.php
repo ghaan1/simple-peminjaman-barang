@@ -198,8 +198,13 @@ class DataPerbaikanController extends Controller
         }
 
         $dataPerbaikan = $query->get();
-        // dd($dataPerbaikan);
-        $pdf = PDF::loadView('rusak-perbaikan.perbaikan.print', with(['dataPerbaikan' => $dataPerbaikan, 'users' => $user]));
+        if ($dataPerbaikan) {
+            $pdf = PDF::loadView('rusak-perbaikan.perbaikan.print', with(['dataPerbaikan' => $dataPerbaikan, 'users' => $user]));
+            return $pdf->download('perbaikan.pdf');
+        } else {
+            return redirect()->back()->with('error', 'Data perbaikan tidak tersedia.');
+        }
+
         return $pdf->stream('perbaikan.pdf');
     }
 
@@ -214,7 +219,7 @@ class DataPerbaikanController extends Controller
         }
 
         try {
-            $rusak->delete();
+            $perbaikan->delete();
             return redirect()->route('perbaikan.index')
                 ->with('success', 'Hapus Data Barang Perbaikan Sukses');
         } catch (\Illuminate\Database\QueryException $e) {

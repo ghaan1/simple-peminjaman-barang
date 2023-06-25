@@ -115,7 +115,7 @@
                                                 <th>Status</th>
                                                 <th class="text-right">Action Status</th>
                                             @endrole
-                                            @role('user')
+                                            @role('warga-rt|warga|kelurahan')
                                                 <th>Status</th>
                                             @endrole
                                             <th class="text-right">Action</th>
@@ -179,7 +179,7 @@
                                                         </div>
                                                     </td>
                                                 @endrole
-                                                @role('user')
+                                                @role('warga-rt|warga|kelurahan')
                                                     @if ($itemPeminjaman->status == 'Sedang Dipinjam')
                                                         <td>Barang Sedang Dipinjam</td>
                                                     @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')

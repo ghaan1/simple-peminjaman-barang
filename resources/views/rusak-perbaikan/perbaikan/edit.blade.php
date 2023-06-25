@@ -67,11 +67,10 @@
                                 <option value=""
                                     {{ old('status_rusak', $dataRusak->status_rusak) === '' ? 'selected' : '' }}>
                                     Pilih Status</option>
-                                <option value="rusak"
-                                    {{ old('status_rusak', $dataRusak->status_rusak) === 'rusak' ? 'selected' : '' }}>
+                                <option value="rusak">
                                     RUSAK</option>
                                 <option value="diperbaiki"
-                                    {{ old('status_rusak', $dataRusak->status_rusak) === 'diperbaiki' ? 'selected' : '' }}>
+                                    {{ 'diperbaiki' ? 'selected' : '' }}>
                                     DIPERBAIKI</option>
                             </select>
                             @error('status_rusak')

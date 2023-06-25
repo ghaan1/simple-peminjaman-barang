@@ -31,7 +31,7 @@
 
 <body>
     <center>
-        <h1>Data Barang Perbaikang</h1>
+        <h1>Data Barang Perbaikan</h1>
     </center>
     <br>
     <p>Pemberitahuan untuk Barang Perbaikan yang masuk dalam list data perbaikan : </p>

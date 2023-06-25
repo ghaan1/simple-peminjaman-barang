@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <div class="show-search mb-3" style="display: none">
                                 <form id="search" method="GET" action="{{ route('perbaikan.index') }}">
-                                    <div class="form-group col-md-4" style=" margin-left: 10px">
+                                    <div class="form-group col-md-4er" style=" margin-left: 10px">
                                         <label for="role">Nama Barang</label>
                                         <input type="text" name="nama_barang" class="form-control" id="nama_barang"
                                             placeholder="Nama Barang" data-id="search-perusahaan"
