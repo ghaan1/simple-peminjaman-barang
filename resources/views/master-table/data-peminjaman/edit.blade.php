@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Table</h1>
+            <h1>Tabel Data Peminjaman</h1>
         </div>
         <div class="row">
             <div class="col-12">
@@ -85,7 +85,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="quantity">Quantity</label>
+                            <label for="quantity">Jumlah</label>
                             <input type="text" class="form-control @error('quantity') is-invalid @enderror"
                                 id="quantity" name="quantity" value="{{ old('quantity', $dataPeminjaman->quantity) }}"
                                 placeholder="Masukkan Quantity" autocomplete="off">

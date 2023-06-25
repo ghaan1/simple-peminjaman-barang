@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Table</h1>
+            <h1>Tabel Data Peminjaman</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Data Peminjaman</h2>
@@ -77,7 +77,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="quantity">Quantity</label>
+                            <label for="quantity">Jumlah</label>
                             <input type="text" name="quantity"
                                 class="form-control @error('quantity') is-invalid @enderror" id="quantity"
                                 placeholder="Masukkan Quantity" autocomplete="off">

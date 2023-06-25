@@ -75,7 +75,7 @@
                                                                 data-confirm="Hapus Data Rusak ?|Apakah Kamu Yakin?"
                                                                 data-confirm-yes="submitDel(<?= $listBarangRusak->id ?>)"
                                                                 data-id="del-{{ $listBarangRusak->id }}">
-                                                                <i class="fas fa-times"> </i> Delete </button>
+                                                                <i class="fas fa-times"> </i> Hapus </button>
                                                         </form>
 
                                                     </div>

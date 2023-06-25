@@ -2,10 +2,10 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Master Table Management</h1>
+            <h1>Master Manajemen</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Data Peminjaman Management</h2>
+            <h2 class="section-title">Manajemen Data Peminjaman</h2>
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')

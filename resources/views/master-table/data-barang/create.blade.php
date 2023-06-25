@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Table</h1>
+            <h1>Tabel Data Barang</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Data Barang</h2>
