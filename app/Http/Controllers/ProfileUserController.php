@@ -13,7 +13,7 @@ class ProfileUserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'nik' => 'nullable|regex:/^[0-9]*$/',
+            'nik' => 'nullable|regex:/^[0-9]*$/|min:16',
             'tanggal_lahir' => 'nullable|date',
             'alamat' => 'nullable|string|max:255',
             'jenis_kelamin' => 'nullable|in:L,P',
@@ -22,6 +22,7 @@ class ProfileUserController extends Controller
             'ktp' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'nik.regex' => 'NIK Tidak Sesuai Format',
+            'nik.min' => 'NIK Kurang Dari Ketentuan',
             'tanggal_lahir.date' => 'Tanggal Lahir Tidak Sesuai Format',
             'alamat.max' => 'Alamat Melebihi Batas Maksimal',
             'jenis_kelamin.in' => 'Jenis Kelamin Hanya Pada Pilihan L/P',
