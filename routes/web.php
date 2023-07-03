@@ -20,6 +20,7 @@ use App\Http\Controllers\RoleAndPermission\RoleController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Category;
 
 /*
@@ -47,7 +48,7 @@ Route::get('/register', function () {
 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', function () {
         return view('profile.index');
     })->name('profile.edit');

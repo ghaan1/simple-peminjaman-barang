@@ -19,6 +19,11 @@ class MenuGroupSeeder extends Seeder
         MenuGroup::insert(
             [
                 [
+                    'name' => 'Dashboard',
+                    'icon' => 'fas fa-tachometer-alt',
+                    'permission_name' => 'dashboard',
+                ],
+                [
                     'name' => 'Manajemen Orang',
                     'icon' => 'fas fa-users',
                     'permission_name' => 'user.management',
