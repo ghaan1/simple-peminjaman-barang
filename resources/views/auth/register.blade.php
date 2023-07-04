@@ -18,6 +18,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/select2.min.css">
 </head>
 
 <body>
@@ -173,8 +174,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-12 col-12" id="foto_upload_form"
-                                            style="{{ old('show_foto') ? '' : 'display: block' }}">
+                                        <div class="form-group col-md-12 col-12">
                                             <div class="form-group">
                                                 <label>Unggah Foto</label>
                                                 <input name="foto" type="file"
@@ -186,8 +186,7 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        <div class="form-group col-md-12 col-12" id="ktp_upload_form"
-                                            style="{{ old('show_ktp') ? '' : 'display: block' }}">
+                                        <div class="form-group col-md-12 col-12">
                                             <div class="form-group">
                                                 <label>Unggah KTP</label>
                                                 <input name="ktp" type="file"
@@ -229,6 +228,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="../assets/js/stisla.js"></script>
+    <script src="../assets/js/select2.min.js"></script>
 
     <!-- JS Libraies -->
     <script src="../node_modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
@@ -240,6 +240,8 @@
 
     <!-- Page Specific JS File -->
     <script src="../assets/js/page/auth-register.js"></script>
+
+
 </body>
 
 </html>
