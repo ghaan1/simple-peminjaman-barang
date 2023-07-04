@@ -17,6 +17,7 @@ class ProfileUser extends Model
         'jenis_kelamin',
         'no_hp',
         'foto',
+        'ktp'
     ];
 
     public function user()

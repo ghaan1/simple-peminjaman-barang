@@ -33,21 +33,31 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = DB::table('users')
+        $users = DB::table('profile_users')
             ->when($request->input('name'), function ($query, $name) {
-                return $query->where('name', 'like', '%' . $name . '%');
+                return $query->where('users.name', 'like', '%' . $name . '%');
             })
             ->select(
-                'id',
-                'name',
-                'email',
-                DB::raw("DATE_FORMAT(created_at, '%d %M %Y') as created_at"),
-                DB::raw("DATE_FORMAT(email_verified_at, '%d %M %Y') as email_verified_at")
+                'users.id',
+                'users.name',
+                'users.email',
+                'profile_users.id as profile_id',
+                'profile_users.nik',
+                'profile_users.tanggal_lahir',
+                'profile_users.alamat',
+                'profile_users.jenis_kelamin',
+                'profile_users.no_hp',
+                'profile_users.foto',
+                'profile_users.ktp',
+                DB::raw("DATE_FORMAT(profile_users.created_at, '%d %M %Y') as created_at"),
+                DB::raw("DATE_FORMAT(users.email_verified_at, '%d %M %Y') as email_verified_at")
             )
+            ->leftJoin('users', 'profile_users.user_id', '=', 'users.id')
             ->paginate(10);
 
         return view('users.index', compact('users'));
     }
+
 
     /**
      * Show the form for creating a new resource.

@@ -133,9 +133,40 @@
                                                                     Email</button>
                                                             </form>
                                                         @endif
+                                                        <button class="btn btn-sm btn-info btn-icon toggle-details ml-2"
+                                                            data-target="#details-{{ $user->profile_id }}">
+                                                            <i class="fas fa-chevron-down"></i>
+                                                        </button>
                                                     </div>
                                                 </td>
 
+                                            </tr>
+                                            <tr id="details-{{ $user->profile_id }}" style="display: none;">
+                                                <td colspan="10">
+
+                                                    <h6>Data Perusahaan</h6>
+                                                    <table class="table table-bordered table-md">
+                                                        <tr>
+                                                            <th>NIK</th>
+                                                            <th>Tanggal Lahir</th>
+                                                            <th>Jenis Kelamin</th>
+                                                            <th>Alamat</th>
+                                                            <th>Nomer HP</th>
+                                                            <th>KTP</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>{{ $user->nik }}</td>
+                                                            <td>{{ $user->tanggal_lahir }}</td>
+                                                            <td>{{ $user->jenis_kelamin }}</td>
+                                                            <td>{{ $user->alamat }}</td>
+                                                            <td>{{ $user->no_hp }}</td>
+                                                            <td><img src="{{ Storage::url($user->ktp) }}" width="100">
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <br />
+
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -180,6 +211,28 @@
         function submitVeri(id) {
             $('#vel-' + id).submit()
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            var detailStatus = {};
+            $('.toggle-details').click(function() {
+                var targetId = $(this).data('target');
+                var kbliperusahaanId = targetId.split('-')[1];
+
+                for (var id in detailStatus) {
+                    if (id != kbliperusahaanId && detailStatus[id] === true) {
+                        $('#details-' + id).toggle();
+                        $('.toggle-details[data-target="#details-' + id + '"] i')
+                            .toggleClass('fa-chevron-down fa-chevron-up');
+                        detailStatus[id] = false;
+                    }
+                }
+
+                $(targetId).toggle();
+                $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+                detailStatus[kbliperusahaanId] = $(targetId).is(':visible');
+            });
+        });
     </script>
 @endpush
 
