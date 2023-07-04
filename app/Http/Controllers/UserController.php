@@ -52,10 +52,10 @@ class UserController extends Controller
                 DB::raw("DATE_FORMAT(users.created_at, '%d %M %Y') as created_at"),
                 DB::raw("DATE_FORMAT(users.email_verified_at, '%d %M %Y') as email_verified_at")
             )
-            ->leftJoin('users', 'profile_users.user_id', '=', 'users.id')
+            ->rightJoin('users', 'profile_users.user_id', '=', 'users.id')
             ->orderBy('profile_users.created_at', 'desc')
             ->paginate(10);
-
+        // dd($users);
         return view('users.index', compact('users'));
     }
 
