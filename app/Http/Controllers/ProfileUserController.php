@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileUserRequest;
+use App\Models\ProfileUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class ProfileUserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'nik' => 'nullable|regex:/^[0-9]*$/|min:16',
+            'nik' => 'nullable|regex:/^[0-9]*$/|min:15',
             'tanggal_lahir' => 'nullable|date',
             'alamat' => 'nullable|string|max:255',
             'jenis_kelamin' => 'nullable|in:L,P',
@@ -37,8 +38,18 @@ class ProfileUserController extends Controller
 
         $fotoLama = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
         $user = $request->user();
-        $user->profile()->update($request->except('_token', '_method', 'foto', 'show_foto', 'ktp', 'show_ktp'));
-
+        $user->profile()->update($request->except('_token', '_method', 'foto', 'ktp', 'show_ktp', 'show_foto'));
+        $profileUser = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
+        $profileUserBaru = new \App\Models\ProfileUser();
+        $profileUserBaru->user_id = Auth::user()->id;
+        if ($profileUser === null) {
+            $profileUserBaru->nik = $request->input('nik');
+            $profileUserBaru->tanggal_lahir = $request->input('tanggal_lahir');
+            $profileUserBaru->alamat = $request->input('alamat');
+            $profileUserBaru->jenis_kelamin = $request->input('jenis_kelamin');
+            $profileUserBaru->no_hp = $request->input('no_hp');
+            $profileUserBaru->save();
+        }
         if ($request->hasFile('foto')) {
             $photo = $request->file('foto');
             $validExtensions = ['jpg', 'jpeg', 'png'];
@@ -50,12 +61,24 @@ class ProfileUserController extends Controller
 
             $namaGambar = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/profile/', $photo, $namaGambar);
-            $user->profile->foto = 'database/profile/' . $namaGambar;
-            $user->profile->save();
-        } else {
+
+            if ($profileUser === null) {
+                $profileUserBaru->foto = 'database/profile/' . $namaGambar;
+                $profileUserBaru->save();
+            } elseif ($request->hasFile('foto')) {
+                $user->profile->foto = 'database/profile/' . $namaGambar;
+                $user->profile->save();
+            } else {
+                return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            }
+        } elseif ($user->profile && $user->profile->foto != 'null') {
             $user->profile->foto = $fotoLama->foto;
             $user->profile->save();
+        } else {
+            return redirect()->back()->with('error', 'Pembaharuan GAGAL');
         }
+
+
 
         if ($request->hasFile('ktp')) {
             $ktp = $request->file('ktp');
@@ -68,11 +91,24 @@ class ProfileUserController extends Controller
 
             $namaKTP = uniqid() . '.' . $oriName;
             Storage::putFileAs('public/database/ktp/', $ktp, $namaKTP);
-            $user->profile->ktp = 'database/ktp/' . $namaKTP;
-            $user->profile->save();
-        } else {
+
+            $ktpCheck = DB::table('profile_users')->where('user_id', Auth::user()->id)->first();
+            if ($ktpCheck === null) {
+                // $profileKtpBaru = new \App\Models\ProfileUser();
+                // $profileKtpBaru->user_id = Auth::user()->id;
+                $profileUserBaru->ktp = 'database/ktp/' . $namaKTP;
+                $profileUserBaru->save();
+            } elseif ($request->hasFile('ktp')) {
+                $user->profile->ktp = 'database/ktp/' . $namaKTP;
+                $user->profile->save();
+            } else {
+                return redirect()->back()->with('error', 'Pembaharuan GAGAL');
+            }
+        } elseif ($user->profile && $user->profile->ktp != 'null') {
             $user->profile->ktp = $fotoLama->ktp;
             $user->profile->save();
+        } else {
+            return redirect()->back()->with('error', 'Pembaharuan GAGAL');
         }
 
         return redirect()->back()->with('success', 'Profile updated successfully.');

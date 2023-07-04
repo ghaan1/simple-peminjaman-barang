@@ -31,6 +31,11 @@ class DataPeminjamanController extends Controller
 
     public function index(Request $request)
     {
+        $userId = Auth::id();
+        $profileUser = \App\Models\ProfileUser::where('user_id', $userId)->first();
+        if (!$profileUser) {
+            return redirect()->route('profile.edit');
+        }
         $users = User::all();
         $jenisBarang = JenisBarang::all();
         $nama_barang = $request->input('nama_barang');
@@ -110,6 +115,7 @@ class DataPeminjamanController extends Controller
         $statusSelected = $request->input('status');
         $tanggalSelected = $request->input('tanggal');
         $request->session()->put('tanggal', $tanggalSelected);
+
 
         return view('master-table.data-peminjaman.index')->with([
             'nama_barang' => $nama_barang,

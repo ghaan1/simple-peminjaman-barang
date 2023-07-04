@@ -260,7 +260,7 @@
                                     <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="show_foto"
-                                                id="show_foto" {{ old('show_foto') ? 'checked' : '' }}>
+                                                id="show_foto">
                                             <label class="form-check-label" for="show_foto">
                                                 Perbarui Foto
                                             </label>
@@ -269,7 +269,7 @@
                                     <div class="form-group col-md-6 col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="show_ktp"
-                                                id="show_ktp" {{ old('show_ktp') ? 'checked' : '' }}>
+                                                id="show_ktp">
                                             <label class="form-check-label" for="show_ktp">
                                                 Perbarui KTP
                                             </label>
@@ -331,6 +331,24 @@
         function submitDel(id) {
             $('#del-' + id).submit()
         }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var showFotoCheckbox = document.getElementById("show_foto");
+            var showKtpCheckbox = document.getElementById("show_ktp");
+            var fotoUploadForm = document.getElementById('foto_upload_form');
+            var ktpUlploadForm = document.getElementById('ktp_upload_form');
+
+            if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->foto) : 'null' }} === null) {
+                showFotoCheckbox.checked = true;
+                fotoUploadForm.style.display = 'block';
+            }
+
+            if ({{ Auth::user()->profile ? json_encode(Auth::user()->profile->ktp) : 'null' }} === null) {
+                showKtpCheckbox.checked = true;
+                ktpUlploadForm.style.display = 'block';
+            }
+        });
     </script>
 @endpush
 
