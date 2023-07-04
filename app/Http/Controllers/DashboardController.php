@@ -13,6 +13,10 @@ class DashboardController extends Controller
     public function index()
     {
         $userId = Auth::id();
+        $profileUser = \App\Models\ProfileUser::where('user_id', $userId)->first();
+        if (!$profileUser) {
+            return redirect()->route('profile.edit');
+        }
         $chartData = DataBarang::select('databarang.nama_barang', 'databarang.quantity', 'users.name')
             ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
             ->get()
