@@ -14,33 +14,12 @@
                 <div class="card-body">
                     <form action="{{ route('data-peminjaman.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @if (in_array(
-                                'admin-kelurahan',
-                                Auth::user()->roles->pluck('name')->toArray()))
-                            <div class="form-group">
-                                <label>Nama Peminjam</label>
-                                <select name="peminjam_id"
-                                    class="form-control select2 @error('peminjam_id') is-invalid @enderror"
-                                    data-id="peminjam-id" id="peminjam_id">
-                                    <option value="">Nama Peminjam </option>
-                                    @foreach ($user as $listUser)
-                                        <option value="{{ $listUser->id }}">
-                                            {{ $listUser->name }} </option>
-                                    @endforeach
-                                </select>
-                                @error('peminjam_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        @else
-                            <div class="form-group">
-                                <label>Nama Peminjam</label>
-                                <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
-                                <input type="hidden" name="peminjam_id" value="{{ Auth::user()->id }}">
-                            </div>
-                        @endif
+                        <div class="form-group">
+                            <label>Nama Peminjam</label>
+                            <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
+                            <input type="hidden" name="peminjam_id" value="{{ Auth::user()->id }}">
+                        </div>
+                        {{-- @endif --}}
                         <div class="form-group">
                             <label>Jenis Barang</label>
                             <select name="jenis_barang_id"

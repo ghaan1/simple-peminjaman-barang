@@ -10,6 +10,7 @@ use App\Models\DataPeminjaman;
 use App\Models\DataPerbaikan;
 use App\Models\DataRusak;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DataRusakController extends Controller
@@ -45,8 +46,13 @@ class DataRusakController extends Controller
 
     public function create()
     {
-        $role = DB::table('roles')->get();
-        $user = DB::table('users')->get();
+        $userId = Auth::id();
+        $role = DB::table('model_has_roles')
+            ->where('model_id', $userId)
+            ->select('roles.name', 'roles.id')
+            ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+            ->first();
+        $user = DB::table('users')->where('id', $userId)->first();
         $dataBarang = DB::table('databarang')->get();
         return view('rusak-perbaikan.rusak.create')->with([
             'dataBarang' => $dataBarang,

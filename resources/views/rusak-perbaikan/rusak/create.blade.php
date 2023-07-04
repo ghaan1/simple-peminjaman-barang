@@ -15,39 +15,25 @@
                     <form action="{{ route('rusak.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label>Nama Peran</label>
-                            <select name="role" class="form-control select2 @error('role') is-invalid @enderror"
-                                id="role">
-                                <option value="">Nama Peran</option>
-                                @foreach ($role as $listRole)
-                                    <option value="{{ $listRole->id }}">
-                                        {{ $listRole->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('role')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <label>Nama Perizinan</label>
+                            <input type="text" class="form-control" value="{{ $role->name }}" disabled>
+                            <input type="hidden" name="role" value="{{ $role->id }}">
                         </div>
                         <div class="form-group">
                             <label>Nama User</label>
-                            <select name="user_id" class="form-control select2 @error('user_id') is-invalid @enderror"
-                                id="user_id" disabled="disable">
-                                <option value="">Nama User</option>
-                            </select>
-                            @error('user_id')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <input type="text" class="form-control" value="{{ $user->name }}" disabled>
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
                         </div>
                         <div class="form-group">
                             <label>Nama Barang</label>
                             <select name="barang_id" class="form-control select2 @error('barang_id') is-invalid @enderror"
-                                id="barang_id" disabled="disable">
+                                id="barang_id">
                                 <option value="">Nama Barang</option>
+                                @foreach ($dataBarang as $listJenisBarang)
+                                    <option value="{{ $listJenisBarang->id }}">
+                                        {{ $listJenisBarang->nama_barang }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('barang_id')
                                 <div class="invalid-feedback">
@@ -83,7 +69,7 @@
 @endsection
 @push('customScript')
     <script src="/assets/js/select2.min.js"></script>
-    <script>
+    {{-- <script>
         jQuery(document).ready(function() {
             $('#role').change(function() {
                 if ($(this).val() == '') {
@@ -151,7 +137,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
     <script>
         $(document).ready(function() {
             $('#barang_id').change(function() {
