@@ -111,11 +111,11 @@
                                             <th>Nama Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
-                                            @role('admin-rt')
+                                            @role('admin-rt|admin-kelurahan')
                                                 <th>Status</th>
                                                 <th class="text-right">Action Status</th>
                                             @endrole
-                                            @role('warga-rt|warga|kelurahan')
+                                            @role('warga-rt|warga')
                                                 <th>Status</th>
                                             @endrole
                                             <th class="text-right">Action</th>
@@ -129,7 +129,7 @@
                                                 <td>{{ $itemPeminjaman->nama_barang }}</td>
                                                 <td>{{ $itemPeminjaman->quantity }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
-                                                @role('admin-rt')
+                                                @role('admin-rt|admin-kelurahan')
                                                     <td>{{ $itemPeminjaman->status }}</td>
                                                     <td class="text-right">
                                                         <div class="d-flex justify-content-end">
@@ -179,7 +179,7 @@
                                                         </div>
                                                     </td>
                                                 @endrole
-                                                @role('warga-rt|warga|kelurahan')
+                                                @role('warga-rt|warga')
                                                     @if ($itemPeminjaman->status == 'Sedang Dipinjam')
                                                         <td>Barang Sedang Dipinjam</td>
                                                     @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')

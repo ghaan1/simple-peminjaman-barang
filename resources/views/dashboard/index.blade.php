@@ -35,27 +35,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Jumlah Barang</h4>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Jumlah Peminjaman Per-Warga</h4>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart2"></canvas>
+            @role('admin-kelurahan|admin-rt')
+                <div class="col-12 col-md-6 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Jumlah Barang</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart"></canvas>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            @endrole
+            @role('warga-rt|warga')
+                <div class="col-12 col-md-6 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Jumlah Peminjaman Per-Warga</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            @endrole
         </div>
     </section>
 @endsection

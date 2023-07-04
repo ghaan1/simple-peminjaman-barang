@@ -106,11 +106,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'perbaikan.destroy']);
 
         // create Super Admin
-        $role = Role::create(['name' => 'admin-rt']);
+        $role = Role::create(['name' => 'admin-kelurahan']);
         $role->givePermissionTo(Permission::all());
         // create roles
         $roleWarga = Role::create(['name' => 'warga']);
         $roleWarga->givePermissionTo([
+            'dashboard',
             'master.table.management',
             'data-peminjaman.index',
             'data-peminjaman.create',
@@ -120,6 +121,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $roleRT = Role::create(['name' => 'warga-rt']);
         $roleRT->givePermissionTo([
+            'dashboard',
             'master.table.management',
             'data-peminjaman.index',
             'data-peminjaman.create',
@@ -127,9 +129,36 @@ class RoleAndPermissionSeeder extends Seeder
             'data-peminjaman.destroy',
         ]);
 
-        $roleKelurahan = Role::create(['name' => 'kelurahan']);
+        $roleKelurahan = Role::create(['name' => 'admin-rt']);
         $roleKelurahan->givePermissionTo([
+            'dashboard',
+            'menu.management',
+            'menu-group.index',
+            'menu-group.create',
+            'menu-group.edit',
+            'menu-group.destroy',
+            'menu-item.index',
+            'menu-item.create',
+            'menu-item.edit',
+            'menu-item.destroy',
             'master.table.management',
+            'data-barang.index',
+            'data-barang.create',
+            'data-barang.edit',
+            'data-barang.destroy',
+            'rusak.index',
+            'rusak.create',
+            'rusak.edit',
+            'rusak.destroy',
+            'jenis-barang.index',
+            'jenis-barang.create',
+            'jenis-barang.edit',
+            'jenis-barang.destroy',
+            'perbaikan.index',
+            'perbaikan.create',
+            'perbaikan.edit',
+            'perbaikan.destroy',
+            'rusak.perbaikan.management',
             'data-peminjaman.index',
             'data-peminjaman.create',
             'data-peminjaman.edit',
@@ -140,12 +169,12 @@ class RoleAndPermissionSeeder extends Seeder
 
         //assign user id 1 ke super admin
         $user = User::find(1);
-        $user->assignRole('admin-rt');
+        $user->assignRole('admin-kelurahan');
         $user = User::find(2);
-        $user->assignRole('warga');
+        $user->assignRole('admin-rt');
         $user = User::find(3);
         $user->assignRole('warga-rt');
         $user = User::find(4);
-        $user->assignRole('kelurahan');
+        $user->assignRole('warga');
     }
 }
