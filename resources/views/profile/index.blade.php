@@ -21,7 +21,7 @@
                     <div class="card profile-widget">
                         <div class="profile-widget-header">
                             <img alt="image"
-                                src="{{ Auth::user()->profile ? asset('storage/' . Auth::user()->profile->foto) : '' }}"
+                                src="{{ Auth::user()->profile ? Storage::url(Auth::user()->profile->foto) : '' }}"
                                 class="rounded-circle profile-widget-picture img-fluid"
                                 style="width: 150px; height: 150px;">
 

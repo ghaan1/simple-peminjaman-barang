@@ -17,18 +17,21 @@ class UserSeeder extends Seeder
             'email' => "superadmin@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
+            'created_at' => now(),
         ]);
         User::create([
             'name' => "Admin RT",
             'email' => "user@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
+            'created_at' => now(),
         ]);
         User::create([
             'name' => "Warga RT",
             'email' => "user2@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
+            'created_at' => now(),
         ]);
 
         User::create([
@@ -36,6 +39,7 @@ class UserSeeder extends Seeder
             'email' => "user3@gmail.com",
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
+            'created_at' => now(),
         ]);
     }
 }

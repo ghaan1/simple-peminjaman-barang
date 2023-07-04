@@ -37,7 +37,7 @@
                                 <h4>Daftar</h4>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('register') }}" method="POST">
+                                <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="form-group col-6">
@@ -87,7 +87,8 @@
 
                                         <div class="form-group col-6">
                                             <div class="form-group">
-                                                <label for="password_confirmation" class="d-block">Konfirmasi Kata Sandi</label>
+                                                <label for="password_confirmation" class="d-block">Konfirmasi Kata
+                                                    Sandi</label>
                                                 <input id="password_confirmation" name="password_confirmation"
                                                     type="password" class="form-control"
                                                     placeholder="Masukkan Konfirmasi Kata Sandi">
@@ -99,7 +100,106 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>NIK</label>
+                                            <input name="nik" type="text"
+                                                class="form-control @error('nik') is-invalid @enderror">
+                                            @error('nik')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
 
+
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>Tanggal Lahir</label>
+                                            <input name="tanggal_lahir" type="date"
+                                                class="form-control @error('tanggal_lahir') is-invalid @enderror">
+                                            @error('tanggal_lahir')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12">
+                                            <label>Alamat</label>
+                                            <input name="alamat" type="text"
+                                                class="form-control @error('alamat') is-invalid @enderror">
+                                            @error('alamat')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-12">
+                                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                                            <select
+                                                class="form-control select2 @error('jenis_kelamin') is-invalid @enderror"
+                                                name="jenis_kelamin" id="jenis_kelamin">
+                                                <option value="">Pilih Jenis Kelamin</option>
+                                                <option value="L">
+                                                    Laki-Laki</option>
+                                                <option value="P">
+                                                    Perempuan</option>
+                                            </select>
+                                            @error('jenis_kelamin')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-6 col-12">
+                                            <label>No HP</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="fas fa-phone"></i>
+                                                    </div>
+                                                </div>
+                                                <input name="no_hp" type="text"
+                                                    class="form-control phone-number @error('no_hp') is-invalid @enderror">
+                                            </div>
+                                            @error('no_hp')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-12" id="foto_upload_form"
+                                            style="{{ old('show_foto') ? '' : 'display: block' }}">
+                                            <div class="form-group">
+                                                <label>Unggah Foto</label>
+                                                <input name="foto" type="file"
+                                                    class="form-control @error('foto') is-invalid @enderror">
+                                            </div>
+                                            @error('foto')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group col-md-12 col-12" id="ktp_upload_form"
+                                            style="{{ old('show_ktp') ? '' : 'display: block' }}">
+                                            <div class="form-group">
+                                                <label>Unggah KTP</label>
+                                                <input name="ktp" type="file"
+                                                    class="form-control @error('ktp') is-invalid @enderror">
+                                            </div>
+                                            @error('ktp')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             Daftar
