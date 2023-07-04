@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\DataBarang;
 use App\Models\DataPeminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $userId = Auth::id();
         $chartData = DataBarang::select('databarang.nama_barang', 'databarang.quantity', 'users.name')
             ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
             ->get()
@@ -30,6 +32,11 @@ class DashboardController extends Controller
             ->groupBy('users.id', 'users.name')
             ->get();
 
+        $peminjamanBarang = DataPeminjaman::where('peminjam_id', $userId)
+            ->join('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
+            ->select('databarang.nama_barang', 'datapeminjaman.quantity')
+            ->get();
+        // dd($peminjamanBarang);
         $countBarang = DataBarang::count();
         $countPeminjaman = DataPeminjaman::count();
         return view('dashboard.index')
@@ -38,6 +45,7 @@ class DashboardController extends Controller
                 'countPeminjaman' => $countPeminjaman,
                 'chartData' => $chartData,
                 'chartData2' => $chartData2,
+                'peminjamanBarang' => $peminjamanBarang,
             ]);
     }
 }

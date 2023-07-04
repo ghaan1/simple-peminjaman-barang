@@ -15,7 +15,7 @@
                     <form action="{{ route('data-peminjaman.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @if (in_array(
-                                'super-admin',
+                                'admin-kelurahan',
                                 Auth::user()->roles->pluck('name')->toArray()))
                             <div class="form-group">
                                 <label>Nama Peminjam</label>

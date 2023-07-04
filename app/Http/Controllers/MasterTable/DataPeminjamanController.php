@@ -62,7 +62,7 @@ class DataPeminjamanController extends Controller
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
             ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id');
 
-        if ($user->hasRole('admin-rt')) {
+        if ($user->hasRole('admin-rt|admin-kelurahan')) {
             $query->when($request->input('databarang'), function ($query, $databarang) {
                 return $query->whereIn('datapeminjaman.barang_id', $databarang);
             })

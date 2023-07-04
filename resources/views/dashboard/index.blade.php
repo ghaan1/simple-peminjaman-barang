@@ -34,9 +34,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            @role('admin-kelurahan|admin-rt')
-                <div class="col-12 col-md-6 col-lg-12">
+        @role('admin-kelurahan|admin-rt')
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-header">
                             <h4>Jumlah Barang</h4>
@@ -46,9 +46,7 @@
                         </div>
                     </div>
                 </div>
-            @endrole
-            @role('warga-rt|warga')
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-header">
                             <h4>Jumlah Peminjaman Per-Warga</h4>
@@ -58,8 +56,24 @@
                         </div>
                     </div>
                 </div>
-            @endrole
-        </div>
+
+            </div>
+        @endrole
+        @role('warga-rt|warga')
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Peminjaman Per-Warga</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartPeminjaman"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endrole
+
     </section>
 @endsection
 @push('customStyle')
@@ -200,5 +214,73 @@
                 },
             },
         });
+    </script>
+    <script>
+        // Mendapatkan data peminjaman barang dari controller
+        var peminjamanBarang = {!! json_encode($peminjamanBarang) !!};
+
+        // Mendapatkan nama barang yang dipinjam
+        var namaBarang = peminjamanBarang.map(function(item) {
+            return item.nama_barang;
+        });
+
+        // Mendapatkan jumlah peminjaman untuk setiap barang
+        var jumlahPeminjaman = peminjamanBarang.map(function(item) {
+            return item.quantity;
+        });
+
+        // Membuat warna acak untuk setiap bar
+        var randomColors = [];
+        for (var i = 0; i < peminjamanBarang.length; i++) {
+            var color = getRandomColor();
+            randomColors.push(color);
+        }
+
+        // Menginisialisasi chart
+        var ctx = document.getElementById('chartPeminjaman').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: namaBarang,
+                datasets: [{
+                    label: 'Jumlah Peminjaman',
+                    data: jumlahPeminjaman,
+                    backgroundColor: randomColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                var label = context.label || '';
+                                var value = context.parsed.y || 0;
+                                return label + ': ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Fungsi untuk menghasilkan warna acak
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
     </script>
 @endpush
