@@ -109,6 +109,7 @@
                                             <th>Jenis Barang</th>
                                             <th>Kode Barang</th>
                                             <th>Nama Barang</th>
+                                            <th>Petugas Input Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
                                             @role('admin-rt|admin-kelurahan')
@@ -127,6 +128,7 @@
                                                 <td>{{ $itemPeminjaman->jenis_barang }}</td>
                                                 <td>{{ $itemPeminjaman->kode_jbs }}</td>
                                                 <td>{{ $itemPeminjaman->nama_barang }}</td>
+                                                <td>{{ $itemPeminjaman->nama_petugas }}</td>
                                                 <td>{{ $itemPeminjaman->quantity }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
                                                 @role('admin-rt|admin-kelurahan')

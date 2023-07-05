@@ -47,7 +47,7 @@ class DataPeminjamanController extends Controller
             ->select(
                 'datapeminjaman.id',
                 'datapeminjaman.peminjam_id',
-                'users.name',
+                'u1.name',
                 'datapeminjaman.jenis_barang_id',
                 'databarang.kode_jbs',
                 'jenisbarang.jenis_barang',
@@ -57,10 +57,12 @@ class DataPeminjamanController extends Controller
                 'datapeminjaman.tanggal_pinjam',
                 'datapeminjaman.status',
                 'datapeminjaman.ktp_peminjam',
+                'users.name as nama_petugas'
             )
-            ->leftJoin('users', 'datapeminjaman.peminjam_id', '=', 'users.id')
+            ->leftJoin('users as u1', 'datapeminjaman.peminjam_id', '=', 'u1.id')
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
-            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id');
+            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
+            ->leftJoin('users', 'databarang.admin_id', '=', 'users.id');
 
         if ($user->hasRole('admin-rt|admin-kelurahan')) {
             $query->when($request->input('databarang'), function ($query, $databarang) {
@@ -87,6 +89,7 @@ class DataPeminjamanController extends Controller
                 ->leftJoin('users as u2', 'datapeminjaman.peminjam_id', '=', 'u2.id')
                 ->leftJoin('jenisbarang as jb', 'datapeminjaman.jenis_barang_id', '=', 'jb.id')
                 ->leftJoin('databarang as db', 'datapeminjaman.barang_id', '=', 'db.id')
+                ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
                 ->when($request->input('databarang'), function ($query, $databarang) {
                     return $query->whereIn('datapeminjaman.barang_id', $databarang);
                 })

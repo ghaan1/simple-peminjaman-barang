@@ -23,6 +23,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->integer('tersedia')->nullable();
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();
+            $table->foreign('admin_id')->references('id')->on('users')->restrictOnDelete();
+
             $table->timestamps();
         });
     }
