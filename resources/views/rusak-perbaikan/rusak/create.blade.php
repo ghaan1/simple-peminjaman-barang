@@ -22,18 +22,13 @@
                         <div class="form-group">
                             <label>Nama User</label>
                             <input type="text" class="form-control" value="{{ $user->name }}" disabled>
-                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                            <input type="hidden" name="user_id" value="{{ $user->id }}" id="user_id">
                         </div>
                         <div class="form-group">
                             <label>Nama Barang</label>
                             <select name="barang_id" class="form-control select2 @error('barang_id') is-invalid @enderror"
                                 id="barang_id">
                                 <option value="">Nama Barang</option>
-                                @foreach ($dataBarang as $listJenisBarang)
-                                    <option value="{{ $listJenisBarang->id }}">
-                                        {{ $listJenisBarang->nama_barang }}
-                                    </option>
-                                @endforeach
                             </select>
                             @error('barang_id')
                                 <div class="invalid-feedback">
@@ -101,43 +96,49 @@
                 });
             });
         });
-    </script>
+    </script> --}}
     <script>
         jQuery(document).ready(function() {
+            let userId = $('#user_id').val();
+            loadBarangData(userId);
+
             $('#user_id').change(function() {
-                if ($(this).val() == '') {
-                    $('#barang_id').attr('disabled', true);
-                } else {
-                    $('#barang_id').removeAttr('disabled', false);
-                }
-                let userId = $(this).val();
-                $.ajax({
-                    url: '{{ route('get-barang-peminjam') }}',
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        id: userId,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(data) {
-                        console.log(data);
-                        $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
-                        $.each(data['dataPeminjaman'], function(index, val) {
-                            if (val.peminjam_id == userId) {
-                                console.log('<option value="' + val.id + '"> ' +
-                                    val
-                                    .nama_barang + ' </option>');
-                                $('#barang_id').append('<option value="' + val.id +
-                                    '"> ' + val
-                                    .nama_barang +
-                                    ' </option>')
-                            }
-                        });
-                    }
-                });
+                userId = $(this).val();
+                loadBarangData(userId);
             });
+
+            function loadBarangData(userId) {
+                if (userId !== '') {
+                    $.ajax({
+                        url: '{{ route('get-barang-peminjam') }}',
+                        method: 'post',
+                        dataType: 'json',
+                        data: {
+                            id: userId,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
+                            $.each(data['dataPeminjaman'], function(index, val) {
+                                if (val.peminjam_id == userId) {
+                                    console.log('<option value="' + val.id + '"> ' +
+                                        val
+                                        .nama_barang + ' </option>');
+                                    $('#barang_id').append('<option value="' + val.id +
+                                        '"> ' + val
+                                        .nama_barang +
+                                        ' </option>')
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
+                }
+            }
         });
-    </script> --}}
+    </script>
     <script>
         $(document).ready(function() {
             $('#barang_id').change(function() {
