@@ -4,21 +4,21 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>Menu Group and Menu Item</h1>
+            <h1>Menu Group dan Menu Item</h1>
          
         </div>
         <div class="section-body">
-            <h2 class="section-title">Menu Group Management</h2>
+            <h2 class="section-title">Kelola Menu Group</h2>
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Create Menu Group</h4>
+                    <h4>Tambah Menu Group</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('menu-group.store') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Nama</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" placeholder="Menu Group Name" value="{{ old('name') }}">
                             @error('name')
@@ -28,7 +28,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Icon Name</label>
+                            <label for="name">Nama Ikon</label>
                             <input type="text" class="form-control @error('icon') is-invalid @enderror" id="icon"
                                 name="icon" placeholder="Font Aweseome Icon Name" value="{{ old('icon') }}">
                             @error('icon')
@@ -53,8 +53,8 @@
 
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('menu-group.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('menu-group.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

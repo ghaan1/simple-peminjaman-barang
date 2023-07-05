@@ -3,13 +3,13 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Table</h1>
+            <h1>Tabel</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Edit Jenis Barang</h2>
+            <h2 class="section-title">Ubah Jenis Barang</h2>
             <div class="card">
                 <div class="card-header">
-                    <h4>Edit Tambah Data</h4>
+                    <h4>Ubah Tambah Data</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('jenis-barang.update', $jenisBarang) }}" method="post">
@@ -44,8 +44,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('jenis-barang.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('jenis-barang.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

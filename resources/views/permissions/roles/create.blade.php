@@ -26,7 +26,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Guard Name</label>
+                            <label for="name">Nama Pengaman</label>
                             <input type="text" class="form-control @error('guard_name') is-invalid @enderror"
                                 id="guard_name" name="guard_name" placeholder="Web" value="{{ old('guard_name', 'web') }}">
                             @error('guard_name')
@@ -37,8 +37,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('role.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('role.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

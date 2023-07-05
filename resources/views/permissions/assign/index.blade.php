@@ -4,11 +4,11 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permission</h1>
+            <h1>Peran dan Perizinan</h1>
         
         </div>
         <div class="section-body">
-            <h2 class="section-title">Assign Role and Permission</h2>
+            <h2 class="section-title">Izin Peran dan Perizinan</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -19,10 +19,10 @@
                 <div class="col-12">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h4>List Role Assigned To Permission</h4>
+                            <h4>List Izin Peran ke Perizinan</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('assign.create') }}">Assign
-                                    Permission To Role</a>
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('assign.create') }}">Izin
+                                    Perizinan ke Peran</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -30,13 +30,13 @@
                                 <form id="search" method="GET" action="{{ route('assign.index') }}">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="role">Role</label>
+                                            <label for="role">Peran</label>
                                             <input type="text" name="name" class="form-control" id="name"
                                                 placeholder="Role Name">
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('assign.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -46,10 +46,10 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
-                                            <th>Name</th>
-                                            <th>Guard Name</th>
-                                            <th>Permission</th>
-                                            <th class="text-right">Action</th>
+                                            <th>Nama</th>
+                                            <th>Nama Pengaman</th>
+                                            <th>Perizinan</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($roles as $key => $role)
                                             <tr>
@@ -60,9 +60,9 @@
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('assign.edit', $role->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon confirm-delete"><i
+                                                            class="btn btn-sm btn-info btn-icon"><i
                                                                 class="fas fa-edit"></i>
-                                                            Edit</a>
+                                                            Ubah</a>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -11,10 +11,10 @@
             </div>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Edit Data Peminjaman</h2>
+            <h2 class="section-title">Ubah Data Peminjaman</h2>
             <div class="card">
                 <div class="card-header">
-                    <h4>Edit Tambah Data</h4>
+                    <h4>Ubah Tambah Data</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('data-peminjaman.update', $dataPeminjaman) }}" method="post">
@@ -118,8 +118,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

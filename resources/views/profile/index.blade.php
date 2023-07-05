@@ -25,7 +25,7 @@
                                 class="rounded-circle profile-widget-picture img-fluid"
                                 style="width: 150px; height: 150px;">
 
-                            <div class="profile-widget-items">
+                            <!-- <div class="profile-widget-items">
                                 <div class="profile-widget-item">
                                     <div class="profile-widget-item-label">Unggahan</div>
                                     <div class="profile-widget-item-value">187</div>
@@ -38,14 +38,14 @@
                                     <div class="profile-widget-item-label">Mengikuti</div>
                                     <div class="profile-widget-item-value">2,1K</div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="profile-widget-description">
                             <div class="profile-widget-name">{{ Auth::user()->name }}</div>
 
                             {{ Auth::user()->bio }}
                         </div>
-                        <div class="card-footer text-center">
+                        <!-- <div class="card-footer text-center">
                             <div class="font-weight-bold mb-2">Ikuti {{ Auth::user()->name }} Aktif</div>
                             <a href="#" class="btn btn-social-icon btn-facebook mr-1">
                                 <i class="fab fa-facebook-f"></i>
@@ -59,7 +59,7 @@
                             <a href="#" class="btn btn-social-icon btn-instagram">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card">
                         <form method="POST" action="{{ route('user-password.update') }}" class="needs-validation"

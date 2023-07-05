@@ -2,10 +2,10 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Manajemen Master</h1>
+            <h1>Kelola Master</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Manajemen Data barang </h2>
+            <h2 class="section-title">Kelola Data barang </h2>
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('data-barang.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -72,13 +72,13 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Kode Barang</th>
-                                            <th>Nama Input</th>
+                                            <th>Nama Pemilik</th>
                                             <th>Jenis Barang</th>
                                             <th>Nama Barang</th>
                                             <th>Harga Barang</th>
-                                            <th>Quantity</th>
+                                            <th>Jumlah</th>
                                             <th>Tersediaan</th>
-                                            <th class="text-right">Action</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($dataBarangs as $key => $dataBarang)
                                             <tr>

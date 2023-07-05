@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Tabel Data Rusak - Perbaikan</h1>
+            <h1>Kelola Barang Rusak</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tabel Data Barang Rusak</h2>
@@ -51,7 +51,7 @@
                                             <th>Nama Barang</th>
                                             <th>Jumlah</th>
                                             <th>Status</th>
-                                            <th class="text-right">Action</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($dataRusak as $key => $listBarangRusak)
                                             <tr>

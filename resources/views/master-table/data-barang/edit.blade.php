@@ -6,10 +6,10 @@
             <h1>Tabel Data Barang</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Edit Data Barang</h2>
+            <h2 class="section-title">Ubah Data Barang</h2>
             <div class="card">
                 <div class="card-header">
-                    <h4>Edit Tambah Data</h4>
+                    <h4>Uvah Tambah Data</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('data-barang.update', $dataBarang) }}" method="post">
@@ -105,8 +105,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('data-barang.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('data-barang.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

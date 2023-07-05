@@ -10,11 +10,11 @@
     </div>
     <section class="section">
         <div class="section-header">
-            <h1>Verification Needed</h1>
+            <h1>Butuh Verifikasi</h1>
          
         </div>
         <div class="section-body">
-            <h2 class="section-title">Please Verify Your Email</h2>
+            <h2 class="section-title">Menunggu Diverifikasi oleh admin</h2>
             <div class="card">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 

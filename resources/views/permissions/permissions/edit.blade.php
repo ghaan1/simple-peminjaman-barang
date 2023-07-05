@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Manajemen Peran dan Perizinan</h1>
+            <h1>Kelola Peran dan Perizinan</h1>
 
         </div>
         <div class="section-body">
@@ -28,7 +28,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Guard Name</label>
+                            <label for="name">Nama Pengaman</label>
                             <input type="text" class="form-control @error('guard_name') is-invalid @enderror"
                                 id="guard_name" name="guard_name" value="{{ old('guard_name', $permission->guard_name) }}">
                             @error('guard_name')
@@ -39,8 +39,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('permission.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('permission.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

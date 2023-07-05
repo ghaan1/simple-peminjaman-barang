@@ -35,7 +35,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Penginputan Data</th>
+                <th>Nama Pemilik Barang</th>
                 <th>Kode Barang</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>

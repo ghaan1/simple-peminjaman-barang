@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Tabel Data Rusak - Perbaikan</h1>
+            <h1>Kelola Barang Rusak</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tambah Data Barang Perbaikan</h2>
@@ -119,8 +119,8 @@
 
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('perbaikan.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('perbaikan.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

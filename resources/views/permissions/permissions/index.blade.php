@@ -8,7 +8,7 @@
 
         </div>
         <div class="section-body">
-            <h2 class="section-title">Manajemen Perizinan</h2>
+            <h2 class="section-title">Kelola Perizinan</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('permission.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -62,10 +62,10 @@
                                 <table class="table table-bordered table-md">
                                     <tbody>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Guard Name</th>
-                                            <th class="text-right">Action</th>
+                                            <th>No.</th>
+                                            <th>Nama</th>
+                                            <th>Nama Pengaman</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($permissions as $key => $permission)
                                             <tr>

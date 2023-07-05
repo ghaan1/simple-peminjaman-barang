@@ -4,11 +4,11 @@
     <!-- Main Content -->
     <section class="section">
         <div class="section-header">
-            <h1>Menu Group and Menu Item</h1>
+            <h1>Menu Group dan Menu Item</h1>
           
         </div>
         <div class="section-body">
-            <h2 class="section-title">Menu Item Management</h2>
+            <h2 class="section-title">Kelola Menu Item</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -21,8 +21,7 @@
                         <div class="card-header">
                             <h4>Menu Item List</h4>
                             <div class="card-header-action">
-                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('menu-item.create') }}">Create
-                                    New
+                                <a class="btn btn-icon icon-left btn-primary" href="{{ route('menu-item.create') }}">Tambah
                                     Menu Item</a>
                                 {{-- <a class="btn btn-info btn-primary active import">
                                     <i class="fa fa-download" aria-hidden="true"></i>
@@ -32,7 +31,7 @@
                                     Export Menu Item</a> --}}
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
-                                    Search Menu Item</a>
+                                    Cari Menu Item</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -41,7 +40,7 @@
                                     <form action="{{ route('menu-item.import') }}" method="post"
                                         enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <label class="custom-file-label" for="file-upload">Choose File</label>
+                                        <label class="custom-file-label" for="file-upload">Pilih File</label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import_file">
                                         <br /> <br />
                                         <div class="footer text-right">
@@ -60,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('menu-item.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -71,10 +70,10 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Parent</th>
-                                            <th>Name</th>
+                                            <th>Nama</th>
                                             <th>Url</th>
                                             <th>Permission</th>
-                                            <th class="text-right">Action</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($menuItems as $key => $menuItem)
                                             <tr>
@@ -95,7 +94,7 @@
                                                             <input type="hidden" name="_token"
                                                                 value="{{ csrf_token() }}">
                                                             <button class="btn btn-sm btn-danger btn-icon confirm-delete"><i
-                                                                    class="fas fa-times"></i> Delete </button>
+                                                                    class="fas fa-times"></i> Hapus </button>
                                                         </form>
                                                     </div>
                                                 </td>

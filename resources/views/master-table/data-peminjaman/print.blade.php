@@ -42,7 +42,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Peminjam</th>
-                <th>Petugas Input Barang</th>
+                <th>Pemilik Barang</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>
                 <th>Quantity</th>

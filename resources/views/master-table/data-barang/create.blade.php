@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="quantity">Quantity</label>
+                            <label for="quantity">Jumlah</label>
                             <input type="text" class="form-control @error('quantity') is-invalid @enderror"
                                 id="quantity" name="quantity" placeholder="Masukkan Quantity" autocomplete="off">
                             @error('quantity')
@@ -99,8 +99,8 @@
                         </div>
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('data-barang.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('data-barang.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

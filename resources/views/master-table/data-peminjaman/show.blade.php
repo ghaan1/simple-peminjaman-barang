@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Print Data Peminjaman</title>
+    <title>Cetak Data Peminjaman</title>
     <style>
         table {
             border-collapse: collapse;
@@ -37,25 +37,27 @@
     <table>
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Nama Peminjam</th>
+                <th>Pemilik Barang</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>
                 <th>Quantity</th>
                 <th>Tanggal Pinjam</th>
-                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ $dataPeminjaman->id }}</td>
-                <td>{{ $dataPeminjaman->name }}</td>
-                <td>{{ $dataPeminjaman->jenis_barang }}</td>
-                <td>{{ $dataPeminjaman->nama_barang }}</td>
-                <td>{{ $dataPeminjaman->quantity }}</td>
-                <td>{{ $dataPeminjaman->tanggal_pinjam }}</td>
-                <td>{{ $dataPeminjaman->status }}</td>
-            </tr>
+            @foreach ($dataPeminjaman as $key => $itemPeminjaman)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $itemPeminjaman->name }}</td>
+                    <td>{{ $itemPeminjaman->nama_petugas }}</td>
+                    <td>{{ $itemPeminjaman->jenis_barang }}</td>
+                    <td>{{ $itemPeminjaman->nama_barang }}</td>
+                    <td>{{ $itemPeminjaman->quantity }}</td>
+                    <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
     <script>

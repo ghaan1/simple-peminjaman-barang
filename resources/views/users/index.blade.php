@@ -8,7 +8,7 @@
 
         </div>
         <div class="section-body">
-            <h2 class="section-title">User Management</h2>
+            <h2 class="section-title">Kelola User</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('user.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -69,7 +69,7 @@
                                             <th>Email</th>
                                             <th>Verified At</th>
                                             <th>Created At</th>
-                                            <th class="text-right">Action</th>
+                                            <th class="text-right">Aksi</th>
                                             <th class="text-right">Verified User</th>
                                         </tr>
                                         @foreach ($users as $key => $user)

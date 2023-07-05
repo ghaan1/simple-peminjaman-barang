@@ -8,7 +8,7 @@
 
         </div>
         <div class="section-body">
-            <h2 class="section-title">Manajemen Peran</h2>
+            <h2 class="section-title">Kelola Peran</h2>
 
             <div class="row">
                 <div class="col-12">
@@ -33,7 +33,7 @@
                                 <div class="custom-file">
                                     <form action="{{ route('role.import') }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
-                                        <label class="custom-file-label" for="file-upload">Choose File</label>
+                                        <label class="custom-file-label" for="file-upload">Pilih File</label>
                                         <input type="file" id="file-upload" class="custom-file-input" name="import_file">
                                         <br /> <br />
                                         <div class="footer text-right">
@@ -46,13 +46,13 @@
                                 <form id="search" method="GET" action="{{ route('role.index') }}">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="role">Role</label>
+                                            <label for="role">Peran</label>
                                             <input type="text" name="name" class="form-control" id="name"
                                                 placeholder="Role Name">
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('role.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -62,9 +62,9 @@
                                     <tbody>
                                         <tr>
                                             <th>#</th>
-                                            <th>Name</th>
-                                            <th>Guard Name</th>
-                                            <th class="text-right">Action</th>
+                                            <th>Nama</th>
+                                            <th>Nama Pengaman</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($roles as $key => $role)
                                             <tr>

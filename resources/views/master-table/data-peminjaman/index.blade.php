@@ -2,10 +2,10 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Master Manajemen</h1>
+            <h1>Kelola Master</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Manajemen Data Peminjaman</h2>
+            <h2 class="section-title">Kelola Data Peminjaman</h2>
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Reset</a>
                                     </div>
                                 </form>
@@ -109,17 +109,17 @@
                                             <th>Jenis Barang</th>
                                             <th>Kode Barang</th>
                                             <th>Nama Barang</th>
-                                            <th>Petugas Input Barang</th>
+                                            <th>Pemilik Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
                                             @role('admin-rt|admin-kelurahan')
                                                 <th>Status</th>
-                                                <th class="text-right">Action Status</th>
+                                                <th class="text-right">Status Aksi</th>
                                             @endrole
                                             @role('warga-rt|warga')
                                                 <th>Status</th>
                                             @endrole
-                                            <th class="text-right">Action</th>
+                                            <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($dataPeminjaman as $key => $itemPeminjaman)
                                             <tr>

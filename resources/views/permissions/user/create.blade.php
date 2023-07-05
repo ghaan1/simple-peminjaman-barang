@@ -4,15 +4,15 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>Roles and Permission</h1>
+            <h1>Peran dan Perizinan</h1>
         
         </div>
         <div class="section-body">
-            <h2 class="section-title">Assign User To Role</h2>
+            <h2 class="section-title">Izin User ke Peran</h2>
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Assign User to Role Form</h4>
+                    <h4>Izin User ke Peran Form</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('assign.user.store') }}" method="post">
@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label>User</label>
                             <select name="user" class="form-control select2">
-                                <option value="">Choose User</option>
+                                <option value="">Pilih User</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
@@ -43,8 +43,8 @@
 
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('assign.user.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('assign.user.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

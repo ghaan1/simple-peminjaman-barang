@@ -126,8 +126,8 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <button class="btn btn-primary" id="submitBtn">Submit</button>
-                            <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Cancel</a>
+                            <button class="btn btn-primary" id="submitBtn">Kirim</button>
+                            <a class="btn btn-secondary" href="{{ route('data-peminjaman.index') }}">Batal</a>
                         </div>
                     </form>
                 </div>

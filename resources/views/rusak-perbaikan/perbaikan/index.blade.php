@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Tabel Data Rusak - Perbaikan</h1>
+            <h1>Kelola barang Rusak</h1>
         </div>
         <div class="section-body">
             <h2 class="section-title">Tabel Data Barang Perbaikan</h2>
@@ -42,7 +42,7 @@
                                     </div>
 
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('perbaikan.index') }}">Reset</a>
                                     </div>
                                 </form>

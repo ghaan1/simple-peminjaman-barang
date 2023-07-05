@@ -4,15 +4,15 @@
 
     <section class="section">
         <div class="section-header">
-            <h1>Menu Group and Menu Item</h1>
+            <h1>Menu Group dan Menu Item</h1>
 
         </div>
         <div class="section-body">
-            <h2 class="section-title">Menu Item Management</h2>
+            <h2 class="section-title">Kelola Menu Item</h2>
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Menu Item Create Form</h4>
+                    <h4>Menu Item Tambah Form</h4>
                 </div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label>Parent</label>
                             <select class="form-control select2" name="menu_group_id">
-                                <option value="">Choose Menu Group</option>
+                                <option value="">Pilih Menu Group</option>
                                 @foreach ($menuGroups as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -41,7 +41,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Menu Item Name</label>
+                            <label for="name">Nama Menu Item</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" placeholder="Menu Item Name" value="{{ old('name') }}">
                             @error('name')
@@ -51,7 +51,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="name">Permission Name</label>
+                            <label for="name">Nama Permission</label>
                             <input type="text" class="form-control @error('permission_name') is-invalid @enderror"
                                 id="permission_name" name="permission_name" placeholder="Permission Name"
                                 value="{{ old('permission_name') }}">
@@ -78,8 +78,8 @@
 
                 </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-secondary" href="{{ route('menu-item.index') }}">Cancel</a>
+                    <button class="btn btn-primary">Kirim</button>
+                    <a class="btn btn-secondary" href="{{ route('menu-item.index') }}">Batal</a>
                 </div>
                 </form>
             </div>

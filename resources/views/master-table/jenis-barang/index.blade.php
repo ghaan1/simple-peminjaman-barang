@@ -2,10 +2,10 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Manajemen Master</h1>
+            <h1>Kelola Master</h1>
         </div>
         <div class="section-body">
-            <h2 class="section-title">Manajemen Jenis barang</h2>
+            <h2 class="section-title">Kelola Jenis barang</h2>
             <div class="row">
                 <div class="col-12">
                     @include('layouts.alert')
@@ -37,7 +37,7 @@
                                     </div>
 
                                     <div class="text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                        <button class="btn btn-primary mr-1" type="submit">Kirim</button>
                                         <a class="btn btn-secondary" href="{{ route('jenis-barang.index') }}">Reset</a>
                                     </div>
                                 </form>
