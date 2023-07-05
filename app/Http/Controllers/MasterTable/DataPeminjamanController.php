@@ -343,13 +343,23 @@ class DataPeminjamanController extends Controller
 
     public function PeminjamanBarangFilter(Request $request)
     {
-        $dataBarang['dataBarang'] = DataBarang::all()->where('jenis_barang_id', $request->jenis_barang_id);
+        // $user = Auth::user();
+        $userId = Auth::id();
+
+        $dataBarang['dataBarang'] = DataBarang::where('jenis_barang_id', $request->id)
+            ->where('admin_id', '!=', $userId)
+            ->get();
         return response()->json($dataBarang);
     }
 
     public function PeminjamanBarangFilterGet(Request $request)
     {
-        $dataBarang['dataBarang'] = DataBarang::all()->where('jenis_barang_id', $request->jenis_barang_id);
+
+        $userId = Auth::id();
+
+        $dataBarang['dataBarang'] = DataBarang::where('jenis_barang_id', $request->jenis_barang_id)
+            ->where('admin_id', '!=', $userId)
+            ->get();
         return response()->json($dataBarang);
     }
 

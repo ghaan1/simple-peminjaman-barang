@@ -42,12 +42,12 @@
                             <select name="barang_id" class="form-control select2 @error('barang_id') is-invalid @enderror"
                                 id="barang_id" disabled="disable">
                                 <option value="">Nama Barang</option>
-                                @foreach ($dataBarang as $listJenisBarang)
+                                {{-- @foreach ($dataBarang as $listJenisBarang)
                                     <option value="{{ $listJenisBarang->id }}"
                                         data-jenis="{{ $listJenisBarang->jenis_barang }}">
                                         {{ $listJenisBarang->nama_barang }}
                                     </option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                             @error('barang_id')
                                 <div class="invalid-feedback">
@@ -183,7 +183,6 @@
                 let jenis_barang_id = $(this).val();
                 var selectBarang = "{{ $dataBarang }}"
                 var dataBarangItem = JSON.parse(selectBarang.replace(/&quot;/g, '"'));
-                console.log(dataBarangItem);
                 $.ajax({
                     url: '{{ route('data-peminjaman-barang.filters') }}',
                     method: 'post',
@@ -194,18 +193,18 @@
                     },
                     success: function(data) {
                         $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
-                        $.each(dataBarangItem, function(index, val) {
+                        $.each(data.dataBarang, function(index, val) {
+                            console.log(val.id);
                             if (val.jenis_barang_id == jenis_barang_id) {
                                 console.log('<option value="' + val.id + '"> ' + val
                                     .nama_barang + ' </option>');
                                 $('#barang_id').append('<option value="' + val.id +
-                                    '"> ' + val
-                                    .nama_barang + ' (Stok : ' + val.tersedia +
-                                    '  )' +
-                                    ' </option>')
+                                    '"> ' + val.nama_barang + ' (Stok: ' + val
+                                    .tersedia + ')</option>');
                             }
                         });
                     }
+
                 });
             });
         });

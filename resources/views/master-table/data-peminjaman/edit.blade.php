@@ -150,15 +150,14 @@
                     },
                     success: function(data) {
                         $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
-                        $.each(dataBarangItem, function(index, val) {
+                        $.each(data.dataBarang, function(index, val) {
+                            console.log(val.id);
                             if (val.jenis_barang_id == jenis_barang_id) {
                                 console.log('<option value="' + val.id + '"> ' + val
                                     .nama_barang + ' </option>');
                                 $('#barang_id').append('<option value="' + val.id +
-                                    '"> ' + val
-                                    .nama_barang + ' (Stok : ' + val.tersedia +
-                                    '  )' +
-                                    ' </option>')
+                                    '"> ' + val.nama_barang + ' (Stok: ' + val
+                                    .tersedia + ')</option>');
                             }
                         });
                     }
