@@ -42,6 +42,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Peminjam</th>
+                <th>Petugas Input Barang</th>
                 <th>Jenis Barang</th>
                 <th>Nama Barang</th>
                 <th>Quantity</th>
@@ -53,6 +54,7 @@
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $itemPeminjaman->name }}</td>
+                    <td>{{ $itemPeminjaman->nama_petugas }}</td>
                     <td>{{ $itemPeminjaman->jenis_barang }}</td>
                     <td>{{ $itemPeminjaman->nama_barang }}</td>
                     <td>{{ $itemPeminjaman->quantity }}</td>

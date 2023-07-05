@@ -23,7 +23,7 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Cari Data Peminjaman</a>
-                                @role('admin-rt')
+                                @role('admin-rt|admin-kelurahan')
                                     <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
                                         target="_blank">Cetak Data Peminjaman</a>
                                 @endrole
