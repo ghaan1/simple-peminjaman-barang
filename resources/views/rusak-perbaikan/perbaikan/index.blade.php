@@ -89,10 +89,14 @@
 
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
-                                                        <a href="{{ route('perbaikan.edit', $listBarangPerbaikan->id) }}"
-                                                            class="btn btn-sm btn-info btn-icon "><i
-                                                                class="fas fa-edit"></i>
-                                                            Ubah</a>
+                                                        @if ($listBarangPerbaikan->name == auth()->user()->name)
+                                                            <a href="{{ route('perbaikan.edit', $listBarangPerbaikan->id) }}"
+                                                                class="btn btn-sm btn-info btn-icon "><i
+                                                                    class="fas fa-edit"></i>
+                                                                Ubah</a>
+                                                        @else
+                                                            Bukan Kapasitasnya
+                                                        @endif
                                                         <form
                                                             action="{{ route('perbaikan.destroy', $listBarangPerbaikan->id) }}"
                                                             method="POST" class="ml-2"
