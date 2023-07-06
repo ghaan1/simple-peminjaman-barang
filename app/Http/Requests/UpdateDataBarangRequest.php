@@ -27,7 +27,6 @@ class UpdateDataBarangRequest extends FormRequest
                 'required',
                 'min:3',
                 'max:100',
-                Rule::unique('databarang', 'nama_barang')->ignore($id),
             ],
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',

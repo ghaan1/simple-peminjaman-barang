@@ -16,7 +16,7 @@ class StoreDataBarangRequest extends FormRequest
     {
         return [
             'admin_id' => 'required',
-            'nama_barang' => 'required|min:3|max:100|unique:databarang|regex:/^[\pL\s\d]+$/u',
+            'nama_barang' => 'required|min:3|max:100|regex:/^[\pL\s\d]+$/u',
             'jenis_barang_id' => 'required',
             'harga_barang' => 'required|min:3|regex:/^[0-9]*$/|max:100',
             'quantity' => 'required|regex:/^[0-9]*$/|max:5',
