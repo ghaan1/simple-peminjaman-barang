@@ -114,9 +114,9 @@ class DataRusakController extends Controller
 
     public function getBarangPeminjam(Request $request)
     {
-        $dataPeminjaman['dataPeminjaman'] = DataPeminjaman::where('peminjam_id', $request->id)
-            ->select('databarang.id', 'databarang.nama_barang', 'datapeminjaman.peminjam_id')
-            ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
+        $dataPeminjaman['dataPeminjaman'] = DataBarang::where('admin_id', $request->id)
+            ->select('databarang.id', 'databarang.nama_barang')
+            // ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->get();
         return response()->json($dataPeminjaman);
     }

@@ -118,18 +118,16 @@
                             _token: "{{ csrf_token() }}"
                         },
                         success: function(data) {
-                            console.log(data);
                             $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
                             $.each(data['dataPeminjaman'], function(index, val) {
-                                if (val.peminjam_id == userId) {
-                                    console.log('<option value="' + val.id + '"> ' +
-                                        val
-                                        .nama_barang + ' </option>');
-                                    $('#barang_id').append('<option value="' + val.id +
-                                        '"> ' + val
-                                        .nama_barang +
-                                        ' </option>')
-                                }
+                                console.log(val.id);
+                                console.log('<option value="' + val.id + '"> ' +
+                                    val
+                                    .nama_barang + ' </option>');
+                                $('#barang_id').append('<option value="' + val.id +
+                                    '"> ' + val
+                                    .nama_barang +
+                                    ' </option>')
                             });
                         }
                     });
