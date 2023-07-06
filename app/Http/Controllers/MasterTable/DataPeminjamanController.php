@@ -32,6 +32,7 @@ class DataPeminjamanController extends Controller
     public function index(Request $request)
     {
         $userId = Auth::id();
+        $name = auth()->user()->name;
         $profileUser = \App\Models\ProfileUser::where('user_id', $userId)->first();
         if (!$profileUser) {
             return redirect()->route('profile.edit');
@@ -57,12 +58,12 @@ class DataPeminjamanController extends Controller
                 'datapeminjaman.tanggal_pinjam',
                 'datapeminjaman.status',
                 'datapeminjaman.ktp_peminjam',
-                'users.name as nama_petugas'
+                'u2.name as nama_petugas'
             )
             ->leftJoin('users as u1', 'datapeminjaman.peminjam_id', '=', 'u1.id')
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
             ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-            ->leftJoin('users', 'databarang.admin_id', '=', 'users.id');
+            ->leftJoin('users as u2', 'databarang.admin_id', '=', 'u2.id');
 
         if ($user->hasRole('admin-rt|admin-kelurahan')) {
             $query->when($request->input('databarang'), function ($query, $databarang) {
@@ -78,18 +79,15 @@ class DataPeminjamanController extends Controller
                     return $query->whereIn('datapeminjaman.status', $status);
                 })
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
-                    return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
+                    return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
                 ->when($request->input('tanggal'), function ($query, $tanggal) {
                     return $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
                 })
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } else {
-            $query->where('users.name', '=', $user->name)
-                ->leftJoin('users as u2', 'datapeminjaman.peminjam_id', '=', 'u2.id')
-                ->leftJoin('jenisbarang as jb', 'datapeminjaman.jenis_barang_id', '=', 'jb.id')
-                ->leftJoin('databarang as db', 'datapeminjaman.barang_id', '=', 'db.id')
-                ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
+            $query
+                ->where('u1.name', '=',  $name)
                 ->when($request->input('databarang'), function ($query, $databarang) {
                     return $query->whereIn('datapeminjaman.barang_id', $databarang);
                 })
@@ -103,14 +101,14 @@ class DataPeminjamanController extends Controller
                     return $query->whereIn('datapeminjaman.status', $status);
                 })
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
-                    return $query->where('nama_barang', 'like', '%' . $nama_barang . '%');
+                    return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
                 ->when($request->input('tanggal'), function ($query, $tanggal) {
                     return $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
                 })
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         }
-
+        // dd($query);
         $dataPeminjaman = $query->paginate(5);
         $dataBarangSelected = $request->input('databarang');
         $jenisBarangSelected = $request->input('jenisbarang');
@@ -134,6 +132,7 @@ class DataPeminjamanController extends Controller
             'users' => $users,
         ]);
     }
+
 
 
     public function create()
