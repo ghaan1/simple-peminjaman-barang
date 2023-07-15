@@ -81,9 +81,10 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                     return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
-                ->when($request->input('tanggal'), function ($query, $tanggal) {
-                    return $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
+                ->when($request->input('tahun'), function ($query, $tahun) {
+                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
                 })
+
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } else {
             $query
@@ -103,8 +104,8 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('nama_barang'), function ($query, $nama_barang) {
                     return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
-                ->when($request->input('tanggal'), function ($query, $tanggal) {
-                    return $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
+                ->when($request->input('tahun'), function ($query, $tahun) {
+                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
                 })
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         }
@@ -114,8 +115,8 @@ class DataPeminjamanController extends Controller
         $jenisBarangSelected = $request->input('jenisbarang');
         $userSelected = $request->input('users');
         $statusSelected = $request->input('status');
-        $tanggalSelected = $request->input('tanggal');
-        $request->session()->put('tanggal', $tanggalSelected);
+        $tanggalSelected = $request->input('tahun');
+        $request->session()->put('tahun', $tanggalSelected);
 
 
         return view('master-table.data-peminjaman.index')->with([
@@ -290,7 +291,7 @@ class DataPeminjamanController extends Controller
 
     public function print(Request $request)
     {
-        $tanggal = $request->session()->get('tanggal');
+        $tanggal = $request->session()->get('tahun');
         $user = Auth::user();
         $query = DB::table('datapeminjaman')
             ->select(
@@ -325,7 +326,7 @@ class DataPeminjamanController extends Controller
         }
 
         if ($tanggal) {
-            $query->whereDate('datapeminjaman.tanggal_pinjam', $tanggal);
+            $query->whereYear('datapeminjaman.tanggal_pinjam', $tanggal);
         }
 
         $dataPeminjaman = $query->get();

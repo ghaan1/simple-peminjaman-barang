@@ -87,11 +87,11 @@
                                                     value="{{ $nama_barang }}">
                                             </div>
                                             <div id="tanggalGroup" class="form-group col-md-4" style="margin-left: 10px;">
-                                                <label for="tanggal">Tanggal</label>
-                                                <input type="date" name="tanggal" class="form-control" id="tanggal"
-                                                    placeholder="Tanggal" value="{{ $tanggalSelected }}">
+                                                <label for="tahun">Tahun</label>
+                                                <input type="number" name="tahun" class="form-control" id="tahun"
+                                                    placeholder="Tahun" value="{{ $tanggalSelected }}" min="1990"
+                                                    max="{{ date('Y') }}">
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="text-right">

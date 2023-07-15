@@ -56,7 +56,18 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Status Barang</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartTotal"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endrole
         @role('warga-rt|warga')
@@ -216,27 +227,22 @@
         });
     </script>
     <script>
-        // Mendapatkan data peminjaman barang dari controller
         var peminjamanBarang = {!! json_encode($peminjamanBarang) !!};
 
-        // Mendapatkan nama barang yang dipinjam
         var namaBarang = peminjamanBarang.map(function(item) {
             return item.nama_barang;
         });
 
-        // Mendapatkan jumlah peminjaman untuk setiap barang
         var jumlahPeminjaman = peminjamanBarang.map(function(item) {
             return item.quantity;
         });
 
-        // Membuat warna acak untuk setiap bar
         var randomColors = [];
         for (var i = 0; i < peminjamanBarang.length; i++) {
             var color = getRandomColor();
             randomColors.push(color);
         }
 
-        // Menginisialisasi chart
         var ctx = document.getElementById('chartPeminjaman').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -273,7 +279,6 @@
             }
         });
 
-        // Fungsi untuk menghasilkan warna acak
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
             var color = '#';
@@ -282,5 +287,54 @@
             }
             return color;
         }
+    </script>
+    <script>
+        // Data total barang, total rusak, dan total perbaikan
+        var totalBarang = {!! json_encode($totalBarang[0]->total_barang) !!};
+        var totalRusak = {!! json_encode($totalRusak[0]->total_rusak) !!};
+        var totalPerbaikan = {!! json_encode($totalPerbaikan[0]->total_perbaikan) !!};
+
+        // Menginisialisasi chart
+        var ctx = document.getElementById('chartTotal').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Total Barang', 'Total Rusak', 'Total Perbaikan'],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: [totalBarang, totalRusak, totalPerbaikan],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(75, 192, 192, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                var label = context.dataset.label || '';
+                                var value = context.parsed.y || 0;
+                                return label + ': ' + value;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
 @endpush

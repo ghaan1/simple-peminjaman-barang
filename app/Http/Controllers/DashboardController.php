@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DataBarang;
 use App\Models\DataPeminjaman;
+use App\Models\DataPerbaikan;
+use App\Models\DataRusak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +38,24 @@ class DashboardController extends Controller
             ->groupBy('users.id', 'users.name')
             ->get();
 
+
+        $totalBarang = DataBarang::select(
+            DB::raw('SUM(quantity) as total_barang')
+        )->get();
+
+        $totalRusak = DataRusak::select(
+            DB::raw('SUM(quantity_rusak) as total_rusak')
+        )
+            ->where('status_rusak', 'rusak')
+            ->get();
+
+        $totalPerbaikan = DataRusak::select(
+            DB::raw('SUM(quantity_rusak) as total_perbaikan')
+        )
+            ->where('status_rusak', 'diperbaiki')
+            ->get();
+
+
         $peminjamanBarang = DataPeminjaman::where('peminjam_id', $userId)
             ->join('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->select('databarang.nama_barang', 'datapeminjaman.quantity')
@@ -50,6 +70,9 @@ class DashboardController extends Controller
                 'chartData' => $chartData,
                 'chartData2' => $chartData2,
                 'peminjamanBarang' => $peminjamanBarang,
+                'totalBarang' => $totalBarang,
+                'totalRusak' => $totalRusak,
+                'totalPerbaikan' => $totalPerbaikan,
             ]);
     }
 }
