@@ -3,10 +3,10 @@
     <section class="section">
         @role('admin-kelurahan|admin-rt')
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="col-lg-6 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
                       <div class="card-chart">
-                        <canvas id="balance-chart" height="75"></canvas>
+                        <canvas id="balance-chart" height="65"></canvas>
                       </div>
                       <div class="card-icon shadow-primary bg-primary">
                         <i class="far fa-user"></i>
@@ -22,25 +22,38 @@
                     </div>
                   </div>
              
-                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="col-lg-6 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
                         <div class="card-chart">
-                            <canvas id="total-peminjaman-chart" height="75"></canvas>
-                          </div>
-                        <div class="card-icon shadow-primary bg-primary">
-                            <i class="far fa-user"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Total Peminjaman</h4>
+                            <div class="card-stats">
+                                <div class="card-stats-items">
+                                    @foreach($chartData2 as $data)
+                                        <div class="card-stats-item">
+                                            <div class="card-stats-item-count">{{ $data->total_peminjaman }}</div>
+                                            <div class="card-stats-item-label">{{ $data->user_name }}</div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h4>{{ $countPeminjaman }}</h4>
+                        </div>
+                        <div class="p-3 mt-4">
+                            <div class="card-icon shadow-primary bg-primary">
+                                <i class="far fa-user"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>Total Peminjaman</h4>
+                                </div>
+                                <div class="card-body">
+                                    <h4>{{ $countPeminjaman }}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
+
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-6">
                    
