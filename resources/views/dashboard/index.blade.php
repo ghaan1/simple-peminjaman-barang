@@ -6,7 +6,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
                       <div class="card-chart">
-                        <canvas id="balance-chart" height="80"></canvas>
+                        <canvas id="balance-chart" height="75"></canvas>
                       </div>
                       <div class="card-icon shadow-primary bg-primary">
                         <i class="far fa-user"></i>
@@ -21,24 +21,12 @@
                       </div>
                     </div>
                   </div>
-                {{-- <div class="col-12 col-md-6 col-sm-12">
+             
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="card card-statistic-2">
-                        <div class="card-icon shadow-primary bg-primary">
-                            <i class="far fa-user"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Total Barang</h4>
-                            </div>
-                            <div class="card-body">
-                                <h4>{{ $countBarang }}</h4>
-                            </div>
-                        </div>
-
-                    </div>
-                </div> --}}
-                <div class="col-12 col-md-6 col-sm-12">
-                    <div class="card card-statistic-2">
+                        <div class="card-chart">
+                            <canvas id="total-peminjaman-chart" height="75"></canvas>
+                          </div>
                         <div class="card-icon shadow-primary bg-primary">
                             <i class="far fa-user"></i>
                         </div>
@@ -55,7 +43,7 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-6">
-                  
+                   
                     <div class="card">
                         <div class="card-header">
                             <h4>Jumlah Barang</h4>
@@ -249,28 +237,49 @@
         });
     </script>
     <script>
-        var balance_chart = document.getElementById("balance-chart").getContext('2d');
+var balance_chart = document.getElementById("balance-chart").getContext('2d');
 
 var balance_chart_bg_color = balance_chart.createLinearGradient(0, 0, 0, 70);
 balance_chart_bg_color.addColorStop(0, 'rgba(63,82,227,.2)');
 balance_chart_bg_color.addColorStop(1, 'rgba(63,82,227,0)');
 
+var chartData = {!! json_encode($chartData) !!};
+        var uniqueNames = Array.from(new Set(chartData.map(data => data.name)));
+        var uniqueBarang = Array.from(new Set(chartData.map(data => data.nama_barang)));
+        var datasets = [];
+
+
+        uniqueNames.forEach((name) => {
+            var quantities = [];
+
+            uniqueBarang.forEach((barang) => {
+                var adminData = chartData.filter(data => data.name === name && data.nama_barang === barang);
+                var totalQuantity = adminData.reduce((sum, data) => sum + data.quantity, 0);
+                quantities.push(totalQuantity);
+            });
+
+          
+            console.log(quantities);
+            datasets.push({
+                label: name,
+                backgroundColor: balance_chart_bg_color,
+                borderWidth: 1,
+                data: quantities,
+                borderWidth: 3,
+                 borderColor: 'rgba(63,82,227,1)',
+                 pointBorderWidth: 0,
+                 pointBorderColor: 'transparent',
+                 pointRadius: 3,
+                pointBackgroundColor: 'transparent',
+                pointHoverBackgroundColor: 'rgba(63,82,227,1)',
+            });
+        });
+
 var myChart = new Chart(balance_chart, {
   type: 'line',
   data: {
-    labels: ['16-07-2018', '17-07-2018', '18-07-2018', '19-07-2018', '20-07-2018', '21-07-2018', '22-07-2018', '23-07-2018', '24-07-2018', '25-07-2018', '26-07-2018', '27-07-2018', '28-07-2018', '29-07-2018', '30-07-2018', '31-07-2018'],
-    datasets: [{
-      label: 'Total Barang',
-      data: [50, 61, 80, 50, 72, 52, 60, 41, 30, 45, 70, 40, 93, 63, 50, 62],
-      backgroundColor: balance_chart_bg_color,
-      borderWidth: 3,
-      borderColor: 'rgba(63,82,227,1)',
-      pointBorderWidth: 0,
-      pointBorderColor: 'transparent',
-      pointRadius: 3,
-      pointBackgroundColor: 'transparent',
-      pointHoverBackgroundColor: 'rgba(63,82,227,1)',
-    }]
+    labels: uniqueBarang,
+    datasets: datasets,
   },
   options: {
     layout: {
@@ -306,6 +315,87 @@ var myChart = new Chart(balance_chart, {
   }
 });
     </script>
+
+<script>
+    var total_peminjaman_chart = document.getElementById("total-peminjaman-chart").getContext('2d');
+    
+    var total_peminjaman_chart_bg_color = total_peminjaman_chart.createLinearGradient(0, 0, 0, 70);
+    total_peminjaman_chart_bg_color.addColorStop(0, 'rgba(63,82,227,.2)');
+    total_peminjaman_chart_bg_color.addColorStop(1, 'rgba(63,82,227,0)');
+    
+    var chartData2 = {!! json_encode($chartData2) !!};
+        var uniqueUsers = Array.from(new Set(chartData2.map(data => data.user_name)));
+        var totalPeminjaman = chartData2.map(data => data.total_peminjaman);
+        var datasets1 = [];
+        var totalPeminjamanByUser = {};
+
+        chartData2.forEach((data) => {
+            if (!totalPeminjamanByUser[data.user_name]) {
+                totalPeminjamanByUser[data.user_name] = new Array(chartData2.length).fill(0);
+            }
+            var index = uniqueUsers.indexOf(data.user_name);
+            totalPeminjamanByUser[data.user_name][index] = data.total_peminjaman;
+        });
+
+
+        uniqueUsers.forEach((user_name) => {
+            var randomColor = getRandomColor();
+            var totalPeminjamanValue = totalPeminjamanByUser[user_name];
+            console.log(totalPeminjamanValue)
+            datasets1.push({
+                label: user_name,
+                backgroundColor: total_peminjaman_chart_bg_color,
+                data: totalPeminjamanValue,
+                borderWidth: 3,
+                 borderColor: 'rgba(63,82,227,1)',
+                 pointBorderWidth: 0,
+                 pointBorderColor: 'transparent',
+                 pointRadius: 3,
+                pointBackgroundColor: 'transparent',
+                pointHoverBackgroundColor: 'rgba(63,82,227,1)',
+            });
+        });
+    
+    var myChart = new Chart(total_peminjaman_chart, {
+      type: 'line',
+      data: {
+        labels: uniqueUsers,
+        datasets: datasets1,
+      },
+      options: {
+        layout: {
+          padding: {
+            bottom: -1,
+            left: -1
+          }
+        },
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display: false,
+              drawBorder: false,
+            },
+            ticks: {
+              beginAtZero: true,
+              display: false
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              drawBorder: false,
+              display: false,
+            },
+            ticks: {
+              display: false
+            }
+          }]
+        },
+      }
+    });
+        </script>
     <script>
         var peminjamanBarang = {!! json_encode($peminjamanBarang) !!};
 
@@ -417,4 +507,6 @@ var myChart = new Chart(balance_chart, {
             }
         });
     </script>
+
+
 @endpush
