@@ -116,18 +116,7 @@ class DataPerbaikanController extends Controller
         $dataPerbaikan->tanggal_perbaikan = $request->tanggal_perbaikan;
         $dataRusak->status_rusak = $request->status_rusak;
 
-        // Cek perubahan nilai quantity_rusak
-        if ($request->quantity_rusak) {
-            // Hitung selisih quantity
-            // $selisihQuantity = $request->quantity_rusak - $dataRusak->quantity_rusak;
-
-            // Update nilai quantity_rusak pada $dataRusak
-            $quantityPerbaikan = $request->quantity_rusak;
-
-            // Tambahkan selisih quantity ke $dataBarang->tersediaan
-            $dataBarang->tersedia += $quantityPerbaikan;
-            $dataBarang->save();
-        }
+       
         if ($request->quantity_perbaikan) {
            
             $remaining_rusak = $dataRusak->quantity_rusak - $request->quantity_perbaikan;
@@ -135,7 +124,23 @@ class DataPerbaikanController extends Controller
             
             $dataRusak->quantity_rusak = $remaining_rusak;
             $dataRusak->save();
+
+            $dataBarang->tersedia += $request->quantity_perbaikan;
+            $dataBarang->save();
         }
+
+        //  // Cek perubahan nilai quantity_rusak
+        //  if ($request->quantity_rusak) {
+        //     // Hitung selisih quantity
+        //     // $selisihQuantity = $request->quantity_rusak - $dataRusak->quantity_rusak;
+
+        //     // Update nilai quantity_rusak pada $dataRusak
+        //     $quantityPerbaikan = $request->quantity_rusak;
+
+        //     // Tambahkan selisih quantity ke $dataBarang->tersediaan
+        //     $dataBarang->tersedia += $quantityPerbaikan;
+        //     $dataBarang->save();
+        // }
 
         // Simpan foto bukti perbaikan
         if ($request->hasFile('bukti_perbaikan')) {
