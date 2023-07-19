@@ -19,7 +19,7 @@
 
         th,
         td {
-            padding: 8px;
+            padding: 5px;
             text-align: left;
         }
 
@@ -47,6 +47,7 @@
                 <th>Nama Barang</th>
                 <th>Quantity</th>
                 <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
             </tr>
         </thead>
         <tbody>
@@ -59,6 +60,7 @@
                     <td>{{ $itemPeminjaman->nama_barang }}</td>
                     <td>{{ $itemPeminjaman->quantity }}</td>
                     <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
+                    <td>{{ $itemPeminjaman->tanggal_kembali }}</td>
                 </tr>
             @endforeach
         </tbody>

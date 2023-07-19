@@ -112,6 +112,7 @@
                                             <th>Pemilik Barang</th>
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
+                                            <th>Tanggal Kembali</th>
                                             @role('admin-rt|admin-kelurahan')
                                                 <th>Status</th>
                                                 <th class="text-right">Status Aksi</th>
@@ -131,6 +132,7 @@
                                                 <td>{{ $itemPeminjaman->nama_petugas }}</td>
                                                 <td>{{ $itemPeminjaman->quantity }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
+                                                <td>{{ $itemPeminjaman->tanggal_kembali }}</td>
                                                 @role('admin-rt|admin-kelurahan')
                                                     <td>{{ $itemPeminjaman->status }}</td>
                                                     <td class="text-right">
@@ -177,6 +179,66 @@
                                                                         </button>
                                                                     @endif
                                                                 </form>
+                                                            @elseif($itemPeminjaman->status == 'Pending')
+                                                                <form
+                                                                    action="{{ route('data-peminjaman.update-status-verif', $itemPeminjaman->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status" value="Verifikasi">
+                                                                    @if (session()->has('error'))
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-primary btn-icon ml-2"
+                                                                            disabled>
+                                                                            <i class="fas fa-check"></i> Verifikasi
+                                                                        </button>
+                                                                    @else
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-primary btn-icon ml-2">
+                                                                            <i class="fas fa-check"></i> Verifikasi
+                                                                        </button>
+                                                                    @endif
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('data-peminjaman.update-status-verif', $itemPeminjaman->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status" value="Tertolak">
+                                                                    @if (session()->has('error'))
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-danger btn-icon ml-2"
+                                                                            disabled>
+                                                                            <i class="fas fa-check"></i> Tolak
+                                                                        </button>
+                                                                    @else
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-danger btn-icon ml-2">
+                                                                            <i class="fas fa-check"></i> Tolak
+                                                                        </button>
+                                                                    @endif
+                                                                </form>
+                                                            @elseif($itemPeminjaman->status == 'Verifikasi')
+                                                                <form
+                                                                    action="{{ route('data-peminjaman.update-status-verif', $itemPeminjaman->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status"
+                                                                        value="Sudah Diambil">
+                                                                    @if (session()->has('error'))
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-primary btn-icon ml-2"
+                                                                            disabled>
+                                                                            <i class="fas fa-check"></i> Barang Sudah Dipinjam?
+                                                                        </button>
+                                                                    @else
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-primary btn-icon ml-2">
+                                                                            <i class="fas fa-check"></i> Barang Sudah Dipinjam?
+                                                                        </button>
+                                                                    @endif
+                                                                </form>
                                                             @endif
                                                         </div>
                                                     </td>
@@ -186,6 +248,12 @@
                                                         <td>Barang Sedang Dipinjam</td>
                                                     @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')
                                                         <td>Barang Telah Dikembalikan</td>
+                                                    @elseif ($itemPeminjaman->status == 'Pending')
+                                                        <td>Menunggu Persetujuan Admin</td>
+                                                    @elseif ($itemPeminjaman->status == 'Verifikasi')
+                                                        <td>Telah Disetujui Admin
+                                                            <br>Dan Barang Belum Diambil
+                                                        </td>
                                                     @endif
                                                 @endrole
                                                 <td class="text-right">

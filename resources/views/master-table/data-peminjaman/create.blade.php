@@ -19,7 +19,6 @@
                             <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
                             <input type="hidden" name="peminjam_id" value="{{ Auth::user()->id }}">
                         </div>
-                        {{-- @endif --}}
                         <div class="form-group">
                             <label>Jenis Barang</label>
                             <select name="jenis_barang_id"
@@ -42,12 +41,6 @@
                             <select name="barang_id" class="form-control select2 @error('barang_id') is-invalid @enderror"
                                 id="barang_id" disabled="disable">
                                 <option value="">Nama Barang</option>
-                                {{-- @foreach ($dataBarang as $listJenisBarang)
-                                    <option value="{{ $listJenisBarang->id }}"
-                                        data-jenis="{{ $listJenisBarang->jenis_barang }}">
-                                        {{ $listJenisBarang->nama_barang }}
-                                    </option>
-                                @endforeach --}}
                             </select>
                             @error('barang_id')
                                 <div class="invalid-feedback">
@@ -193,6 +186,7 @@
                     },
                     success: function(data) {
                         $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
+                        console.log(data);
                         $.each(data.dataBarang, function(index, val) {
                             console.log(val.id);
                             if (val.jenis_barang_id == jenis_barang_id) {

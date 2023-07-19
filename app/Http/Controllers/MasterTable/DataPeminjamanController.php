@@ -58,14 +58,15 @@ class DataPeminjamanController extends Controller
                 'datapeminjaman.tanggal_pinjam',
                 'datapeminjaman.status',
                 'datapeminjaman.ktp_peminjam',
-                'u2.name as nama_petugas'
+                'u2.name as nama_petugas',
+                'datapeminjaman.tanggal_kembali'
             )
             ->leftJoin('users as u1', 'datapeminjaman.peminjam_id', '=', 'u1.id')
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
             ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->leftJoin('users as u2', 'databarang.admin_id', '=', 'u2.id');
 
-        if ($user->hasRole('admin-rt|admin-kelurahan')) {
+        if ($user->hasRole('admin-kelurahan')) {
             $query->when($request->input('databarang'), function ($query, $databarang) {
                 return $query->whereIn('datapeminjaman.barang_id', $databarang);
             })
@@ -84,7 +85,28 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('tahun'), function ($query, $tahun) {
                     return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
                 })
-
+                ->where('databarang.admin_id', '=', $userId)
+                ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
+        } elseif ($user->hasRole('admin-rt')) {
+            $query->when($request->input('databarang'), function ($query, $databarang) {
+                return $query->whereIn('datapeminjaman.barang_id', $databarang);
+            })
+                ->when($request->input('jenisbarang'), function ($query, $jenisbarang) {
+                    return $query->whereIn('datapeminjaman.jenis_barang_id', $jenisbarang);
+                })
+                ->when($request->input('users'), function ($query, $users) {
+                    return $query->whereIn('datapeminjaman.peminjam_id', $users);
+                })
+                ->when($request->input('status'), function ($query, $status) {
+                    return $query->whereIn('datapeminjaman.status', $status);
+                })
+                ->when($request->input('nama_barang'), function ($query, $nama_barang) {
+                    return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
+                })
+                ->when($request->input('tahun'), function ($query, $tahun) {
+                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
+                })
+                ->where('u1.name', '=',  $name)
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } else {
             $query
@@ -109,7 +131,7 @@ class DataPeminjamanController extends Controller
                 })
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         }
-        // dd($query);
+
         $dataPeminjaman = $query->paginate(5);
         $dataBarangSelected = $request->input('databarang');
         $jenisBarangSelected = $request->input('jenisbarang');
@@ -221,9 +243,9 @@ class DataPeminjamanController extends Controller
                 ->with(['ktp_review' => 'KTP Harus Ada']);
         }
 
-        $tersedia = $dataBarang->tersedia - $request['quantity'];
-        $dataBarang->tersedia = $tersedia;
-        $dataBarang->save();
+        // $tersedia = $dataBarang->tersedia - $request['quantity'];
+        // $dataBarang->tersedia = $tersedia;
+        // $dataBarang->save();
 
         return redirect()->route('data-peminjaman.index')->with('success', 'Tambah Data Peminjaman Sukses');
     }
@@ -304,6 +326,7 @@ class DataPeminjamanController extends Controller
                 'databarang.nama_barang',
                 'datapeminjaman.quantity',
                 'datapeminjaman.tanggal_pinjam',
+                'datapeminjaman.tanggal_kembali',
                 'datapeminjaman.status',
                 'users.name as nama_petugas'
             )
@@ -343,24 +366,53 @@ class DataPeminjamanController extends Controller
 
     public function PeminjamanBarangFilter(Request $request)
     {
-        // $user = Auth::user();
         $userId = Auth::id();
+        $user = Auth::user();
 
-        $dataBarang['dataBarang'] = DataBarang::where('jenis_barang_id', $request->id)
-            ->where('admin_id', '!=', $userId)
-            ->get();
+        $dataBarangQuery = DataBarang::where('jenis_barang_id', $request->id);
+        if ($user->hasRole('admin-rt|admin-kelurahan')) {
+            $dataBarangQuery = $dataBarangQuery->where('admin_id', $userId);
+        }
+
+        $dataBarang['dataBarang'] = $dataBarangQuery->get();
         return response()->json($dataBarang);
     }
+
 
     public function PeminjamanBarangFilterGet(Request $request)
     {
 
         $userId = Auth::id();
+        $user = Auth::user();
 
-        $dataBarang['dataBarang'] = DataBarang::where('jenis_barang_id', $request->jenis_barang_id)
-            ->where('admin_id', '!=', $userId)
-            ->get();
+        $dataBarangQuery = DataBarang::where('jenis_barang_id', $request->id);
+        if ($user->hasRole('admin-rt|admin-kelurahan')) {
+            $dataBarangQuery = $dataBarangQuery->where('admin_id', $userId);
+        }
+
+        $dataBarang['dataBarang'] = $dataBarangQuery->get();
         return response()->json($dataBarang);
+    }
+
+    public function updateVerifikasi(DataPeminjaman $dataPeminjaman, Request $request)
+    {
+        $dataBarang = $dataPeminjaman->dataBarang;
+        if ($request->status === 'Verifikasi') {
+            $dataPeminjaman->status = $request->status;
+            $dataPeminjaman->save();
+        } elseif ($request->status === 'Sudah Diambil') {
+            $dataPeminjaman->status = 'Sedang Dipinjam';
+            $tersedia = $dataBarang->tersedia - $dataPeminjaman->quantity;
+            $dataBarang->tersedia = $tersedia;
+            $dataBarang->save();
+            $dataPeminjaman->save();
+        } elseif ($request->status === 'Tertolak') {
+            $dataPeminjaman->status = $request->status;
+            $dataPeminjaman->save();
+        } else {
+            return redirect()->back()->with('error', 'Status Peminjaman Tidak Jelas');
+        }
+        return redirect()->route('data-peminjaman.index')->with('success', 'Status Peminjaman berhasil diubah');
     }
 
     public function updateStatus(DataPeminjaman $dataPeminjaman, Request $request)
@@ -374,6 +426,7 @@ class DataPeminjamanController extends Controller
             $dataBarang->tersedia = $tersedia;
             $dataBarang->save();
             $dataPeminjaman->status = $request->status;
+            $dataPeminjaman->tanggal_kembali = \Carbon\Carbon::now();
             $dataPeminjaman->save();
         } elseif ($request->status === 'Sedang Dipinjam') {
             $dataBarang = $dataPeminjaman->dataBarang;

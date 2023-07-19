@@ -20,7 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('barang_id');
             $table->integer('quantity');
             $table->date('tanggal_pinjam');
-            $table->enum('status', ['Sedang Dipinjam', 'Sudah Dikembalikan'])->default('Sedang Dipinjam');
+            $table->date('tanggal_kembali')->nullable();
+            $table->enum('status', ['Sedang Dipinjam', 'Sudah Dikembalikan', 'Pending', 'Verifikasi', 'Tertolak'])->default('Pending');
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();
             $table->foreign('barang_id')->references('id')->on('databarang')->restrictOnDelete();
             $table->foreign('peminjam_id')->references('id')->on('users')->restrictOnDelete();

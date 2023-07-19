@@ -68,7 +68,7 @@ class DataBarangSeeder extends Seeder
                     'tersedia' => 50,
                 ],
                 [
-                    'admin_id' => 1,
+                    'admin_id' => 2,
                     'nama_barang' => 'Lotong Sayur',
                     'kode_jbs' => 'MA-1',
                     'jenis_barang_id' => '6',
@@ -77,7 +77,7 @@ class DataBarangSeeder extends Seeder
                     'tersedia' => 50,
                 ],
                 [
-                    'admin_id' => 1,
+                    'admin_id' => 2,
                     'nama_barang' => 'Lotong Balap',
                     'kode_jbs' => 'MA-2',
                     'jenis_barang_id' => '6',

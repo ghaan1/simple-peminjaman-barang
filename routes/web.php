@@ -114,6 +114,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('peminjaman-barang-filter-get', [DataPeminjamanController::class, 'PeminjamanBarangFilterGet'])
             ->name('data-peminjaman-barang-get.filters');
         Route::patch('/data-peminjaman/{dataPeminjaman}/update-status', [DataPeminjamanController::class, 'updateStatus'])->name('data-peminjaman.update-status');
+        Route::patch('/data-peminjaman/{dataPeminjaman}/update-status-verif', [DataPeminjamanController::class, 'updateVerifikasi'])->name('data-peminjaman.update-status-verif');
         Route::get('/data-peminjaman-pdf', [DataPeminjamanController::class, 'print'])->name('data-peminjaman.print');
     });
 
