@@ -27,6 +27,7 @@ class DataBarangController extends Controller
 
     public function index(Request $request)
     {
+        $userId = Auth::id();
         $jenisBarang = JenisBarang::all();
         $nama_barang = $request->input('nama_barang');
         $dataBarangs = DB::table('databarang')
@@ -52,6 +53,7 @@ class DataBarangController extends Controller
                 return $query->whereIn('databarang.jenis_barang_id', $jenisbarang);
             })
             ->orderBy('databarang.kode_jbs', 'asc')
+            ->where('databarang.admin_id', $userId)
             ->paginate(5);
         $jenisBarangSelected = $request->input('jenisbarang');
         return view('master-table.data-barang.index')->with([
