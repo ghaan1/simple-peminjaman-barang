@@ -92,6 +92,7 @@ class DataPerbaikanController extends Controller
                 'bukti_perbaikan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'ktp_perbaikan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'quantity_rusak' => 'required|numeric|min:1',
+                'quantity_perbaikan' => 'required|numeric|max:' . $request->quantity_rusak,
             ],
             [
                 'tanggal_perbaikan.required' => 'Tanggal Perbaikan Wajib Diisi',
@@ -105,6 +106,7 @@ class DataPerbaikanController extends Controller
                 'ktp_perbaikan.mimes' => 'Ktp Perbaikan Hanya Mendukung Format jpeg, png, jpg',
                 'ktp_perbaikan.max' => 'Ukuran Ktp Perbaikan Terlalu Besar',
                 'quantity_rusak.required' => 'Quantity Wajib Diisi',
+                'quantity_perbaikan.max' => 'Jumlah perbaikan tidak bisa lebih dari jumlah kerusakan',
                 'quantity.numeric' => 'Quantity Wajib Angka',
                 'quantity.min' => 'Quantity minimal 1 Digit',
             ]
@@ -126,7 +128,14 @@ class DataPerbaikanController extends Controller
             $dataBarang->tersedia += $quantityPerbaikan;
             $dataBarang->save();
         }
-        $dataRusak->save();
+        if ($request->quantity_perbaikan) {
+           
+            $remaining_rusak = $dataRusak->quantity_rusak - $request->quantity_perbaikan;
+        
+            
+            $dataRusak->quantity_rusak = $remaining_rusak;
+            $dataRusak->save();
+        }
 
         // Simpan foto bukti perbaikan
         if ($request->hasFile('bukti_perbaikan')) {

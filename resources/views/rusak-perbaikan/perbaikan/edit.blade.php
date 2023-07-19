@@ -90,6 +90,22 @@
                                 </div>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="quantity_perbaikan">Jumlah Diperbaiki</label>
+                            <input type="text" class="form-control @error('quantity_perbaikan') is-invalid @enderror"
+                                id="quantity_perbaikan" name="quantity_perbaikan"
+                                value="{{ old('quantity_perbaikan', $dataRusak->quantity_perbaikan) }}"
+                                placeholder="Masukkan Quantity" autocomplete="off">
+                            @error('quantity_perbaikan')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        
+
+
                         <div class="row">
                             <div class="form-group col-md-6 col-12" id="foto_upload_form">
                                 <div class="form-group">
@@ -129,6 +145,17 @@
 @endsection
 @push('customScript')
     <script src="/assets/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#status_rusak').change(function() {
+                if ($(this).val() == 'diperbaiki') {
+                    $('#quantity_perbaikan').parent().show();
+                } else {
+                    $('#quantity_perbaikan').parent().hide();
+                }
+            }).trigger('change'); 
+        });
+        </script>
 @endpush
 
 @push('customStyle')
