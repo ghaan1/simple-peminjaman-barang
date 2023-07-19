@@ -75,6 +75,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Barang Baik</h4>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="chartBaik"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endrole
         @role('warga-rt|warga')
@@ -101,7 +111,24 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset("assets/modules/jquery.sparkline.min.js")}}"></script>
     <script src="{{ asset("assets/modules/chart.min.js") }}"></script>
+<script>
+    function getRandomGradientColor() {
+    var letters = '0123456789ABCDEF';
+    var color1 = '#';
+    var color2 = '#';
+    for (var i = 0; i < 6; i++) {
+        color1 += letters[Math.floor(Math.random() * 16)];
+        color2 += letters[Math.floor(Math.random() * 16)];
+    }
 
+    var gradientColor = balance_chart.createLinearGradient(0, 0, 0, 70);
+    gradientColor.addColorStop(0, color1);
+    gradientColor.addColorStop(1, color2);
+
+    return gradientColor;
+}
+
+</script>
     <script>
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
@@ -111,6 +138,8 @@
             }
             return color;
         }
+
+   
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var chartData = {!! json_encode($chartData) !!};
@@ -258,11 +287,11 @@ var chartData = {!! json_encode($chartData) !!};
                 quantities.push(totalQuantity);
             });
 
-          
+            var color = getRandomGradientColor()
             console.log(quantities);
             datasets.push({
                 label: name,
-                backgroundColor: balance_chart_bg_color,
+                backgroundColor: color,
                 borderWidth: 1,
                 data: quantities,
                 borderWidth: 3,
@@ -339,12 +368,12 @@ var myChart = new Chart(balance_chart, {
 
 
         uniqueUsers.forEach((user_name) => {
-            var randomColor = getRandomColor();
+            var randomColor = getRandomGradientColor();
             var totalPeminjamanValue = totalPeminjamanByUser[user_name];
             console.log(totalPeminjamanValue)
             datasets1.push({
                 label: user_name,
-                backgroundColor: total_peminjaman_chart_bg_color,
+                backgroundColor: randomColor,
                 data: totalPeminjamanValue,
                 borderWidth: 3,
                  borderColor: 'rgba(63,82,227,1)',
@@ -459,12 +488,11 @@ var myChart = new Chart(balance_chart, {
         }
     </script>
     <script>
-        // Data total barang, total rusak, dan total perbaikan
+       
         var totalBarang = {!! json_encode($totalBarang[0]->total_barang) !!};
         var totalRusak = {!! json_encode($totalRusak[0]->total_rusak) !!};
         var totalPerbaikan = {!! json_encode($totalPerbaikan[0]->total_perbaikan) !!};
 
-        // Menginisialisasi chart
         var ctx = document.getElementById('chartTotal').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -506,6 +534,30 @@ var myChart = new Chart(balance_chart, {
                 }
             }
         });
+    </script>
+
+    <script>
+        var ctx = document.getElementById('chartBaik').getContext('2d');
+        new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($chartDataBarangTersedia->pluck('nama_barang')),
+            datasets: [{
+                label: 'Tersedia',
+                data: @json($chartDataBarangTersedia->pluck('tersedia')),
+                backgroundColor: 'rgba(0, 123, 255, 0.5)',
+                borderColor: 'rgba(0, 123, 255, 1)',
+                borderWidth: 1
+            }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
     </script>
 
 

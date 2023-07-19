@@ -60,6 +60,11 @@ class DashboardController extends Controller
             ->join('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->select('databarang.nama_barang', 'datapeminjaman.quantity')
             ->get();
+
+            $chartDataBarangTersedia = DataBarang::select('nama_barang', 'tersedia')->get();
+
+            
+
         // dd($peminjamanBarang);
         $countBarang = DataBarang::count();
         $countPeminjaman = DataPeminjaman::count();
@@ -73,6 +78,7 @@ class DashboardController extends Controller
                 'totalBarang' => $totalBarang,
                 'totalRusak' => $totalRusak,
                 'totalPerbaikan' => $totalPerbaikan,
+                'chartDataBarangTersedia' => $chartDataBarangTersedia,
             ]);
     }
 }
