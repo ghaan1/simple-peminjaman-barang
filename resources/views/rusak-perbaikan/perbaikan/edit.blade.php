@@ -150,7 +150,7 @@
     <script>
         $(document).ready(function() {
             $('#status_rusak').change(function() {
-                if ($(this).val() == 'diperbaiki') {
+                if ($(this).val() == 'baik') {
                     $('#quantity_perbaikan').parent().show();
                 } else {
                     $('#quantity_perbaikan').parent().hide();
