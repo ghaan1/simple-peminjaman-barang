@@ -56,7 +56,7 @@
                                             <th>Nama User</th>
                                             <th>Nama Barang</th>
                                             <th>Status</th>
-                                            <th>Jumlah</th>
+                                            <th>Jumlah Rusak</th>
                                             <th>Jumlah Perbaikan</th>
                                             <th>Bukti Perbaikan</th>
                                             <th>KTP</th>

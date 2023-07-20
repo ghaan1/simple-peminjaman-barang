@@ -89,7 +89,7 @@ class DataPerbaikanController extends Controller
         $request->validate(
             [
                 'tanggal_perbaikan' => 'required',
-                'status_rusak' => 'required',
+                // 'status_rusak' => 'required',
                 'bukti_perbaikan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'ktp_perbaikan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'quantity_rusak' => 'required|numeric|min:1',
@@ -97,7 +97,7 @@ class DataPerbaikanController extends Controller
             ],
             [
                 'tanggal_perbaikan.required' => 'Tanggal Perbaikan Wajib Diisi',
-                'status_rusak.required' => 'Status Barang Wajib Diisi',
+                // 'status_rusak.required' => 'Status Barang Wajib Diisi',
                 'bukti_perbaikan.required' => 'Bukti Perbaikan Wajib Diisi',
                 'bukti_perbaikan.image' => 'Bukti Perbaikan Tidak Sesuai Format',
                 'bukti_perbaikan.mimes' => 'Bukti Perbaikan Hanya Mendukung Format jpeg, png, jpg',
@@ -114,33 +114,29 @@ class DataPerbaikanController extends Controller
         );
 
         // Update data perbaikan
-    $dataPerbaikan->tanggal_perbaikan = $request->tanggal_perbaikan;
-    $dataRusak->status_rusak = $request->status_rusak;
-    $dataRusak->quantity_rusak = $request->quantity_rusak;
-    $dataRusak->quantity_perbaikan = $request->quantity_perbaikan;
+        $dataPerbaikan->tanggal_perbaikan = $request->tanggal_perbaikan;
+        // $dataRusak->status_rusak = $request->status_rusak;
+        if ($request->quantity_perbaikan == 0) {
+            $dataRusak->status_rusak = 'rusak';
+        } elseif ($request->quantity_perbaikan < $dataRusak->quantity_rusak) {
+            $dataRusak->status_rusak = 'diperbaiki';
+        } elseif ($request->quantity_perbaikan ==  $dataRusak->quantity_rusak) {
+            $dataRusak->status_rusak = 'baik';
+        }
 
-if ($request->quantity_perbaikan && $request->status_rusak == 'baik') {
-    $remaining_perbaikan =  $request->quantity_perbaikan;
 
-    $dataRusak->quantity_perbaikan = $remaining_perbaikan;
 
-    $dataBarang->tersedia += $request->quantity_perbaikan;
-}
-
-$dataRusak->save();
-$dataBarang->save();
-        //  // Cek perubahan nilai quantity_rusak
-        //  if ($request->quantity_rusak) {
-        //     // Hitung selisih quantity
-        //     // $selisihQuantity = $request->quantity_rusak - $dataRusak->quantity_rusak;
-
-        //     // Update nilai quantity_rusak pada $dataRusak
-        //     $quantityPerbaikan = $request->quantity_rusak;
-
-        //     // Tambahkan selisih quantity ke $dataBarang->tersediaan
-        //     $dataBarang->tersedia += $quantityPerbaikan;
-        //     $dataBarang->save();
-        // }
+        if ($request->quantity_perbaikan < $dataRusak->quantity_rusak || $request->quantity_perbaikan ==  $dataRusak->quantity_rusak) {
+            $remaining_perbaikan =  $request->quantity_perbaikan;
+            $perbaikanKurang = $remaining_perbaikan - $dataRusak->quantity_perbaikan;
+            $dataBarang->tersedia += $perbaikanKurang;
+        } else {
+            return redirect()->back()->with('error', 'Jumlah Tidak Sesuai.');
+        }
+        $dataRusak->quantity_rusak = $request->quantity_rusak;
+        $dataRusak->quantity_perbaikan = $request->quantity_perbaikan;
+        $dataRusak->save();
+        $dataBarang->save();
 
         // Simpan foto bukti perbaikan
         if ($request->hasFile('bukti_perbaikan')) {

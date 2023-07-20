@@ -61,7 +61,7 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="status_rusak">Status</label>
                             <select class="form-control select2" name="status_rusak" id="status_rusak">
                                 <option value=""
@@ -79,7 +79,7 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label for="quantity_rusak">Jumlah Kerusakan</label>
                             <input type="text" class="form-control @error('quantity_rusak') is-invalid @enderror"
@@ -105,7 +105,7 @@
                                 </div>
                             @enderror
                         </div>
-                        
+
 
 
                         <div class="row">
@@ -155,10 +155,10 @@
                 } else {
                     $('#quantity_perbaikan').parent().hide();
                 }
-        
-            }).trigger('change'); 
+
+            }).trigger('change');
         });
-        </script>
+    </script>
 @endpush
 
 @push('customStyle')

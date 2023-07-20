@@ -78,6 +78,7 @@
                                             <th>Harga Barang</th>
                                             <th>Jumlah</th>
                                             <th>Tersediaan</th>
+                                            <th>Status</th>
                                             <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($dataBarangs as $key => $dataBarang)
@@ -91,6 +92,15 @@
                                                 <td>Rp {{ number_format($dataBarang->harga_barang, 0, ',', '.') }}</td>
                                                 <td>{{ $dataBarang->quantity }}</td>
                                                 <td>{{ $dataBarang->tersedia }}</td>
+                                                @if ($dataBarang->tersedia > 0)
+                                                    <td class="text-center">
+                                                        <div class="badge badge-success">Baik</div>
+                                                    </td>
+                                                @else
+                                                    <td class="text-center">
+                                                        <div class="badge badge-danger">Rusak</div>
+                                                    </td>
+                                                @endif
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <a href="{{ route('data-barang.edit', $dataBarang->id) }}"
