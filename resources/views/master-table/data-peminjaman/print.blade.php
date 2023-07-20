@@ -48,6 +48,7 @@
                 <th>Quantity</th>
                 <th>Tanggal Pinjam</th>
                 <th>Tanggal Kembali</th>
+                <th>Ktp Peminjam</th>
             </tr>
         </thead>
         <tbody>
@@ -61,6 +62,15 @@
                     <td>{{ $itemPeminjaman->quantity }}</td>
                     <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
                     <td>{{ $itemPeminjaman->tanggal_kembali }}</td>
+                    @if ($itemPeminjaman->ktp_peminjam != null)
+                        <td>
+                            <img src="{{ public_path('storage/' . $itemPeminjaman->ktp_peminjam) }}" width="100px">
+                        </td>
+                    @elseif ($itemPeminjaman->ktp_peminjam != null)
+                        <td>
+                            Belum Ada KTP
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

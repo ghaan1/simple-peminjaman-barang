@@ -319,6 +319,7 @@ class DataPeminjamanController extends Controller
 
     public function print(Request $request)
     {
+        $userId = Auth::id();
         $tanggal = $request->session()->get('tahun');
         $user = Auth::user();
         $query = DB::table('datapeminjaman')
@@ -334,12 +335,14 @@ class DataPeminjamanController extends Controller
                 'datapeminjaman.tanggal_pinjam',
                 'datapeminjaman.tanggal_kembali',
                 'datapeminjaman.status',
-                'users.name as nama_petugas'
+                'users.name as nama_petugas',
+                'datapeminjaman.ktp_peminjam'
             )
             ->leftJoin('users as u1', 'datapeminjaman.peminjam_id', '=', 'u1.id')
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
             ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
-            ->leftJoin('users', 'databarang.admin_id', '=', 'users.id');
+            ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
+            ->where('datapeminjaman.peminjam_id', '=', $userId);
 
 
         if ($request->has('databarang')) {
@@ -357,6 +360,8 @@ class DataPeminjamanController extends Controller
         if ($tanggal) {
             $query->whereYear('datapeminjaman.tanggal_pinjam', $tanggal);
         }
+
+
 
         $dataPeminjaman = $query->get();
         $pdf = PDF::loadView('master-table.data-peminjaman.print', with(['dataPeminjaman' => $dataPeminjaman, 'users' => $user]));

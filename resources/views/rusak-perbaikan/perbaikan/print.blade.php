@@ -58,10 +58,15 @@
                     <td>{{ $itemPerbaikan->nama_barang }}</td>
                     <td>{{ $itemPerbaikan->status_rusak }}</td>
                     <td>{{ $itemPerbaikan->quantity_rusak }}</td>
-                    <td>
-                        <img src="{{ public_path('storage/' . $itemPerbaikan->bukti_perbaikan) }}" width="100px">
-                    </td>
-
+                    @if ($itemPerbaikan->bukti_perbaikan != null)
+                        <td>
+                            <img src="{{ public_path('storage/' . $itemPerbaikan->bukti_perbaikan) }}" width="100px">
+                        </td>
+                    @elseif ($itemPerbaikan->bukti_perbaikan != null)
+                        <td>
+                            Belum Ada Bukti
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
