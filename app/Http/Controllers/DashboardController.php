@@ -57,8 +57,7 @@ class DashboardController extends Controller
 
         $totalbaik = DataBarang::select(
             DB::raw('SUM(tersedia) as total_baik')
-        )
-            ->where('status_rusak', 'baik',)
+        )   
             ->get();
 
 
