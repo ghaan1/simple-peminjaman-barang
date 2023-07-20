@@ -23,6 +23,7 @@ class DataPerbaikanController extends Controller
      */
     public function index(Request  $request)
     {
+        $userId = Auth::id();
         $nama_barang = $request->input('nama_barang');
         $dataPerbaikan = DB::table('data_perbaikans')->select(
             'data_perbaikans.id',
@@ -47,6 +48,7 @@ class DataPerbaikanController extends Controller
             ->when($request->input('tanggal'), function ($query, $tanggal) {
                 return $query->whereDate('data_perbaikans.tanggal_perbaikan', $tanggal);
             })
+            ->where('databarang.admin_id', $userId)
             ->paginate(5);
         $tanggalSelected = $request->input('tanggal');
         $request->session()->put('tanggal', $tanggalSelected);

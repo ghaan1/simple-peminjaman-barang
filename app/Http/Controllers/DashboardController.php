@@ -44,9 +44,8 @@ class DashboardController extends Controller
         )->get();
 
         $totalRusak = DataRusak::select(
-            DB::raw('SUM(quantity_rusak) as total_rusak')
+            DB::raw('SUM(quantity_rusak) - SUM(quantity_perbaikan) as total_rusak')
         )
-            ->where('status_rusak', 'rusak')
             ->get();
 
         $totalPerbaikan = DataRusak::select(
@@ -57,7 +56,7 @@ class DashboardController extends Controller
 
         $totalbaik = DataBarang::select(
             DB::raw('SUM(tersedia) as total_baik')
-        )   
+        )
             ->get();
 
 

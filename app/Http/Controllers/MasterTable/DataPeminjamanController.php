@@ -371,7 +371,7 @@ class DataPeminjamanController extends Controller
 
         $dataBarangQuery = DataBarang::where('jenis_barang_id', $request->id);
         if ($user->hasRole('admin-rt|admin-kelurahan')) {
-            $dataBarangQuery = $dataBarangQuery->where('admin_id', $userId);
+            $dataBarangQuery = $dataBarangQuery->where('admin_id', '!=', $userId);
         }
 
         $dataBarang['dataBarang'] = $dataBarangQuery->get();
@@ -387,7 +387,7 @@ class DataPeminjamanController extends Controller
 
         $dataBarangQuery = DataBarang::where('jenis_barang_id', $request->id);
         if ($user->hasRole('admin-rt|admin-kelurahan')) {
-            $dataBarangQuery = $dataBarangQuery->where('admin_id', $userId);
+            $dataBarangQuery = $dataBarangQuery->where('admin_id', '!=', $userId);
         }
 
         $dataBarang['dataBarang'] = $dataBarangQuery->get();

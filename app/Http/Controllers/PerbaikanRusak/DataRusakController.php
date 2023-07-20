@@ -26,6 +26,7 @@ class DataRusakController extends Controller
 
     public function index(Request $request)
     {
+        $userId = Auth::id();
         $dataRusak = DB::table('data_rusaks')->select(
             'data_rusaks.id',
             'data_rusaks.user_id',
@@ -40,6 +41,7 @@ class DataRusakController extends Controller
             ->join('users', 'data_rusaks.user_id', '=', 'users.id')
             ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
             ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+            ->where('databarang.admin_id', $userId)
             ->paginate(5);
 
         return view('rusak-perbaikan.rusak.index', compact('dataRusak'));
