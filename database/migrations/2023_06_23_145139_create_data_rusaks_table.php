@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('barang_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('quantity_rusak')->nullable();
-            $table->enum('status_rusak', ['rusak', 'diperbaiki'])->default('rusak');
+            $table->string('quantity_perbaikan')->nullable();
+            $table->enum('status_rusak', ['rusak', 'diperbaiki', 'baik'])->default('rusak');
             $table->foreign('user_id')->references('id')->on('users')->restrictOnDelete();
             $table->foreign('barang_id')->references('id')->on('databarang')->restrictOnDelete();
             $table->timestamps();

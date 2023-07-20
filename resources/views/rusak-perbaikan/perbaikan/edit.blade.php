@@ -71,6 +71,8 @@
                                     RUSAK</option>
                                 <option value="diperbaiki" {{ 'diperbaiki' ? 'selected' : '' }}>
                                     DIPERBAIKI</option>
+                                <option value="baik">
+                                    BAIK</option>
                             </select>
                             @error('status_rusak')
                                 <div class="invalid-feedback">

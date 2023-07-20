@@ -52,18 +52,23 @@ class DashboardController extends Controller
         $totalPerbaikan = DataRusak::select(
             DB::raw('SUM(quantity_rusak) as total_perbaikan')
         )
-            ->where('status_rusak', 'diperbaiki')
+            ->where('status_rusak', 'diperbaiki',)
             ->get();
+
+        $totalbaik = DataRusak::select(
+            DB::raw('SUM(quantity_rusak) as total_baik')
+        )
+            ->where('status_rusak', 'baik',)
+            ->get();
+            
 
 
         $peminjamanBarang = DataPeminjaman::where('peminjam_id', $userId)
             ->join('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->select('databarang.nama_barang', 'datapeminjaman.quantity')
             ->get();
-
-            $chartDataBarangTersedia = DataBarang::select('nama_barang', 'tersedia')->get();
-
             
+
 
         // dd($peminjamanBarang);
         $countBarang = DataBarang::count();
@@ -78,7 +83,8 @@ class DashboardController extends Controller
                 'totalBarang' => $totalBarang,
                 'totalRusak' => $totalRusak,
                 'totalPerbaikan' => $totalPerbaikan,
-                'chartDataBarangTersedia' => $chartDataBarangTersedia,
+                'totalBaik' => $totalbaik,
             ]);
     }
+
 }

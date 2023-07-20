@@ -57,6 +57,7 @@
                                             <th>Nama Barang</th>
                                             <th>Status</th>
                                             <th>Jumlah</th>
+                                            <th>Jumlah Perbaikan</th>
                                             <th>Bukti Perbaikan</th>
                                             <th>KTP</th>
                                             <th class="text-right">Action</th>
@@ -70,6 +71,7 @@
                                                 <td>{{ $listBarangPerbaikan->nama_barang }}</td>
                                                 <td>{{ $listBarangPerbaikan->status_rusak }}</td>
                                                 <td>{{ $listBarangPerbaikan->quantity_rusak }}</td>
+                                                <td>{{ $listBarangPerbaikan->quantity_perbaikan }}</td>
                                                 <td>
                                                     @if ($listBarangPerbaikan->bukti_perbaikan)
                                                         <img src="{{ Storage::url('public/' . $listBarangPerbaikan->bukti_perbaikan) }}"

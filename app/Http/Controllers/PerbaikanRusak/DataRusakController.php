@@ -33,6 +33,7 @@ class DataRusakController extends Controller
             'roles.name as role_name',
             'data_rusaks.barang_id',
             'data_rusaks.quantity_rusak',
+            'data_rusaks.quantity_perbaikan',
             'data_rusaks.status_rusak',
             'databarang.nama_barang',
         )->join('databarang', 'data_rusaks.barang_id', '=', 'databarang.id')

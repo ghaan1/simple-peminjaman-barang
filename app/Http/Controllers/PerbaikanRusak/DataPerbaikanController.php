@@ -34,6 +34,7 @@ class DataPerbaikanController extends Controller
             'users.name',
             'data_rusaks.barang_id',
             'data_rusaks.quantity_rusak',
+            'data_rusaks.quantity_perbaikan',
             'data_rusaks.status_rusak',
             'databarang.nama_barang',
         )
@@ -92,7 +93,7 @@ class DataPerbaikanController extends Controller
                 'bukti_perbaikan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'ktp_perbaikan' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 'quantity_rusak' => 'required|numeric|min:1',
-                'quantity_perbaikan' => 'required|numeric|max:' . $request->quantity_rusak,
+                'quantity_perbaikan' => 'max:' . $request->quantity_rusak,
             ],
             [
                 'tanggal_perbaikan.required' => 'Tanggal Perbaikan Wajib Diisi',
@@ -115,14 +116,14 @@ class DataPerbaikanController extends Controller
         // Update data perbaikan
         $dataPerbaikan->tanggal_perbaikan = $request->tanggal_perbaikan;
         $dataRusak->status_rusak = $request->status_rusak;
+        $dataRusak->quantity_rusak = $request->quantity_rusak;
 
-       
         if ($request->quantity_perbaikan) {
            
-            $remaining_rusak = $dataRusak->quantity_rusak - $request->quantity_perbaikan;
+            $remaining_perbaikan =  $request->quantity_perbaikan;
         
             
-            $dataRusak->quantity_rusak = $remaining_rusak;
+            $dataRusak->quantity_perbaikan = $remaining_perbaikan;
             $dataRusak->save();
 
             $dataBarang->tersedia += $request->quantity_perbaikan;

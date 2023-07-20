@@ -50,6 +50,7 @@
                                             <th>Nama User</th>
                                             <th>Nama Barang</th>
                                             <th>Jumlah</th>
+                                            <th>Jumlah Sisa</th>
                                             <th>Status</th>
                                             <th class="text-right">Aksi</th>
                                         </tr>
@@ -61,6 +62,9 @@
                                                 <td>{{ $listBarangRusak->name }}</td>
                                                 <td>{{ $listBarangRusak->nama_barang }}</td>
                                                 <td>{{ $listBarangRusak->quantity_rusak }}</td>
+                                                <td>
+                                                        {{ $listBarangRusak->quantity_rusak - $listBarangRusak->quantity_perbaikan }}
+                                                </td>
                                                 <td>{{ $listBarangRusak->status_rusak }}</td>
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
