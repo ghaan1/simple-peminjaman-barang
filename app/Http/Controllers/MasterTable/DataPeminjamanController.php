@@ -160,7 +160,8 @@ class DataPeminjamanController extends Controller
 
     public function create()
     {
-        $dataBarang = DataBarang::all();
+        $dataBarang = DataBarang::with('admin')->get();
+        // dd($dataBarang);
         $jenisBarang = JenisBarang::all();
         $user = User::all();
         $ktp = ProfileUser::all();
@@ -379,7 +380,12 @@ class DataPeminjamanController extends Controller
             $dataBarangQuery = $dataBarangQuery->where('admin_id', '!=', $userId);
         }
 
-        $dataBarang['dataBarang'] = $dataBarangQuery->get();
+        $usersQuery = User::where('id', '=', $userId);
+
+        // $dataBarang['dataBarang'] = $dataBarangQuery->get();
+        // $dataBarang['namaUser'] = $usersQuery->get();
+        $dataBarang['dataBarang'] = $dataBarangQuery->with('admin')->get();
+
         return response()->json($dataBarang);
     }
 

@@ -14,6 +14,11 @@ class DataBarang extends Model
         'harga_barang', 'quantity', 'tersedia'
     ];
 
+    public function admin() 
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+   
     public function jenisbarang()
     {
         return $this->belongsTo(JenisBarang::class);
@@ -28,4 +33,6 @@ class DataBarang extends Model
     {
         return $this->hasMany(DataRusak::class, 'barang_id');
     }
+
+    
 }

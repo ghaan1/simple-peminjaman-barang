@@ -111,6 +111,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::resource('data-peminjaman', DataPeminjamanController::class);
         Route::post('peminjaman-barang-filter', [DataPeminjamanController::class, 'PeminjamanBarangFilter'])
             ->name('data-peminjaman-barang.filters');
+        
         Route::get('peminjaman-barang-filter-get', [DataPeminjamanController::class, 'PeminjamanBarangFilterGet'])
             ->name('data-peminjaman-barang-get.filters');
         Route::patch('/data-peminjaman/{dataPeminjaman}/update-status', [DataPeminjamanController::class, 'updateStatus'])->name('data-peminjaman.update-status');

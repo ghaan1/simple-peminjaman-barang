@@ -186,6 +186,7 @@
                 let jenis_barang_id = $(this).val();
                 var selectBarang = "{{ $dataBarang }}"
                 var dataBarangItem = JSON.parse(selectBarang.replace(/&quot;/g, '"'));
+                
                 $.ajax({
                     url: '{{ route('data-peminjaman-barang.filters') }}',
                     method: 'post',
@@ -196,15 +197,18 @@
                     },
                     success: function(data) {
                         $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
-                        console.log(data);
+                        console.log('data barang :',data);
+
                         $.each(data.dataBarang, function(index, val) {
-                            console.log(val.id);
+                            console.log(val);
+                            console.log(val.admin_id);
                             if (val.jenis_barang_id == jenis_barang_id) {
                                 console.log('<option value="' + val.id + '"> ' + val
                                     .nama_barang + ' </option>');
                                 $('#barang_id').append('<option value="' + val.id +
                                     '"> ' + val.nama_barang + ' (Stok: ' + val
-                                    .tersedia + ')</option>');
+                                    .tersedia + ') - (Pemilik Barang: '+ val.admin.name + ')</option>');
+                                    
                             }
                         });
                     }
