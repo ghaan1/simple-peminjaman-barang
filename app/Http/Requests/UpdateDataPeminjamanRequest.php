@@ -20,6 +20,7 @@ class UpdateDataPeminjamanRequest extends FormRequest
             'barang_id' => 'required',
             'quantity' => 'required|regex:/^[0-9]*$/|max:5',
             'tanggal_pinjam' => 'required|date',
+            'tanggal_kembali' => 'required|date',
             'status' => 'required',
         ];
     }
@@ -35,6 +36,8 @@ class UpdateDataPeminjamanRequest extends FormRequest
             'quantity.max' => 'Quantity Maksimal 5 Digit',
             'tanggal_pinjam.required' => 'Tanggal Wajib Diisi',
             'tanggal_pinjam.date' => 'Tanggal Wajib Diluar Format',
+            'tanggal_kembali.required' => 'Tanggal Wajib Diisi',
+            'tanggal_kembali.date' => 'Tanggal Wajib Diluar Format',
             'status.required' => 'Status Wajib Diisi',
         ];
     }

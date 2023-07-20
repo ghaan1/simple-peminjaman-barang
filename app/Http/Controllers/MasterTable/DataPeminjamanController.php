@@ -180,6 +180,7 @@ class DataPeminjamanController extends Controller
             'barang_id' => 'required',
             'quantity' => 'required|regex:/^[0-9]*$/|max:5',
             'tanggal_pinjam' => 'required|date',
+            'tanggal_kembali' => 'required|date',
             'status' => 'required',
             'ktp_peminjam' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
@@ -191,6 +192,8 @@ class DataPeminjamanController extends Controller
             'quantity.max' => 'Quantity Maksimal 5 Digit',
             'tanggal_pinjam.required' => 'Tanggal Wajib Diisi',
             'tanggal_pinjam.date' => 'Tanggal Wajib Diluar Format',
+            'tanggal_kembali.required' => 'Tanggal Wajib Diisi',
+            'tanggal_kembali.date' => 'Tanggal Wajib Diluar Format',
             'status.required' => 'Status Wajib Diisi',
             'ktp_peminjam.image' => 'KTP Tidak Sesuai Format',
             'ktp_peminjam.mimes' => 'KTP Hanya Mendukung Format jpeg, png, jpg',
@@ -224,6 +227,7 @@ class DataPeminjamanController extends Controller
                 'barang_id' => $request['barang_id'],
                 'quantity' => $request['quantity'],
                 'tanggal_pinjam' => $request['tanggal_pinjam'],
+                'tanggal_kembali' => $request['tanggal_kembali'],
                 'ktp_peminjam' => 'ktp-peminjaman/' . $namaKtp, // Simpan nama ktp ke dalam kolom 'ktp'
             ]);
         } elseif ($request->show_ktp === 'on') {
@@ -235,6 +239,7 @@ class DataPeminjamanController extends Controller
                 'barang_id' => $request['barang_id'],
                 'quantity' => $request['quantity'],
                 'tanggal_pinjam' => $request['tanggal_pinjam'],
+                'tanggal_kembali' => $request['tanggal_kembali'],
                 'ktp_peminjam' => $fotoKtpLAMA,
             ]);
         } else {
@@ -426,7 +431,6 @@ class DataPeminjamanController extends Controller
             $dataBarang->tersedia = $tersedia;
             $dataBarang->save();
             $dataPeminjaman->status = $request->status;
-            $dataPeminjaman->tanggal_kembali = \Carbon\Carbon::now();
             $dataPeminjaman->save();
         } elseif ($request->status === 'Sedang Dipinjam') {
             $dataBarang = $dataPeminjaman->dataBarang;

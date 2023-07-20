@@ -69,6 +69,16 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="tanggal_kembali">Tanggal Kembali</label>
+                            <input type="date" class="form-control @error('tanggal_kembali') is-invalid @enderror"
+                                id="tanggal_kembali" name="tanggal_kembali">
+                            @error('tanggal_kembali')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <div class="form-group" hidden>
                             <label for="status">Status</label>
                             <input type="text" class="form-control @error('status') is-invalid @enderror" id="status"

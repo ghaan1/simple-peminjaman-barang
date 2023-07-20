@@ -25,7 +25,7 @@ class DataPeminjamanSeeder extends Seeder
                     'tanggal_pinjam' => '2023-03-31',
                     'status' => 'Sedang Dipinjam',
                     'ktp_peminjam' => 'ktp-peminjaman/ktp_peminjam.jpg',
-                    'tanggal_kembali' => null
+                    'tanggal_kembali' => '2023-04-01'
                 ],
                 [
                     'peminjam_id' => 2,
@@ -35,7 +35,7 @@ class DataPeminjamanSeeder extends Seeder
                     'tanggal_pinjam' => '2023-03-31',
                     'status' => 'Sedang Dipinjam',
                     'ktp_peminjam' => 'ktp-peminjaman/ktp_peminjam.jpg',
-                    'tanggal_kembali' => null
+                    'tanggal_kembali' => '2023-04-01'
                 ],
                 [
                     'peminjam_id' => 3,
@@ -45,7 +45,7 @@ class DataPeminjamanSeeder extends Seeder
                     'tanggal_pinjam' => '2023-03-31',
                     'status' => 'Sedang Dipinjam',
                     'ktp_peminjam' => 'ktp-peminjaman/ktp_peminjam.jpg',
-                    'tanggal_kembali' => null
+                    'tanggal_kembali' => '2023-04-01'
                 ],
                 [
                     'peminjam_id' => 1,
@@ -55,7 +55,7 @@ class DataPeminjamanSeeder extends Seeder
                     'tanggal_pinjam' => '2023-03-31',
                     'status' => 'Sedang Dipinjam',
                     'ktp_peminjam' => 'ktp-peminjaman/ktp_peminjam.jpg',
-                    'tanggal_kembali' => null
+                    'tanggal_kembali' => '2023-04-01'
                 ],
                 [
                     'peminjam_id' => 1,
