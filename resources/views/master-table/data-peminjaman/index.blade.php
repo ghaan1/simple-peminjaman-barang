@@ -113,13 +113,8 @@
                                             <th>Quantity</th>
                                             <th>Tanggal Pinjam</th>
                                             <th>Tanggal Kembali</th>
-                                            @role('admin-rt|admin-kelurahan')
-                                                <th>Status</th>
-                                                <th class="text-right">Status Aksi</th>
-                                            @endrole
-                                            @role('warga-rt|warga')
-                                                <th>Status</th>
-                                            @endrole
+                                            <th>Status</th>
+                                            <th class="text-right">Status Aksi</th>
                                             <th class="text-right">Aksi</th>
                                         </tr>
                                         @foreach ($dataPeminjaman as $key => $itemPeminjaman)
@@ -133,7 +128,7 @@
                                                 <td>{{ $itemPeminjaman->quantity }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_pinjam }}</td>
                                                 <td>{{ $itemPeminjaman->tanggal_kembali }}</td>
-                                                @role('admin-rt|admin-kelurahan')
+                                                @if (Auth::id() == $itemPeminjaman->admin_id)
                                                     <td>{{ $itemPeminjaman->status }}</td>
                                                     <td class="text-right">
                                                         <div class="d-flex justify-content-end">
@@ -147,13 +142,16 @@
                                                                         value="Sudah Dikembalikan">
                                                                     @if (session()->has('error'))
                                                                         <button type="button"
-                                                                            class="btn btn-sm btn-primary btn-icon" disabled>
-                                                                            <i class="fas fa-check"></i> Barang Sudah Kembali
+                                                                            class="btn btn-sm btn-primary btn-icon"
+                                                                            disabled>
+                                                                            <i class="fas fa-check"></i> Barang Sudah
+                                                                            Kembali
                                                                         </button>
                                                                     @else
                                                                         <button type="submit"
                                                                             class="btn btn-sm btn-primary btn-icon">
-                                                                            <i class="fas fa-check"></i> Barang Sudah Kembali
+                                                                            <i class="fas fa-check"></i> Barang Sudah
+                                                                            Kembali
                                                                         </button>
                                                                     @endif
                                                                 </form>
@@ -167,14 +165,17 @@
                                                                         value="Sedang Dipinjam">
                                                                     @if (session()->has('error'))
                                                                         <button type="button"
-                                                                            class="btn btn-sm btn-danger btn-icon" disabled>
-                                                                            <i class="fas fa-check"></i> Batalkan Barang Sudah
+                                                                            class="btn btn-sm btn-danger btn-icon"
+                                                                            disabled>
+                                                                            <i class="fas fa-check"></i> Batalkan Barang
+                                                                            Sudah
                                                                             Kembali
                                                                         </button>
                                                                     @else
                                                                         <button type="submit"
                                                                             class="btn btn-sm btn-danger btn-icon">
-                                                                            <i class="fas fa-check"></i> Batalkan Barang Sudah
+                                                                            <i class="fas fa-check"></i> Batalkan Barang
+                                                                            Sudah
                                                                             Kembali
                                                                         </button>
                                                                     @endif
@@ -185,7 +186,8 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PATCH')
-                                                                    <input type="hidden" name="status" value="Verifikasi">
+                                                                    <input type="hidden" name="status"
+                                                                        value="Verifikasi">
                                                                     @if (session()->has('error'))
                                                                         <button type="button"
                                                                             class="btn btn-sm btn-primary btn-icon ml-2"
@@ -204,7 +206,8 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('PATCH')
-                                                                    <input type="hidden" name="status" value="Tertolak">
+                                                                    <input type="hidden" name="status"
+                                                                        value="Tertolak">
                                                                     @if (session()->has('error'))
                                                                         <button type="button"
                                                                             class="btn btn-sm btn-danger btn-icon ml-2"
@@ -230,32 +233,38 @@
                                                                         <button type="button"
                                                                             class="btn btn-sm btn-primary btn-icon ml-2"
                                                                             disabled>
-                                                                            <i class="fas fa-check"></i> Barang Sudah Dipinjam?
+                                                                            <i class="fas fa-check"></i> Barang Sudah
+                                                                            Dipinjam?
                                                                         </button>
                                                                     @else
                                                                         <button type="submit"
                                                                             class="btn btn-sm btn-primary btn-icon ml-2">
-                                                                            <i class="fas fa-check"></i> Barang Sudah Dipinjam?
+                                                                            <i class="fas fa-check"></i> Barang Sudah
+                                                                            Dipinjam?
                                                                         </button>
                                                                     @endif
                                                                 </form>
                                                             @endif
                                                         </div>
                                                     </td>
-                                                @endrole
-                                                @role('warga-rt|warga')
+                                                @else
                                                     @if ($itemPeminjaman->status == 'Sedang Dipinjam')
                                                         <td>Barang Sedang Dipinjam</td>
+                                                        <td>-</td>
                                                     @elseif ($itemPeminjaman->status == 'Sudah Dikembalikan')
                                                         <td>Barang Telah Dikembalikan</td>
+                                                        <td>-</td>
                                                     @elseif ($itemPeminjaman->status == 'Pending')
                                                         <td>Menunggu Persetujuan Admin</td>
+                                                        <td>-</td>
                                                     @elseif ($itemPeminjaman->status == 'Verifikasi')
                                                         <td>Telah Disetujui Admin
                                                             <br>Dan Barang Belum Diambil
                                                         </td>
+                                                        <td>-</td>
                                                     @endif
-                                                @endrole
+                                                @endif
+
                                                 <td class="text-right">
                                                     <div class="d-flex justify-content-end">
                                                         <button class="btn btn-sm btn-primary btn-icon show-foto-btn"

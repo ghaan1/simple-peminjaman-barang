@@ -43,13 +43,15 @@ class DashboardController extends Controller
             DB::raw('SUM(quantity) as total_barang')
         )->get();
 
-        $totalRusak = DataRusak::select(
-            DB::raw('SUM(quantity_rusak) - SUM(quantity_perbaikan) as total_rusak')
-        )
-            ->get();
+        $dataRusaks = DataRusak::all();
+        $totalRusak = 0;
+
+        foreach ($dataRusaks as $dataRusak) {
+            $totalRusak += $dataRusak->quantity_rusak - $dataRusak->quantity_perbaikan;
+        }
 
         $totalPerbaikan = DataRusak::select(
-            DB::raw('SUM(quantity_rusak) as total_perbaikan')
+            DB::raw('SUM(quantity_perbaikan) as total_perbaikan')
         )
             ->where('status_rusak', 'diperbaiki',)
             ->get();
@@ -64,6 +66,7 @@ class DashboardController extends Controller
         $peminjamanBarang = DataPeminjaman::where('peminjam_id', $userId)
             ->join('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->select('databarang.nama_barang', 'datapeminjaman.quantity')
+            ->where('status', '=', 'Sedang Dipinjam')
             ->get();
 
 

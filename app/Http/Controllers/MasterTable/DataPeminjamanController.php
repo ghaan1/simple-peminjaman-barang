@@ -54,6 +54,7 @@ class DataPeminjamanController extends Controller
                 'jenisbarang.jenis_barang',
                 'datapeminjaman.barang_id',
                 'databarang.nama_barang',
+                'databarang.admin_id',
                 'datapeminjaman.quantity',
                 'datapeminjaman.tanggal_pinjam',
                 'datapeminjaman.status',

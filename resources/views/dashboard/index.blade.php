@@ -291,10 +291,10 @@
     <script>
         // Data total barang, total rusak, dan total perbaikan
         var totalBarang = {!! json_encode($totalBarang[0]->total_barang) !!};
-        var totalRusak = {!! json_encode($totalRusak[0]->total_rusak) !!};
+        var totalRusak = {!! json_encode($totalRusak) !!};
+
         var totalPerbaikan = {!! json_encode($totalPerbaikan[0]->total_perbaikan) !!};
         var totalBaik = {!! json_encode($totalBaik[0]->total_baik) !!};
-
         // Menginisialisasi chart
         var ctx = document.getElementById('chartTotal').getContext('2d');
         var myChart = new Chart(ctx, {
