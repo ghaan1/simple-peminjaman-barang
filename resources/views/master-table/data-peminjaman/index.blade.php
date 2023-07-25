@@ -23,10 +23,6 @@
                                 <a class="btn btn-info btn-primary active search">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     Cari Data Peminjaman</a>
-                                @role('admin-rt|admin-kelurahan')
-                                    <a class="btn btn-icon icon-left btn-primary" href="{{ route('data-peminjaman.print') }}"
-                                        target="_blank">Cetak Data Peminjaman</a>
-                                @endrole
                             </div>
                         </div>
                         <div class="card-body">
@@ -92,6 +88,20 @@
                                                     placeholder="Tahun" value="{{ $tanggalSelected }}" min="1990"
                                                     max="{{ date('Y') }}">
                                             </div>
+                                            <div id="bulanGroup" class="form-group col-md-4" style="margin-left: 10px;">
+                                                <label for="bulan">Bulan</label>
+                                                <input type="number" name="bulan" class="form-control" id="bulan"
+                                                    placeholder="Bulan" value="{{ $bulanSelected }}" min="1"
+                                                    max="12">
+                                            </div>
+
+                                            @role('admin-rt|admin-kelurahan')
+                                                <div class="form-group col-md-9" style=" margin-left: 10px">
+                                                    <a class="btn btn-icon icon-left btn-primary"
+                                                        href="{{ route('data-peminjaman.print') }}" target="_blank">Cetak Data
+                                                        Peminjaman</a>
+                                                </div>
+                                            @endrole
                                         </div>
                                     </div>
                                     <div class="text-right">

@@ -86,6 +86,9 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('tahun'), function ($query, $tahun) {
                     return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
                 })
+                ->when($request->input('bulan'), function ($query, $bulan) {
+                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
+                })
                 ->where('databarang.admin_id', '=', $userId)
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } elseif ($user->hasRole('admin-rt')) {
@@ -106,6 +109,9 @@ class DataPeminjamanController extends Controller
                 })
                 ->when($request->input('tahun'), function ($query, $tahun) {
                     return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
+                })
+                ->when($request->input('bulan'), function ($query, $bulan) {
+                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
                 })
                 ->where('u1.name', '=',  $name)
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
@@ -130,6 +136,9 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('tahun'), function ($query, $tahun) {
                     return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
                 })
+                ->when($request->input('bulan'), function ($query, $bulan) {
+                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
+                })
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         }
 
@@ -139,6 +148,7 @@ class DataPeminjamanController extends Controller
         $userSelected = $request->input('users');
         $statusSelected = $request->input('status');
         $tanggalSelected = $request->input('tahun');
+        $bulanSelected = $request->input('bulan');
         $request->session()->put('tahun', $tanggalSelected);
 
 
@@ -150,6 +160,7 @@ class DataPeminjamanController extends Controller
             'jenisBarangSelected' => $jenisBarangSelected,
             'dataBarangSelected' => $dataBarangSelected,
             'tanggalSelected' => $tanggalSelected,
+            'bulanSelected' => $bulanSelected,
             'dataPeminjaman' => $dataPeminjaman,
             'jenisBarang' => $jenisBarang,
             'user' => $user,
