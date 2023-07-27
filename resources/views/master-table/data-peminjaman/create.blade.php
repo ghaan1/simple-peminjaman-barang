@@ -82,7 +82,7 @@
                         <div class="form-group" hidden>
                             <label for="status">Status</label>
                             <input type="text" class="form-control @error('status') is-invalid @enderror" id="status"
-                                name="status" value="Sedang Dipinjam">
+                                name="status" value="Pending">
                             @error('status')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -186,7 +186,7 @@
                 let jenis_barang_id = $(this).val();
                 var selectBarang = "{{ $dataBarang }}"
                 var dataBarangItem = JSON.parse(selectBarang.replace(/&quot;/g, '"'));
-                
+
                 $.ajax({
                     url: '{{ route('data-peminjaman-barang.filters') }}',
                     method: 'post',
@@ -197,7 +197,7 @@
                     },
                     success: function(data) {
                         $('#barang_id').html('<option value="">Pilih Nama Barang</option>');
-                        console.log('data barang :',data);
+                        console.log('data barang :', data);
 
                         $.each(data.dataBarang, function(index, val) {
                             console.log(val);
@@ -207,8 +207,9 @@
                                     .nama_barang + ' </option>');
                                 $('#barang_id').append('<option value="' + val.id +
                                     '"> ' + val.nama_barang + ' (Stok: ' + val
-                                    .tersedia + ') - (Pemilik Barang: '+ val.admin.name + ')</option>');
-                                    
+                                    .tersedia + ') - (Pemilik Barang: ' + val.admin
+                                    .name + ')</option>');
+
                             }
                         });
                     }

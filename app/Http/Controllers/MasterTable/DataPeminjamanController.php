@@ -89,7 +89,8 @@ class DataPeminjamanController extends Controller
                 ->when($request->input('bulan'), function ($query, $bulan) {
                     return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
                 })
-                ->where('databarang.admin_id', '=', $userId)
+                ->where('u1.name', '=',  $name)
+                ->orWhere('databarang.admin_id', '=', $userId)
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } elseif ($user->hasRole('admin-rt')) {
             $query->when($request->input('databarang'), function ($query, $databarang) {
@@ -114,6 +115,7 @@ class DataPeminjamanController extends Controller
                     return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
                 })
                 ->where('u1.name', '=',  $name)
+                ->orWhere('databarang.admin_id', '=', $userId)
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } else {
             $query
@@ -354,7 +356,7 @@ class DataPeminjamanController extends Controller
             ->leftJoin('jenisbarang', 'datapeminjaman.jenis_barang_id', '=', 'jenisbarang.id')
             ->leftJoin('databarang', 'datapeminjaman.barang_id', '=', 'databarang.id')
             ->leftJoin('users', 'databarang.admin_id', '=', 'users.id')
-            ->where('datapeminjaman.peminjam_id', '=', $userId);
+            ->where('databarang.admin_id', '=', $userId);
 
 
         if ($request->has('databarang')) {

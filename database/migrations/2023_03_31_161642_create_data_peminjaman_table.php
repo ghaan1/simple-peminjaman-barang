@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali')->nullable();
-            $table->enum('status', ['Sedang Dipinjam', 'Sudah Dikembalikan', 'Pending', 'Verifikasi', 'Tertolak'])->default('Pending');
+            $table->enum('status', ['Sedang Dipinjam', 'Sudah Dikembalikan', 'Pending', 'Verifikasi', 'Tertolak'])->default('Pending')->nullable();
             $table->foreign('jenis_barang_id')->references('id')->on('jenisbarang')->restrictOnDelete();
             $table->foreign('barang_id')->references('id')->on('databarang')->restrictOnDelete();
             $table->foreign('peminjam_id')->references('id')->on('users')->restrictOnDelete();
