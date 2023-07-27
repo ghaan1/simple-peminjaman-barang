@@ -62,7 +62,7 @@
                         <td>
                             <img src="{{ public_path('storage/' . $itemPerbaikan->bukti_perbaikan) }}" width="100px">
                         </td>
-                    @elseif ($itemPerbaikan->bukti_perbaikan != null)
+                    @elseif ($itemPerbaikan->bukti_perbaikan == null)
                         <td>
                             Belum Ada Bukti
                         </td>

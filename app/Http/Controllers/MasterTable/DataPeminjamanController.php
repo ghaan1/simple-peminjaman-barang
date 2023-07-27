@@ -68,6 +68,8 @@ class DataPeminjamanController extends Controller
             ->leftJoin('users as u2', 'databarang.admin_id', '=', 'u2.id');
 
         if ($user->hasRole('admin-kelurahan')) {
+            // ->where('u1.name', '=',  $name)
+            // ->orWhere('databarang.admin_id', '=', $userId)
             $query->when($request->input('databarang'), function ($query, $databarang) {
                 return $query->whereIn('datapeminjaman.barang_id', $databarang);
             })
@@ -84,13 +86,14 @@ class DataPeminjamanController extends Controller
                     return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
                 ->when($request->input('tahun'), function ($query, $tahun) {
-                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
+                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun)
+                        ->orWhereYear('datapeminjaman.tanggal_kembali', $tahun);
                 })
                 ->when($request->input('bulan'), function ($query, $bulan) {
-                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
+                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan)
+                        ->orWhereMonth('datapeminjaman.tanggal_kembali', $bulan);
                 })
-                ->where('u1.name', '=',  $name)
-                ->orWhere('databarang.admin_id', '=', $userId)
+
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         } elseif ($user->hasRole('admin-rt')) {
             $query->when($request->input('databarang'), function ($query, $databarang) {
@@ -109,10 +112,12 @@ class DataPeminjamanController extends Controller
                     return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
                 ->when($request->input('tahun'), function ($query, $tahun) {
-                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
+                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun)
+                        ->orWhereYear('datapeminjaman.tanggal_kembali', $tahun);
                 })
                 ->when($request->input('bulan'), function ($query, $bulan) {
-                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
+                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan)
+                        ->orWhereMonth('datapeminjaman.tanggal_kembali', $bulan);
                 })
                 ->where('u1.name', '=',  $name)
                 ->orWhere('databarang.admin_id', '=', $userId)
@@ -136,10 +141,12 @@ class DataPeminjamanController extends Controller
                     return $query->where('databarang.nama_barang', 'like', '%' . $nama_barang . '%');
                 })
                 ->when($request->input('tahun'), function ($query, $tahun) {
-                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun);
+                    return $query->whereYear('datapeminjaman.tanggal_pinjam', $tahun)
+                        ->orWhereYear('datapeminjaman.tanggal_kembali', $tahun);
                 })
                 ->when($request->input('bulan'), function ($query, $bulan) {
-                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
+                    return $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan)
+                        ->orWhereMonth('datapeminjaman.tanggal_kembali', $bulan);
                 })
                 ->orderBy('datapeminjaman.tanggal_pinjam', 'DESC');
         }
@@ -152,6 +159,7 @@ class DataPeminjamanController extends Controller
         $tanggalSelected = $request->input('tahun');
         $bulanSelected = $request->input('bulan');
         $request->session()->put('tahun', $tanggalSelected);
+        $request->session()->put('bulan', $bulanSelected);
 
 
         return view('master-table.data-peminjaman.index')->with([
@@ -335,6 +343,7 @@ class DataPeminjamanController extends Controller
     {
         $userId = Auth::id();
         $tanggal = $request->session()->get('tahun');
+        $bulan = $request->session()->get('bulan');
         $user = Auth::user();
         $query = DB::table('datapeminjaman')
             ->select(
@@ -373,6 +382,9 @@ class DataPeminjamanController extends Controller
 
         if ($tanggal) {
             $query->whereYear('datapeminjaman.tanggal_pinjam', $tanggal);
+        }
+        if ($bulan) {
+            $query->whereMonth('datapeminjaman.tanggal_pinjam', $bulan);
         }
 
 

@@ -187,6 +187,7 @@ class DataPerbaikanController extends Controller
     {
         $tanggal = $request->session()->get('tanggal');
         $user = Auth::user();
+        $userId = Auth::id();
         $query = DB::table('data_perbaikans')
             ->select(
                 'data_perbaikans.id',
@@ -203,7 +204,8 @@ class DataPerbaikanController extends Controller
             )
             ->join('data_rusaks', 'data_perbaikans.rusak_id', '=', 'data_rusaks.id')
             ->join('databarang', 'data_rusaks.barang_id', '=', 'databarang.id')
-            ->join('users', 'data_rusaks.user_id', '=', 'users.id');
+            ->join('users', 'data_rusaks.user_id', '=', 'users.id')
+            ->where('databarang.admin_id', $userId);
 
         if ($tanggal) {
             $query->whereDate('data_perbaikans.tanggal_perbaikan', $tanggal);
